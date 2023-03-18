@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My First Project</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.usebootstrap.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="/assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a
+              class="navbar-brand animate__animated animate__pulse mt-2"
+              href="index.html"
+              >SNPS Pvt Ltd</a
+            >
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#"></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
+              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                  <div
+                    class="modal fade bd-example-modal-lg"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="myLargeModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <button>Construction</button>
+                            </div>
+                            <div class="col-md-2">
+                              <button>Repairing</button>
+                            </div>
+                            <div class="col-md-2">
+                              <button>Vehicles</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <a class="nav-link text-underline-hover" href="#"></a> -->
+                </li>
+              </ul>
+            </div>
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="login.html"
+              id="login-headerBtn"
+              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              type="submit"
+            >
+              <Signup>Login</Signup>
+            </a>
+
+            <a
+              id="signup-headerBtn"
+              href="sign-up.html"
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              <Signup class="">Signup</Signup>
+            </a>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div
+                class="dropdown-menu bg-secondary dropdown-menu-right"
+                id="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="profileDropdown"
+                    value="Profile"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="logoutDropdown"
+                    value="Logout"
+                  />
+                  <div class="parentDiv" id="parentDiv"></div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              if (localStorage.getItem("isLoggedIn") == "true") {
+                document
+                  .getElementById("login-headerBtn")
+                  .classList.add("d-none");
+
+                document
+                  .getElementById("signup-headerBtn")
+                  .classList.add("d-none");
+
+                document.getElementById("name-headerTxt").innerHTML +=
+                  JSON.parse(localStorage.getItem("userData"))["Name"];
+
+                // profile page redirection
+                var profileDropdown =
+                  document.getElementById("profileDropdown");
+                profileDropdown.addEventListener("click", function () {
+                  window.location.assign("/profile.html");
+                });
+                // profile page redirectioOn end
+              } else {
+                document
+                  .getElementById("name-headerDropdown")
+                  .classList.add("d-none");
+              }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+            </script>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <section class="d-none d-md-block">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 px-0">
+        <div
+          id="carouselExampleIndicators"
+          class="carousel slide"
+          data-ride="carousel"
+          data-interval="3000"
+        >
+          <ol class="carousel-indicators">
+            <li
+              data-target="#carouselExampleIndicators"
+              data-slide-to="0"
+              class="active"
+            ></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img
+                class="d-block w-100"
+                src="https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd_new/jdmart-banner.jpg"
+                alt="First slide"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                class="d-block w-100"
+                src="https://akam.cdn.jdmagicbox.com/images/icons/new/webshopping.png"
+                alt="Second slide"
+              />
+            </div>
+            <div class="carousel-item">
+              <img
+                class="d-block w-100"
+                src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/web_jd_hp_eureka.jpg"
+                alt="Third slide"
+              />
+            </div>
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselExampleIndicators"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselExampleIndicators"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Services -->
+    <section class="container-fluid mt-5" id="for">
+      <div class="text-center mb-5">
+        <h1>Worker Categories</h1>
+      </div>
+      <div class="row my-3 mx-5" id="rowloop">
+        <!-- here, the created categories loop is embedded.-->
+      </div>
+    </section>
+    <!-- End Popular services -->
+
+    <hr class="bg-light separator" />
+
+    <!-- Jumbotron Circles -->
+    <section>
+      <div class="container-fluid px-0 mt-5">
+        <div class="my-3"></div>
+        <div class="jumbotron py-4 my-4">
+          <div class="container-fluid">
+            <h1 class="mb-3 text-center">Most Picked Services</h1>
+            <div class="row text-center py-4">
+              <div class="col mb-3">
+                <img
+                  class="rounded-circle"
+                  src="assets/images/1.jpg"
+                  alt="Card image cap"
+                  width="180px"
+                  height="180px"
+                />
+              </div>
+              <div class="col mb-3">
+                <img
+                  class="rounded-circle"
+                  src="assets/images/1.jpg"
+                  alt="Card image cap"
+                  width="180px"
+                  height="180px"
+                />
+              </div>
+              <div class="col mb-3">
+                <img
+                  class="rounded-circle"
+                  src="assets/images/1.jpg"
+                  alt="Card image cap"
+                  width="180px"
+                  height="180px"
+                />
+              </div>
+              <div class="col mb-3">
+                <img
+                  class="rounded-circle"
+                  src="assets/images/1.jpg"
+                  alt="Card image cap"
+                  width="180px"
+                  height="180px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--End Jumbotron Circles -->
+
+    <hr class="bg-light my-3 mb-5" />
+
+    <!-- Register Worker -->
+    <div class="container my-2">
+      <h1 class="text-center py-4">Register And Join Us As A Worker</h1>
+    </div>
+
+    <div class="container my-5" id="register-form">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="inputName">Your Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="inputName"
+                placeholder="Full Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPhone">Phone</label>
+            <input
+              type="number"
+              class="form-control"
+              id="inputPhone"
+              placeholder="12345xxxxx"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputService">Service (Your Work)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputService"
+              placeholder="Eg: Plumber, Electrician, Painter, Caterer"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="inputAddress">Address</label>
+            <input
+              type="text"
+              class="form-control"
+              id="inputAddress"
+              placeholder="Apartment, studio, or floor"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">City</label>
+              <input type="text" class="form-control" id="inputCity" required />
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputZip">ZipCode</label>
+              <input type="text" class="form-control" id="inputZip" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="gridCheck"
+                required
+              />
+              <label class="form-check-label" for="gridCheck">
+                Do you validate for the above provided information
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-outline-light"
+            onClick="registerWorker()"
+          >
+            Register
+          </button>
+        </div>
+        <div class="col-md-3"></div>
+      </div>
+      <div class="thankYou"></div>
+    </div>
+    <!-- End Register Worker -->
+
+    <hr class="bg-light my-5" />
+
+    <!-- Footer -->
+    <footer class="page-footer font-small pt-4">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contact Us</h5>
+              <div class="d-flex">
+                <ul class="colored-bullet-list">
+                  <li>
+                    <a href="#" class="text-light">Call</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-light">Instagram</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-light">Twitter</a>
+                  </li>
+                  <li>
+                    <a href="#" class="text-light">Facebook</a>
+                  </li>
+                </ul>
+                <ul class="remove-bullets">
+                  <li><i class="fa-solid fa-phone"></i></li>
+                  <li><i class="fa-brands fa-instagram"></i></li>
+                  <li><i class="fa-brands fa-twitter"></i></li>
+                  <li><i class="fa-brands fa-facebook"></i></li>
+                </ul>
+              </div>
+              <a href="#" class="btn btn-outline-light">WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Account And Bookings</h5>
+              <ul class="colored-bullet-list">
+                <li>
+                  <a href="#" class="text-light">Your Account</a>
+                </li>
+                <li>
+                  <a href="#" class="text-light">Your Bookings</a>
+                </li>
+                <li>
+                  <a href="#" class="text-light">Our Businesses</a>
+                </li>
+                <li>
+                  <a href="#" class="text-light">Our Store</a>
+                </li>
+              </ul>
+              <a href="#" class="btn btn-outline-light">Book Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card website-info-card">
+            <div class="card-body">
+              <h5 class="card-title">Our Website</h5>
+              <p class="card-text text-light">
+                Visit our website and explore the vastness of our services. We
+                can provide our expertise on a wide spectrum and really guide to
+                your journey.
+              </p>
+              <a href="#" class="btn btn-outline-light">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-copyright text-center text-white py-3">
+        &copy;
+        <a href="/" class="text-light"> SNPS Pvt. Ltd</a>
+        All rights reserved.
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+  </body>
+
+  <!-- Imports and configuration section -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+      authDomain: "projectdb-402ec.firebaseapp.com",
+      databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+      projectId: "projectdb-402ec",
+      storageBucket: "projectdb-402ec.appspot.com",
+      messagingSenderId: "818279951216",
+      appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    document.addEventListener("DOMContentLoaded", (e) => {
+      j = 0;
+      db.collection("Categories")
+        .get()
+        .then(async function (querySnapshot) {
+          await querySnapshot.forEach(async function (doc) {
+            document.getElementById("rowloop").innerHTML += `
+                   <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12 my-3">
+                    <div class="container">
+                         <div class="card border amendCard">
+                           <img
+                             src="https://source.unsplash.com/random?${doc.id}"
+                             alt="The image was not found."
+                             width=""
+                             height=""
+                             class="img-fluid"
+                           />
+                           <div class="card-body">
+                             <h5 class="card-title">${doc.id}</h5>
+                             <p class="card-text">
+
+                             </p>
+        <div class="forSelect container-fluid px-0">
+            <select name="mySelect" class="mySelect col-md-12 mb-3 px-0" id="mySelectId" aria-labelledby="dropdownMenuButton">
+                <option class="" value="Choose Service">Choose Service</option>
+                </div>
+
+            </select>
+
+                            </div>
+                           </div>
+                         </div>
+                       </div>`;
+
+            var arrayElements = doc.data().Services;
+
+            for (let i = 0; i < arrayElements.length; i++) {
+              document.getElementsByClassName("mySelect")[
+                j
+              ].innerHTML += `<option value="${arrayElements[i]}">${arrayElements[i]}</option>`;
+            }
+            j++;
+          });
+
+          for (let i = 0; i < j; i++) {
+            let selectElement = document.getElementsByClassName("mySelect")[i];
+            await selectElement.addEventListener("change", function () {
+              const selectedOption = selectElement.value;
+              // console.log(selectedOption);
+              const url = `http://127.0.0.1:5500/workers.html?selectedOption=${selectedOption}`;
+              let flag = false;
+              db.collection("Workers")
+                .get()
+                .then(function (querySnapshot) {
+                  for (const doc of querySnapshot.docs) {
+                    if (doc.data().service === selectedOption) {
+                      console.log(doc.data());
+                      flag = true;
+                    }
+                  }
+                  if (flag) window.location.assign(url);
+                  else
+                    alert(
+                      "Sorry, there are no workers availabe for the selected service at the moment."
+                    );
+                });
+            });
+          }
+        });
+    });
+
+    logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+      var loginButton = document
+        .getElementById("login-headerBtn")
+        .classList.remove("d-none");
+      var signupButton = document
+        .getElementById("signup-headerBtn")
+        .classList.remove("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          logoutButton;
+          loginButton;
+          signupButton;
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+
+    function registerWorker() {
+      var inputName = document.getElementById("inputName").value;
+      var inputPhone = document.getElementById("inputPhone").value;
+      var inputAddress = document.getElementById("inputAddress").value;
+      var inputService = document.getElementById("inputService").value;
+      var inputCity = document.getElementById("inputCity").value;
+      var inputZip = document.getElementById("inputZip").value;
+
+      let obj = {
+        name: inputName,
+        phone: inputPhone,
+        address: inputAddress,
+        service: inputService,
+        city: inputCity,
+        zip: inputZip,
+      };
+
+      db.collection("New Registerations")
+        .doc(inputPhone)
+        .set(obj)
+        .then(function () {
+          alert(
+            "We have recieved your registered data. We will contact you soon regarding other details and final confirmation."
+          );
+          inputName = "";
+          inputPhone = "";
+          inputAddress = "";
+          inputService = "";
+          inputCity = "";
+          inputZip = "";
+        });
+      document.getElementById(
+        "register-form"
+      ).innerHTML = `<h2>We have recieved your registered data.</h2>`;
+      // localStorage.setItem("New Registration", JSON.stringify(obj));
+    }
+  </script>
+  <!-- Ending imports -->
+
+  <!-- Languages -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+  </script>
+  <!-- End Languages -->
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

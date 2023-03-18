@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin-Panel</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="./css/style.css" /> -->
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+     <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="/assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a class="navbar-brand mt-2" href="index.html">SNPS Pvt Ltd</a>
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#"></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            </div>
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <input
+                  class="btn btn-outline-success"
+                  id="logoutDropdown"
+                  value="Logout"
+                />
+                <input
+                  class="btn btn-outline-success"
+                  id="profileDropdown"
+                  value="Profile"
+                />
+              </div>
+              
+            </div>
+          </form>
+        </div>
+      </nav>
+    </header>
+<script>
+              if (localStorage.getItem("isLoggedIn") == "true") {
+
+                document.getElementById("name-headerTxt").innerHTML +=
+                  JSON.parse(localStorage.getItem("userData"))["Name"];
+
+                // profile page redirection
+                var profileDropdown =
+                  document.getElementById("profileDropdown");
+              
+                profileDropdown.addEventListener("click", function () {
+                  window.location.assign("/profile.html");
+                });
+                // profile page redirectioOn end
+               } 
+            </script>
+    
+    <!-- dummy div -->
+    <div>
+      <h1>h</h1>
+    <br />
+  </div>
+        
+    <!-- End dummy div -->
+
+    <!-- Add a category -->
+    <section>
+        <div class="container">
+      <div class="col-md-9 ml-sm-auto col-lg-12 my-4">
+      <h3>Categories</h3>
+      <hr />
+      <div class="row">
+      <div class="container text-center d-flex bg-secondary p-2">
+        <!-- label div -->
+        <div class=" col-md-2 border-input bg-light px-3 mx-3">
+          <label for="category"
+            ><h5 class="mb-0">
+              Add A Category<br />
+              <button class="btn btn-primary" id="add-category"><i class="fa-solid fa-circle-plus"></i
+              ></h5>
+          </label>
+        </div>
+        <!-- End label div -->
+        <!-- textarea div -->
+        <div class="col-md-9 form-group mt-3">
+          <input
+            class="form-control"
+            name="category"
+            id="category"
+            rows=""
+            cols=""
+          >
+        </div>
+        <!--End textarea div -->
+      </div>
+    </div>
+  </div>
+</div>
+      
+</section>
+    <!-- End category -->
+
+    <!-- Service -->
+    <section>
+        <div class="container">
+      <div class="col-md-9 ml-sm-auto col-lg-12 my-4">
+      <h3>Services</h3>
+      <hr />
+      <div class="row">
+      <div class="container text-center d-flex bg-secondary p-2">
+        <!-- label div -->
+        <div class="col-md-2 border-input bg-light px-0 mx-3">
+          <label for="service"
+            ><h5 class="mb-0">
+              Add A Service<br />
+              <button class="btn btn-primary mt-1" id="add-service"><i class="fa-solid fa-circle-plus"></i
+              ></h5>
+          </label>
+        </div>
+        <!-- End label div -->
+        <!-- textarea div -->
+        <div class="col-md-9 form-group">
+          <select name="in_category" id="category-services-dropdown" class="in_category mb-3" aria-labelledby="dropdownMenuButton">
+          </select>
+          <input
+            class="form-control"
+            name="service"
+            id="service"
+            rows=""
+            cols=""
+          >
+        </div>
+        <!--End textarea div -->
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+    <!-- End Service -->
+
+    <!-- Worker -->
+      <div class="container">
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+      <h3>Workers</h3>
+      <hr />
+
+<div class="container text-center d-flex flex-column border-flex bg-secondary p-2 py-0">
+      <div class="d-flex ">
+        <!-- label+icon -->
+        <div class="flex-grow-5 border-input bg-light px-3 mx-3">
+          <label for=""
+            ><h5 class="mb-0 mt-4">
+              Add A Worker<br /><button class="btn btn-primary" id="add-worker"><i class="fa-solid fa-circle-plus"></i
+              ></button></h5
+          ></label>
+        </div>
+        <!-- end label+icon -->
+        <!-- name -->
+        <div class="flex-grow-1 form-group mt-2 mr-3">
+          <div class="">
+            <label class="" for="worker"><strong>Name</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="worker" id="worker">
+          </div>
+        </div>
+        <!-- end name -->
+        <!-- phone -->
+        <div class="flex-grow-1 form-group">
+          <div class="mt-2">
+            <label class="" for="worker2"><strong>Phone</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="worker2" id="worker2">
+          </div>
+        </div>
+        <!-- end phpne -->
+      </div>
+        <div class="d-flex justify-content-center">
+        <div class="mx-3">
+          <div class="mt-2">
+            <label class="" for="category_type"
+              ><strong>Choose Category</strong></label
+            >
+          </div>
+
+             <select name="in_category" id="category-workers-dropdown" class="in_category mb-3" aria-labelledby="dropdownMenuButton">
+          </select>
+
+          </div>
+        </div>
+
+        <div class="mx-3">
+          <div class="mt-2">
+            <label class="" for="service_type"
+              ><strong>Choose Service</strong></label
+            >
+          </div>
+            
+            <select aria-labelledby="dropdownMenuButton" id="service-workers-dropdown">
+            </select>
+   
+        </div>
+        </div>
+      
+      </div>
+    </div>
+    <!-- End Worker -->
+
+    <!-- main table -->
+    <section>
+       <h3 class="ml-5 mt-5">New Worker Registerations</h3>
+      <hr />
+      <div class="container px-4">
+       
+      <div class="row registerCards">
+        <!-- new workers html is here -->
+        </div>
+        </section>
+    <!-- main table ends -->
+    <!-- cards -->
+
+    <!-- cards ends -->
+  </body>
+
+<!-- Imports and configuration section -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+    <script>
+      if (localStorage.getItem("isLoggedIn") !== "true" || JSON.parse(localStorage.getItem("userData"))["role"] == "") {
+        window.location.assign("/");
+      }
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+        authDomain: "projectdb-402ec.firebaseapp.com",
+        databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+        projectId: "projectdb-402ec",
+        storageBucket: "projectdb-402ec.appspot.com",
+        messagingSenderId: "818279951216",
+        appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+      };
+      firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+      document.getElementById("add-category").addEventListener("click", (e) =>{
+var category = document.getElementById("category").value;
+        
+db.collection("Categories").doc(category).set({}).then((data)=>{
+  alert("Category added");
+  window.location.reload();
+  document.getElementById("category").value="";
+});
+      });
+
+        document.getElementById("add-service").addEventListener("click", function () {
+          var category = document.getElementsByClassName("in_category")[0].value;
+            var service = document.getElementById("service").value;
+         db.collection("Categories").doc(category).get().then(function (doc) {
+          let obj;
+          if(doc.data().Services){
+      let arr = doc.data().Services;
+          obj = [...arr];
+          }
+          else{
+            obj = [];
+          }
+
+          if (!obj.includes(service)) {
+            obj.push(service);
+          }
+      console.log(obj);
+         db.collection("Categories").doc(category).set({Services: obj}).then(function (data) {
+  alert("Service added");
+  document.getElementById("service").value="";
+         })
+})
+});
+ let j=0;
+        db.collection("Categories").get()
+              .then(async function (querySnapshot) {
+                await querySnapshot.forEach(function (doc) {
+                  // doc.data() is never undefined for query doc snapshots
+                  // console.log(doc.id, " => ", doc.data());
+                  
+                  for(let i=0;i<document.getElementsByClassName('in_category').length;i++)
+                  {
+                  if(j<2){
+   document.getElementsByClassName('in_category')[i].innerHTML+=`<option value="no_option">Choose Category</option>`;                
+                    j++;
+  }
+   document.getElementsByClassName('in_category')[i].innerHTML+=`<option value="${doc.id}">${doc.id}</option>`;
+   
+                  }    
+
+  });
+
+              });
+
+           document.getElementById('service-workers-dropdown').
+           innerHTML=`<option value="no_option">Choose Service</option>`;        
+
+    document.getElementById("category-workers-dropdown").addEventListener("change", (e) => {
+      var category = document.getElementById("category-workers-dropdown").value;
+      db.collection("Categories").doc(category).get().then((doc) => {
+        let obj;
+        if(doc.data().Services){
+    let arr = doc.data().Services;
+        obj = [...arr];
+document.getElementById("service-workers-dropdown").innerHTML="";
+        }
+        else{
+          obj = ['No Services Available'];
+          document.getElementById("service-workers-dropdown").innerHTML=`<option value="${obj[0]}">${obj[0]}</option>`;
+          return;
+        }
+       
+        for(let i=0;i<obj.length;i++){
+          document.getElementById("service-workers-dropdown").innerHTML+=`<option value="${obj[i]}">${obj[i]}</option>`;
+        }
+      })
+    });
+     
+document.getElementById("add-worker").addEventListener("click", (e) => {
+  var category = document.getElementById("category-workers-dropdown").value;
+  var service = document.getElementById("service-workers-dropdown").value;
+  var name  = document.getElementById("worker").value;
+  var phone = document.getElementById("worker2").value;
+  let obj={
+    name: name,
+    phone: phone,
+    category: category,
+    service: service,
+  }
+  db.collection("Workers").doc(phone).set(obj).then((data)=>{
+alert("Worker added");
+document.getElementById("worker").value="";
+document.getElementById("worker2").value="";
+document.getElementById("category-workers-dropdown").value="no_option";
+document.getElementById("service-workers-dropdown").value="no_option";
+  })
+});
+
+ document.addEventListener("DOMContentLoaded", function () {
+
+db.collection("New Registerations").get().then(async function (querySnapshot) {
+  let k=0,arr=[];
+for(const [idx,doc] of querySnapshot.docs.entries()){
+  // console.log(idx);
+ document.getElementsByClassName("registerCards")[0].innerHTML += `<div class="col-md-5 m-3 p-0">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">New Worker</h5>
+              <h2>Name:${doc.data().name}</h2>
+              <h2>Phone: ${doc.data().phone}</h2>
+              <h2>Service: ${doc.data().service}</h2>
+              <h2>Address: ${doc.data().address}</h2>
+              <h2>Zip: ${doc.data().zip}</h2>
+              <button class="btn btn-primary adding-btn" id='addBtn-${idx}'>Add to Workers</button>
+              <select name="choosing" class="choosing bg-warning ml-4" id='choose-${idx}'>Choose Category For This 
+                </select>
+            </div>
+          </div>
+        </div>
+`;
+ 
+ let obj={
+    name: doc.data().name,
+    phone: doc.data().phone,
+    category: "",
+    service: doc.data().service,
+  }
+  arr.push(obj);
+  k=idx;
+
+  
+}
+
+let m = 0;
+    db.collection("Categories").get().then(async function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
+        for (let i = 0; i <= k; i++) {
+          let chooseElem = document.getElementById(`choose-${i}`);
+          chooseElem.innerHTML += `<option value="${doc.id}">${doc.id}</option>`;
+        }
+        m++;
+      });
+    });
+
+
+// console.log(arr)
+for(let i=0;i<=k;i++){
+  let obj=arr[i];
+ document.getElementById(`addBtn-${i}`).addEventListener("click", function () {
+
+  let chosenCategory = document.getElementById(`choose-${i}`).value;
+        obj.category = chosenCategory;
+        console.log(i + " button clicked. Category chosen: " + chosenCategory);
+            // console.log(i + "button clicked");
+
+            db.collection("Workers").doc(obj.phone).set(obj)
+              .then(() => db.collection("New Registerations").doc(obj.phone).delete()
+  .then(() => {
+    console.log("Document successfully deleted!");
+    window.location.reload();
+  })
+  .catch((error) => {
+    console.error("Error removing document: ", error);
+  }))
+              .catch(error => console.log("Error adding worker: ", error));
+          });
+}
+}).catch((error) => { 
+  console.log("Error getting documents: ", error);
+});
+  
+});
+
+
+  </script>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+
+     logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          window.location.assign("/login.html");
+          logoutButton;
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+  </script>
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

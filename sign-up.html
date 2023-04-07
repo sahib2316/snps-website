@@ -26,7 +26,7 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent">
-    <li class="breadcrumb-item"><a href="./">Home</a></li>
+    <li class="breadcrumb-item"><a href="./" class="text-light">Home</a></li>
     <li class="breadcrumb-item active" aria-current="page">Sign-up</li>
   </ol>
 </nav>
@@ -42,7 +42,7 @@
             <div class="needs-validation" novalidate>
               <div class="form-row">
                 <div class="col-md-12 mb-3">
-                  <label for="validationCustom01">Name</label>
+                  <label for="validationCustom01" class="text-light">Name</label>
                   <input
                     type="text"
                     class="form-control"
@@ -53,7 +53,7 @@
                   <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="col-md-9 mb-3">
-                  <label for="validationCustom02">Mobile No.</label>
+                  <label for="validationCustom02" class="text-light">Mobile No.</label>
                   <input
                     type="number"
                     class="form-control"
@@ -65,11 +65,11 @@
                   <div class="valid-feedback">Looks good!</div>
                 </div>
                 <div class="form-row">
-                <div class="col-md-12 mb-3">
-                  <label for="validationCustom">Email</label>
+                <div class="col-md-12 mb-2">
+                  <label for="validationCustom" class="text-light">Email/Mobile No.</label>
                   <input
-                    type="email"
-                    class="form-control"
+                    type="address"
+                    class="form-control bg-secondary"
                     id="validationCustom"
                     placeholder="Email"
                     required
@@ -80,7 +80,7 @@
                 </div>
               <div class="form-row">
                 <div class="col-md-12 mb-3">
-                  <label for="validationCustom03">Password</label>
+                  <label for="validationCustom03" class="text-light">Password</label>
                   <input
                     type="password"
                     class="form-control"
@@ -93,7 +93,7 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label for="validationCustom04">Address</label>
+                  <label for="validationCustom04" class="text-light">Address</label>
                   <input
                     type="text"
                     class="form-control"
@@ -106,11 +106,24 @@
                   </div>
                 </div>
                 <div class="col-md-12 mb-3">
-                  <label for="validationCustom05">Zip Code</label>
+                  <label for="validationCustom05" class="text-light">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="validationCustom05"
+                    placeholder="Town/Area"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please provide a valid City Name.
+                  </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                  <label for="validationCustom06" class="text-light">Zip Code</label>
                   <input
                     type="number"
                     class="form-control"
-                    id="validationCustom05"
+                    id="validationCustom06"
                     placeholder="Zip"
                     required
                   />
@@ -140,11 +153,11 @@
               <!-- signup and login -->
               <div>
                 <div>
-              <input class="btn btn-successs" type="submit" name="signup_submit" id="signUp" value="Sign Up">
+              <input class="btn btn-outline-light" type="submit" name="signup_submit" id="signUp" value="Sign Up">
             </div>
 
-              <div class="pt-3">
-              <h6>Already Signed-in? <a href="" class="text-success" id="goTo">Login</a> here.</h6>
+              <div class="pt-3 text-light">
+              <h6>Already Signed-in? <a href="" class="text-warning" id="goTo">Login</a> here.</h6>
             </div>
           </div>
               <!-- signup and login end -->
@@ -201,21 +214,21 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Our Website</h5>
-                  <p class="card-text">
+                  <p class="card-text text-light">
                     Visit our website and explore the vastness of our services.
                     We can provide our expertise on a wide spectrum and really
                     guide to yourd journey.
                   </p>
-                  <a href="#" class="btn btn-success">Go somewhere</a>
+                  <a href="#" class="btn btn-outline-light">Go somewhere</a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Copyright -->
-          <div class="footer-copyright text-center">
+          <div class="footer-copyright text-center text-light">
             @Copyright
-            <a href="/" style="color: green"> SNPS pvt Ltd</a>
+            <a href="/" class="text-light"> SNPS pvt Ltd</a>
           </div>
           <!-- Copyright -->
         </footer>
@@ -263,7 +276,8 @@ signUp.addEventListener("click", (e) => {
   var email = document.getElementById("validationCustom").value;
   var password = document.getElementById("validationCustom03").value;
   var address = document.getElementById("validationCustom04").value;
-  var zipCode = document.getElementById("validationCustom05").value;
+  var city = document.getElementById("validationCustom05").value;
+  var zipCode = document.getElementById("validationCustom06").value;
 
   firebase.auth().createUserWithEmailAndPassword( email, password)
     .then((userCredential) => {
@@ -274,6 +288,7 @@ signUp.addEventListener("click", (e) => {
       Email: email,
       Mobile: mobile,
       Address: address,
+      City: city,
       ZipCode: zipCode,
       role:""
     };

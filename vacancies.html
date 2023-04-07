@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My First Project</title>
+    <title>Vacancies</title>
     <link
       rel="stylesheet"
       href="https://cdn.usebootstrap.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -56,7 +56,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="index.html"
-              >SN Point Pvt Ltd</a
+              >SNPS Pvt Ltd</a
             >
           </div>
 
@@ -76,17 +76,13 @@
                 >Overview <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item active">
-              <a class="nav-link mt-1" href="vacancies.html"
-                >Vacancies <span class="sr-only">(current)</span></a
-              >
-            </li>
+
             <li class="nav-item">
               <a class="nav-link disabled" href="#"></a>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
+            <!-- <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li class="nav-item">
                   <div
@@ -114,10 +110,9 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <a class="nav-link text-underline-hover" href="#"></a> -->
                 </li>
               </ul>
-            </div>
+            </div> -->
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -247,127 +242,31 @@
       </nav>
     </header>
 
-    <section class="d-block">
-      <div
-        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 px-0 d-none d-md-block"
-      >
-        <div
-          id="carouselIndicators"
-          class="carousel slide"
-          data-ride="carousel"
-          data-interval="3000"
-        >
-          <ol class="carousel-indicators">
-            <li
-              data-target="#carouselIndicators"
-              data-slide-to="0"
-              class="active"
-            ></li>
-            <li data-target="#carouselIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd_new/jdmart-banner.jpg"
-                alt="First slide"
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icons/new/webshopping.png"
-                alt="Second slide"
-              />
-            </div>
-            <div class="carousel-item">
-              <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/web_jd_hp_eureka.jpg"
-                alt="Third slide"
-              />
-            </div>
-          </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselIndicators"
-            role="button"
-            data-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselIndicators"
-            role="button"
-            data-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- Vacancies -->
 
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div
-        class="modal-dialog modal-dialog-centered modal-lg animate__animated animate__slideInRight"
-        role="document"
-      >
-        <div class="modal-content">
-          <div class="modal-header bg-secondary">
-            <h5 class="modal-title" id="exampleModalLabel">Offers</h5>
-            <button
-              type="button"
-              class="close"
-              id="offerModalCloseBtn"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="text-light crossSize"
-                >&times;</span
-              >
-            </button>
-          </div>
-          <div class="modal-body bg-dark" id="offerModal"></div>
-          <div class="modal-footer bg-secondary">
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-          </div>
+    <div class="container-fluid my-5">
+      <div class="row" id="vacancyRow">
+        <div class="col-md-12 text-light my-3">
+          <h2>Vacancies:</h2>
         </div>
+        <!-- vacancy cards -->
       </div>
     </div>
-    <!-- modal -->
+    <!-- End Vacancies -->
 
-    <!-- Popular Services -->
-    <section class="container-fluid mt-5" id="for">
-      <div class="text-center mb-5">
-        <h1>Worker Categories</h1>
-      </div>
-      <div class="row my-3 xPadding" id="rowloop">
-        <!-- here, the created categories loop is embedded.-->
-      </div>
-    </section>
-    <!-- End Popular services -->
-
-    <hr class="bg-light separator" />
+    <!-- Vacancy Modal -->
+    <div id="vacancyModal">
+      <!-- vacancy modal goes here -->
+    </div>
+    <!-- End Vacancy Modal -->
 
     <!-- Register Worker -->
-    <div class="container my-2">
-      <h1 class="text-center py-4">Register And Join Us As A Worker</h1>
-    </div>
 
-    <div class="container my-5 text-white" id="register-form">
+    <div class="container my-5" id="register-form">
       <div class="row">
+        <div class="col-md-12 my-5">
+          <h1 class="text-center py-4">Register And Join Us As A Worker</h1>
+        </div>
         <div class="col-md-3"></div>
         <div class="col-md-6">
           <div class="form-row">
@@ -405,7 +304,7 @@
           <div class="form-group">
             <label for="inputAddress">Address</label>
             <input
-              type="address"
+              type="text"
               class="form-control"
               id="inputAddress"
               placeholder="Apartment, studio, or floor"
@@ -419,7 +318,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="inputZip">ZipCode</label>
-              <input type="number" class="form-control" id="inputZip" />
+              <input type="text" class="form-control" id="inputZip" />
             </div>
           </div>
           <div class="form-group">
@@ -449,43 +348,7 @@
     </div>
     <!-- End Register Worker -->
 
-    <!-- SN Point ads -->
-    <section class="d-block my-5">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 px-0 d-block">
-        <div
-          id="carouselAdsIndicators"
-          class="carousel slide"
-          data-ride="carousel"
-          data-interval="3000"
-        >
-          <ol class="carousel-indicators" id="orderedSlides">
-            <!-- carousel control is here -->
-          </ol>
-          <div class="carousel-inner" id="slidesDiv">
-            <!-- ads slides are here -->
-          </div>
-          <a
-            class="carousel-control-prev"
-            href="#carouselAdsIndicators"
-            role="button"
-            data-slide="prev"
-          >
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a
-            class="carousel-control-next"
-            href="#carouselAdsIndicators"
-            role="button"
-            data-slide="next"
-          >
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
-        </div>
-      </div>
-    </section>
-    <!-- End SN Point ads -->
+    <hr class="bg-light my-5" />
 
     <!-- Footer -->
     <footer class="page-footer font-small pt-4">
@@ -526,19 +389,19 @@
               <h5 class="card-title">Account And Bookings</h5>
               <ul class="colored-bullet-list">
                 <li>
-                  <a href="/profile.html" class="text-light">Your Account</a>
+                  <a href="#" class="text-light">Your Account</a>
                 </li>
                 <li>
-                  <a href="/profile.html" class="text-light">Your Bookings</a>
+                  <a href="#" class="text-light">Your Bookings</a>
                 </li>
                 <li>
-                  <a href="/" class="text-light">Our Businesses</a>
+                  <a href="#" class="text-light">Our Businesses</a>
                 </li>
                 <li>
-                  <a href="/" class="text-light">Our Store</a>
+                  <a href="#" class="text-light">Our Store</a>
                 </li>
               </ul>
-              <a href="/" class="btn btn-outline-light">Book Now</a>
+              <a href="#" class="btn btn-outline-light">Book Now</a>
             </div>
           </div>
         </div>
@@ -551,9 +414,7 @@
                 can provide our expertise on a wide spectrum and really guide to
                 your journey.
               </p>
-              <a href="/overview.html" class="btn btn-outline-light"
-                >Website Overview</a
-              >
+              <a href="/" class="btn btn-outline-light">Go to Home</a>
             </div>
           </div>
         </div>
@@ -590,109 +451,6 @@
 
     const db = firebase.firestore();
 
-    document.addEventListener("DOMContentLoaded", (e) => {
-      j = 0;
-      db.collection("Categories")
-        .get()
-        .then(async function (querySnapshot) {
-          await querySnapshot.forEach(async function (doc) {
-            document.getElementById("rowloop").innerHTML += `
-                     <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12 my-3">
-                      <div class="container">
-                           <div class="card border amendCard">
-                             <img
-                               src="https://source.unsplash.com/random?${doc.id}"
-                               alt="The image was not found."
-                               width=""
-                               height=""
-                               class="img-fluid"
-                             />
-                             <div class="card-body">
-                               <h5 class="card-title">${doc.id}</h5>
-                               <p class="card-text">
-
-                               </p>
-          <div class="forSelect container-fluid px-0">
-              <select name="mySelect" class="mySelect col-md-12 mb-3 px-0" id="mySelectId" aria-labelledby="dropdownMenuButton">
-                  <option class="" value="Choose Service">Choose Service</option>
-                  </div>
-
-              </select>
-
-                              </div>
-                             </div>
-                           </div>
-                         </div>`;
-
-            var arrayElements = doc.data().Services;
-
-            for (let i = 0; i < arrayElements.length; i++) {
-              document.getElementsByClassName("mySelect")[
-                j
-              ].innerHTML += `<option value="${arrayElements[i]}">${arrayElements[i]}</option>`;
-            }
-            j++;
-          });
-
-          for (let i = 0; i < j; i++) {
-            let selectElement = document.getElementsByClassName("mySelect")[i];
-            await selectElement.addEventListener("change", function () {
-              const selectedOption = selectElement.value;
-              // console.log(selectedOption);
-              const url = `http://127.0.0.1:5500/workers.html?selectedOption=${selectedOption}`;
-              let flag = false;
-              db.collection("Workers")
-                .get()
-                .then(function (querySnapshot) {
-                  for (const doc of querySnapshot.docs) {
-                    if (doc.data().service === selectedOption) {
-                      console.log(doc.data());
-                      flag = true;
-                    }
-                  }
-                  if (flag) window.location.assign(url);
-                  else
-                    alert(
-                      "Sorry, there are no workers availabe for the selected service at the moment."
-                    );
-                });
-            });
-          }
-        });
-
-      // ads carousel-sliders
-      let r = 0;
-      db.collection("Ad-slides")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            console.log(doc.data());
-
-            document.getElementById("orderedSlides").innerHTML += `<li
-              data-target="#carouselAdsIndicators"
-              data-slide-to="${r}"
-              class="${r == 0 ? "active" : ""}"
-            ></li>`;
-
-            document.getElementById(
-              "slidesDiv"
-            ).innerHTML += `<div class="carousel-item + ${
-              r == 0 ? "active" : ""
-            }">
-              <img
-                class="d-block w-100 carouselHeight"
-                src="${doc.data().slideUrl}"
-                alt="First slide"
-              />
-            </div>`;
-
-            r++;
-          });
-        });
-
-      // End ads carousel-sliders
-    });
-
     logoutDropdown.addEventListener("click", (e) => {
       var logoutButton = document
         .getElementById("name-headerDropdown")
@@ -709,6 +467,7 @@
         .signOut()
         .then(function () {
           // Sign-out successful.
+          console.log("User Logged Out!");
           localStorage.clear();
           logoutButton;
           loginButton;
@@ -716,6 +475,7 @@
         })
         .catch(function (error) {
           // An error happened.
+          console.log(error);
         });
     });
 
@@ -750,153 +510,189 @@
           inputCity = "";
           inputZip = "";
         });
-
-      // document.getElementById("register-form").classList.add("separator-both");
       document.getElementById(
         "register-form"
-      ).innerHTML = `<div class="container border border-warning separator-both p-5">
-        <h2>We have recieved your registered data.
-           We will contact you soon regarding other details and final confirmation.</h2>
-        </div>`;
-
+      ).innerHTML = `<h2>We have recieved your registered data.</h2>`;
       // localStorage.setItem("New Registration", JSON.stringify(obj));
     }
 
-    document.addEventListener("DOMContentLoaded", async function () {
-      db.collection("Workers")
+    // Vacant cards
+    document.addEventListener("DOMContentLoaded", function () {
+      db.collection("Vacancies")
         .get()
-        .then(function (querySnapshot) {
+        .then(async function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
-            if (
-              localStorage.getItem("isLoggedIn") == "true" &&
-              JSON.parse(localStorage.getItem("userData"))["Mobile"] ==
-                doc.data().phone
-            ) {
-              const parentDiv = document.getElementById("parentDiv");
-
-              const inputNode = document.createElement("input");
-              inputNode.type = "button";
-              inputNode.className = "btn btn-outline-dark btn-block text-white";
-              inputNode.id = "adminDropdown1";
-              inputNode.value = "Worker-Portal";
-
-              parentDiv.appendChild(inputNode);
-
-              var adminDropdown = document.getElementById("adminDropdown1");
-              adminDropdown.addEventListener("click", function () {
-                window.location.assign("/worker-portal.html");
-              });
-            }
+            // console.log(doc.id);
+            document.getElementById(
+              "vacancyRow"
+            ).innerHTML += `<div class="col-md-6">
+                          <div class="card text-center text-light">
+                            <div class="card-header bg-dark">Vacancy</div>
+                            <div class="card-body">
+                              <h5 class="card-title">For:${
+                                doc.data().vacancy
+                              }</h5>
+                              <p class="card-text">
+                                We need a ${
+                                  doc.data().vacancy
+                                } who can handle clients on call and will be
+                                available whenever in need.
+                              </p>
+                              <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy-${
+                                doc.id
+                              }">Apply</a>
+                            </div>
+                            <div class="card-footer text-light bg-dark">Total Vacancies Available: <strong class="text-light">${
+                              doc.data().totalVacancies
+                            }</strong</div>
+                          </div>
+                        </div>`;
           });
-        });
 
-      document
-        .getElementById("offerModalCloseBtn")
-        .addEventListener("click", () => {
-          document.getElementById("exampleModal").classList.remove("show");
           document
-            .getElementsByTagName("body")[0]
-            .classList.remove("modal-open");
-          document.getElementById("exampleModal").classList.add("hide");
-          document.getElementById("exampleModal").style.display = "none";
-        });
-      let exampleModalNode = await document.getElementById("exampleModal");
-      document.getElementById("exampleModal").remove();
-      let carouselContent = ``;
-      db.collection("Offers")
-        .get()
-        .then(async (query) => {
-          let idx = 0;
-          await query.forEach((doc) => {
-            carouselContent += `
-                  <div class="carousel-item ${idx++ === 0 ? "active" : ""}">
+            .querySelectorAll(".applyVacancy")
+            .forEach(async function (button) {
+              console.log(button.id);
+              document
+                .getElementById(button.id)
+                .addEventListener("click", async function () {
+                  const docId = button.id.split("-")[1];
+                  await console.log(docId);
 
-                   <div class="card mx-3 ml-auto mr-auto" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">${doc.data().title}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${doc.data().subtitle}</h6>
-      <p class="card-text">First time joinee??${doc.data().text}</p>
-    </div>
-            </div>
+                  let child = document.createElement("div");
+                  child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">Name</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
                   </div>
-             `;
-          });
-        })
-        .then(() => {
-          document.getElementsByTagName("section")[0].append(exampleModalNode);
-        })
-        .then(() => {
-          let offerModal = (document.getElementById(
-            "offerModal"
-          ).innerHTML += `<div
-                id="carouselOfferIndicators"
-                class="carousel slide"
-                data-ride="carousel"
-              >
-                <ol class="carousel-indicators" id="indicators">
+                  <div class="form-group">
+                    <label for="formGroupExampleInput1">Phone</label>
+                    <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
+                  </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput2">City</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
+                  </div>
 
-                </ol>
-                <div class="carousel-inner" id="carousel-content">
-                </div>
-                <a
-                  class="carousel-control-prev"
-                  href="#carouselOfferIndicators"
-                  role="button"
-                  data-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a
-                  class="carousel-control-next"
-                  href="#carouselOfferIndicators"
-                  role="button"
-                  data-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>`);
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id=
+                        "newClose" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+                  let parent = document.getElementById("vacancyModal");
 
-          let h = 0;
-          db.collection("Offers")
-            .get()
-            .then(function (querySnapshot) {
-              querySnapshot.forEach(function (doc) {
-                if (doc.exists) {
-                  document.getElementById("indicators").innerHTML += `<li
-                    data-target="#carouselOfferIndicators"
-                    data-slide-to="${h}"
-                    class="${h === 0 ? "active" : ""}"
-                  ></li>`;
+                  await parent.appendChild(child);
 
-                  h++;
+                  let exampleModalNode =
+                    document.getElementById("exampleModal");
 
-                  document
-                    .getElementById("exampleModal")
-                    .classList.remove("hide");
-                  document.getElementById("exampleModal").classList.add("show");
-                  document
-                    .getElementsByTagName("body")[0]
-                    .classList.add("modal-open");
+                  function closeModal() {
+                    exampleModalNode.classList.remove("show");
+                    exampleModalNode.classList.add("hide");
+                    exampleModalNode.style.display = "none";
+                  }
 
-                  document.getElementById("exampleModal").style.display =
-                    "block";
-                }
-              });
+                  // conditioning for logged in and a random user
+                  var userLocal = JSON.parse(localStorage.getItem("userData"));
+
+                  if (userLocal) {
+                    // console.log("correct if statement");
+                    let objLocal = {
+                      name: JSON.parse(localStorage.getItem("userData"))[
+                        "Name"
+                      ],
+                      phone: JSON.parse(localStorage.getItem("userData"))[
+                        "Mobile"
+                      ],
+                      city: JSON.parse(localStorage.getItem("userData"))[
+                        "City"
+                      ],
+                    };
+
+                    db.collection("Vacancy-Workers")
+                      .doc(
+                        JSON.parse(localStorage.getItem("userData"))["Mobile"]
+                      )
+                      .set(objLocal)
+                      .then(function () {
+                        closeModal();
+                        alert(
+                          "You have successfully applied for a vacancy. We will contact you soon."
+                        );
+                      });
+                  } else {
+                    exampleModalNode.classList.remove("hide");
+                    exampleModalNode.classList.add("show");
+                    // document.getElementsByTagName("body")[0].classList.add("modal-open");
+                    exampleModalNode.style.display = "block";
+
+                    document
+                      .getElementById("saveData")
+                      .addEventListener("click", function () {
+                        var nameInput = document.getElementById(
+                          "formGroupExampleInput"
+                        ).value;
+                        var phoneInput = document.getElementById(
+                          "formGroupExampleInput1"
+                        ).value;
+                        var cityInput = document.getElementById(
+                          "formGroupExampleInput2"
+                        ).value;
+
+                        console.log(
+                          nameInput + "," + phoneInput + "," + cityInput
+                        );
+
+                        let obj = {
+                          name: nameInput,
+                          phone: phoneInput,
+                          city: cityInput,
+                        };
+
+                        db.collection("Vacancy-Workers")
+                          .doc(phoneInput)
+                          .set(obj)
+                          .then(function () {
+                            alert(
+                              "You have successfully applied for a vacancy. We will contact you soon."
+                            );
+                            closeModal();
+                          });
+                      });
+
+                    document
+                      .getElementById("offerModalCloseBtn")
+                      .addEventListener("click", () => {
+                        closeModal();
+                      });
+
+                    document
+                      .getElementById("newClose")
+                      .addEventListener("click", () => {
+                        closeModal();
+                      });
+                  }
+                  // End conditioning for logged-in and a logged-out user
+                });
             });
-        })
-        .then(() => {
-          document.getElementById("carousel-content").innerHTML +=
-            carouselContent;
         });
     });
+
+    // End Vacant cards
   </script>
   <!-- Ending imports -->
 

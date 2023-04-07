@@ -11,7 +11,7 @@
       integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
       crossorigin="anonymous"
     />
-
+ 
     <link
       rel="stylesheet"
       type="text/css"
@@ -141,7 +141,7 @@
     <!-- End dummy div -->
 
     <!-- Add a category -->
-    <section>
+    
         <div class="container">
       <div class="col-md-9 ml-sm-auto col-lg-12 my-4">
       <h3>Categories</h3>
@@ -174,11 +174,9 @@
   </div>
 </div>
       
-</section>
     <!-- End category -->
 
     <!-- Service -->
-    <section>
         <div class="container">
       <div class="col-md-9 ml-sm-auto col-lg-12 my-4">
       <h3>Services</h3>
@@ -212,11 +210,10 @@
     </div>
   </div>
 </div>
-</section>
     <!-- End Service -->
 
     <!-- Worker -->
-      <div class="container">
+      <div class="container pl-0 ">
       <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
       <h3>Workers</h3>
       <hr />
@@ -284,20 +281,208 @@
     </div>
     <!-- End Worker -->
 
-    <!-- main table -->
-    <section>
-       <h3 class="ml-5 mt-5">New Worker Registerations</h3>
+    <!-- vacancies -->
+   <div class="container my-5 pl-0 extraMargin">
+           <h3>Vacancies</h3>
       <hr />
+   </div>
+   <div class="container bg-secondary mb-5 extraMargin">
+      <div class="row ">
+        <!-- label div -->
+        <div class=" col-md-2 border-input bg-light pr-0 mx-3 mt-2">
+            <h5 class="mb-0">
+              Add A Vacancy<br />
+              <button class="btn btn-primary ml-5" id="add-vacancy"><i class="fa-solid fa-circle-plus"></i
+              ></h5>
+        </div>
+        <!-- End label div -->
+        <!-- input div -->
+        <div class="col-md-9 form-group mt-3">
+          <label for="vacancy"><strong>Vacancy For(Service)</strong></label>
+          <input
+            type="text"
+            class="form-control"
+            name="vacancy"
+            id="vacancy"
+          >
+        </div>
+        <!--End input div -->
+      </div>
+      <!-- no.of vacancies -->
+      <div class="text-center">
+          <div><label for="count"><strong>No. Of Vacancies</strong></label></div>
+          <div class="pb-3"><input type="number" name="count" id="count"></div>
+      </div>
+      <!-- End no.of vacancies-->
+   </div>
+    <!--End vacancies -->
+
+    <!-- Vacancy Cards -->
+     <div class="container my-5 extraMargin">
+      <div class="row iterable" id="iterable">
+        <!-- vacancy cards are embedded here -->
+      </div>
+     </div>
+    <!-- End Vacancy Cards -->
+
+    <!-- Vacancy Worker Cards -->
+     <div class="container separator">
+      <div class="row applicants" id="applicants">
+        <!-- vacancy worker cards are here -->
+      </div>
+     </div>
+    <!-- End Vacancy Worker Cards -->
+
+    <hr class="separator borderCustom">
+
+    <!-- New Worker Registrations -->
+    <div class="container text-center">
+      <h1 class=" my-5">New Worker Registerations</h1>
+    </div>
+
       <div class="container px-4">
        
       <div class="row registerCards">
         <!-- new workers html is here -->
         </div>
-        </section>
-    <!-- main table ends -->
-    <!-- cards -->
+    <!-- New Worker Registrations ends -->
 
-    <!-- cards ends -->
+    <!-- offers -->
+    <div class="container pl-0 separator">
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+      <h3>Offers</h3>
+      <hr />
+
+<div class="container text-center d-flex flex-column border-flex bg-secondary p-2 py-0">
+      <div class="d-flex ">
+        <!-- label+icon -->
+        <div class="flex-grow-5 border-input bg-light px-3 mx-3">
+          <label for=""
+            ><h5 class="mb-0 mt-4">
+              Add An Offer<br /><button class="btn btn-primary" id="add-offer"><i class="fa-solid fa-circle-plus"></i
+              ></button></h5
+          ></label>
+        </div>
+        <!-- end label+icon -->
+        <!-- offer title -->
+        <div class="flex-grow-1 form-group mt-2 mr-3">
+          <div class="">
+            <label class="" for="worker"><strong>Add Offer Title</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="title" id="title">
+          </div>
+        </div>
+        <!-- end offer title -->
+        <!-- offer subtitle -->
+        <div class="flex-grow-1 form-group">
+          <div class="mt-2">
+            <label class="" for="worker2"><strong>Add Offer Subtitle</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="subtitle" id="subtitle">
+          </div>
+        </div>
+        <!-- end offer subtitle -->
+      </div>
+        <div class="justify-content-center">
+         <div class="mx-3">
+          <div class="mt-2">
+            <label class="" for="category_type"
+              ><strong>Offer Text</strong></label
+            >
+          </div>
+
+             <textarea class="form-control" type="text" name="offer-text" id="offer-text"></textarea>
+
+         </div>
+        </div>
+        </div>
+      
+      </div>
+    </div>
+    <!-- End offers -->
+
+    <!-- Offer Cards-->
+      <div class="container my-5">
+        <div class="row" id="offerRow">
+      
+        </div>
+      </div>
+    <!-- End Offer Cards -->
+
+    <!-- ad slides -->
+   <div class="container my-5 pl-0 ">
+           <h3>Ad slides</h3>
+      <hr />
+   </div>
+   <div class="container bg-secondary mb-5 ">
+      <div class="row ">
+        <!-- label div -->
+        <div class=" col-md-2 border-input bg-light pr-0 mx-3 mt-2">
+            <h5 class="mb-0">
+              Add A Slide(URL)<br />
+              <button class="btn btn-primary ml-5" id="add-slide"><i class="fa-solid fa-circle-plus"></i
+              ></h5>
+        </div>
+        <!-- End label div -->
+        <!-- input div -->
+        <div class="col-md-9 form-group mt-3">
+          <label for="slide"><strong>Slide Url</strong></label>
+          <input
+            type="url"
+            class="form-control"
+            name="slide"
+            id="slide"
+          >
+        </div>
+        <!--End input div -->
+      </div>
+      <!-- name of slide -->
+      <div class="text-center">
+          <div><label for="name"><strong>name of slide</strong></label></div>
+          <div class="pb-3"><input type="text" name="name" id="name"></div>
+      </div>
+   </div>
+    <!--End of add slides -->
+
+    <!-- slides card -->
+     <div class="container my-5">
+      <div class="row slideDelete" id="slideDelete">
+        <!-- slide cards are embedded here -->
+      </div>
+     </div>
+    <!-- End slides card -->
+
+    <!--Customer Feedback -->
+      <div class="container my-5 borderCustom p-3 pt-1">
+      <div class="row" id="feedbackDisplay">
+        <div class="col-md-12 my-3">
+          <h2>Customer Feedbacks</h2>
+        </div>
+<!-- in script -->
+      </div>
+    </div>
+    <!--End Customer Feedback -->
+
+     <!-- Overview -->
+    <div class="container text-center my-5" id="overviewDiv">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Set An Overview For The Website</h1>
+          <textarea class="form-control borderCustom" rows="5" cols="" id="overviewText"></textarea>
+        </div>
+        <div class="col-md-12 my-3">
+          <input
+            type="submit"
+            value="Add Overview"
+            onClick="setOverview()"
+          />
+        </div>
+      </div>
+    </div>
+    <!-- End Overview -->
+
   </body>
 
 <!-- Imports and configuration section -->
@@ -322,6 +507,7 @@
       firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+// Add Category Script
       document.getElementById("add-category").addEventListener("click", (e) =>{
 var category = document.getElementById("category").value;
         
@@ -331,7 +517,9 @@ db.collection("Categories").doc(category).set({}).then((data)=>{
   document.getElementById("category").value="";
 });
       });
+// END Add Category Script
 
+//  Add Service Script
         document.getElementById("add-service").addEventListener("click", function () {
           var category = document.getElementsByClassName("in_category")[0].value;
             var service = document.getElementById("service").value;
@@ -348,6 +536,8 @@ db.collection("Categories").doc(category).set({}).then((data)=>{
           if (!obj.includes(service)) {
             obj.push(service);
           }
+
+          
       console.log(obj);
          db.collection("Categories").doc(category).set({Services: obj}).then(function (data) {
   alert("Service added");
@@ -355,6 +545,9 @@ db.collection("Categories").doc(category).set({}).then((data)=>{
          })
 })
 });
+// END Add Service Script
+
+// Add Worker Script
  let j=0;
         db.collection("Categories").get()
               .then(async function (querySnapshot) {
@@ -419,6 +612,118 @@ document.getElementById("category-workers-dropdown").value="no_option";
 document.getElementById("service-workers-dropdown").value="no_option";
   })
 });
+// END Add Service Script
+
+// Vacancy script
+document.getElementById("add-vacancy").addEventListener("click", function () {
+  var vacancy = document.getElementById("vacancy").value;
+  var numberOf = document.getElementById("count").value;
+
+  let obj={
+    vacancy: vacancy,
+    totalVacancies: numberOf,
+  }
+
+  db.collection("Vacancies").doc().set(obj).then(function (querySnapshot) {
+alert("Vacancy added");
+document.getElementById("vacancy").value="";
+document.getElementById("count").value="";
+window.location.reload();
+  });
+
+});
+// End Vacancy Script
+
+// Vacant cards
+document.addEventListener("DOMContentLoaded", async function () {
+  await db.collection("Vacancies").get().then(async function (querySnapshot) {
+  querySnapshot.forEach( function (doc) {
+    // console.log(doc.id);
+ document.getElementById("iterable").innerHTML += `<div class="col-md-4 borderCustom my-2">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+         <h3>${doc.data().vacancy}</h3>
+         <div class=""><button class="btn btn-warning mx-2 my-1 text-center">
+          ${doc.data().totalVacancies}</button></div>
+         
+        </div>
+        <div class="col-md-6 text-right">
+         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy}" id="deleteVacancy-${doc.id}">Delete</button>
+        </div>
+          </div>
+        </div>
+        <div class="col-md-8"></div>`;
+  });
+}).then( function () {
+
+  for(let delBtn of document.querySelectorAll(".deleteVacancy"))
+   {
+ delBtn.addEventListener("click",  ()=> {
+        const docId = delBtn.id.split("-")[1];
+        const vacancyName=delBtn.classList.value.split("/")[1].trim();
+        db.collection("Vacancies").doc(docId).delete().then(function () {
+          alert(vacancyName + " Deleted Successfully");
+          window.location.reload();
+        });
+      });
+// delBtn.addEventListener("click",()=>console.log("working"))
+};
+});
+
+// End Vacant cards
+
+// Slide cards
+await db.collection("Ad-slides").get().then(async function (querySnapshot) {
+  querySnapshot.forEach( function (doc) {
+    // console.log(doc.id);
+ document.getElementById("slideDelete").innerHTML += `<div class="col-md-4 borderCustom my-2 mx-3">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+         <h3>${doc.data().slideName}</h3>
+        <div class="col-md-6 text-right">
+         <button class="btn btn-danger mx-2 my-1 text-center deleteSlide / ${doc.data().slideName}" id="deleteSlide-${doc.id}">Delete</button>
+        </div>
+          </div>
+        </div>
+        <div class="col-md-8"></div>`;
+  });
+}).then( function () {
+  for(let delBtn of document.querySelectorAll(".deleteSlide"))
+   {
+ delBtn.addEventListener("click",  ()=> {
+        const docId = delBtn.id.split("-")[1];
+        const slideName=delBtn.classList.value.split("/")[1].trim();
+        db.collection("Ad-slides").doc(docId).delete().then(function () {
+          alert(slideName + " Deleted Successfully");
+          window.location.reload();
+        });
+      });
+// delBtn.addEventListener("click",()=>console.log("working"))
+};
+});
+// End Slide cards
+
+// Vacancy Workers
+
+await db.collection("Vacancy-Workers").get().then(async function (querySnapshot) {
+  querySnapshot.forEach( function (doc) {
+    // console.log(doc.id);
+ document.getElementById("applicants").innerHTML += `<div class="card m-3 borderCustom" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Name: ${doc.data().name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
+    <p class="card-text">City: ${doc.data().city}</p>
+    <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call</button>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>`;
+          
+  });
+});
+
+// End Vacancy Workers
+});
+
 
  document.addEventListener("DOMContentLoaded", function () {
 
@@ -426,13 +731,16 @@ db.collection("New Registerations").get().then(async function (querySnapshot) {
   let k=0,arr=[];
 for(const [idx,doc] of querySnapshot.docs.entries()){
   // console.log(idx);
- document.getElementsByClassName("registerCards")[0].innerHTML += `<div class="col-md-5 m-3 p-0">
-          <div class="card">
+  let child = document.createElement("div");
+  child.classList.add("col-md-5", "m-3", "p-0");
+  child.innerHTML += `<div class="card">
             <div class="card-body">
               <h5 class="card-title">New Worker</h5>
               <h2>Name:${doc.data().name}</h2>
               <h2>Phone: ${doc.data().phone}</h2>
-              <h2>Service: ${doc.data().service}</h2>
+              <h2>Service: <input type="text" class="bg-light newServiceInput" name="serviceInput" id="changeInput-${idx}" value=" ${doc.data().service}">
+                <button class="btn btn-primary ml-3 changeService" id="change-${idx}">Change</button></h2>
+              
               <h2>Address: ${doc.data().address}</h2>
               <h2>Zip: ${doc.data().zip}</h2>
               <button class="btn btn-primary adding-btn" id='addBtn-${idx}'>Add to Workers</button>
@@ -440,24 +748,59 @@ for(const [idx,doc] of querySnapshot.docs.entries()){
                 </select>
             </div>
           </div>
-        </div>
 `;
- 
- let obj={
+ await document.getElementsByClassName("registerCards")[0].appendChild(child); 
+
+await document.getElementById(`change-${idx}`).addEventListener("click", function () {
+let changeInput = document.getElementById(`changeInput-${idx}`).value;
+let updateData = {
+  service: changeInput,
+}
+db.collection("New Registerations").doc(doc.data().phone).update(updateData).then(async function () {
+window.location.reload();
+});
+
+});
+
+ let obj = {
     name: doc.data().name,
     phone: doc.data().phone,
     category: "",
     service: doc.data().service,
+    address: doc.data().address,
   }
-  arr.push(obj);
+ arr.push(obj);
   k=idx;
 
-  
 }
+
+ db.collection("Workers").get().then( function (que) {
+que.forEach( function (document) {
+ db.collection("Categories").doc(document.data().category).get().then(function (data) {
+if (!data.data().Services.includes(document.data().service)) {
+
+let arrayyy = data.data().Services;
+let obj = [...arrayyy];
+obj.push(document.data().service);
+
+ db.collection("Categories").doc(document.data().category).set({Services: obj}).then(function () {
+  console.log("mission far from successfull");
+})
+
+}
+  
+});
+
+})
+})
+
+
+
 
 let m = 0;
     db.collection("Categories").get().then(async function (querySnapshot) {
       querySnapshot.forEach(function (doc) {
+
         for (let i = 0; i <= k; i++) {
           let chooseElem = document.getElementById(`choose-${i}`);
           chooseElem.innerHTML += `<option value="${doc.id}">${doc.id}</option>`;
@@ -466,8 +809,6 @@ let m = 0;
       });
     });
 
-
-// console.log(arr)
 for(let i=0;i<=k;i++){
   let obj=arr[i];
  document.getElementById(`addBtn-${i}`).addEventListener("click", function () {
@@ -478,23 +819,134 @@ for(let i=0;i<=k;i++){
             // console.log(i + "button clicked");
 
             db.collection("Workers").doc(obj.phone).set(obj)
-              .then(() => db.collection("New Registerations").doc(obj.phone).delete()
+              .then(function (data) {
+
+db.collection("New Registerations").doc(obj.phone).delete()
   .then(() => {
     console.log("Document successfully deleted!");
+
     window.location.reload();
   })
   .catch((error) => {
     console.error("Error removing document: ", error);
-  }))
+  })
+              })
               .catch(error => console.log("Error adding worker: ", error));
           });
 }
 }).catch((error) => { 
   console.log("Error getting documents: ", error);
 });
-  
+
+// Slides script
+document.getElementById("add-slide").addEventListener("click", function () {
+  var slideUrl = document.getElementById("slide").value;
+  var name = document.getElementById("name").value;
+
+  let obj={
+    slideUrl: slideUrl,
+    slideName: name,
+  }
+
+  db.collection("Ad-slides").doc().set(obj).then(function (querySnapshot) {
+alert("slide added");
+document.getElementById("slide").value="";
+document.getElementById("name").value="";
+window.location.reload();
+  });
+
+});
+// End Slides Script
+
+// feedback
+db.collection("Feedbacks").get().then(function (querySnapshot) {
+  querySnapshot.forEach(function (doc) {
+console.log(doc.data());
+document.getElementById("feedbackDisplay").innerHTML += `<div class="card m-3 borderCustom" style="width: 20rem;">
+  <div class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"><p class="card-title"><strong>Phone: </strong> ${doc.data().phone}</p></div>
+      </div>
+    </div>
+    <p class="card-title ml-3"><strong>Feedback:</strong> ${doc.data().feedback}</p>
+  </div>
+</div>`;
+  });
 });
 
+});
+// End feedback
+
+// Offers
+var addOffer = document.getElementById("add-offer");
+addOffer.addEventListener("click", function () {
+  var offerTitle = document.getElementById("title").value;
+  var offerSubtitle = document.getElementById("subtitle").value;
+  var offerText = document.getElementById("offer-text").value;
+
+  let obj = {
+    title: offerTitle,
+    subtitle: offerSubtitle,
+    text: offerText,
+  }
+
+ db.collection("Offers").doc(offerTitle).set(obj).then( async function () {
+    alert("offer was created");
+offerTitle = "";
+offerSubtitle = "";
+offerText = "";
+window.location.reload();
+ });
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
+  await db.collection("Offers").get().then(function (querySnapshot) {
+  for(const [idx,doc] of querySnapshot.docs.entries()){
+   // console.log(doc.id);
+document.getElementById("offerRow").innerHTML += `<div class="card mx-3 borderCustom" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${doc.data().title}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">${doc.data().subtitle}</h6>
+    <p class="card-text">First time joinee??${doc.data().text}</p>
+    <button class="btn btn-danger deleteOffer" id="deleteOffer-${doc.id}"  >Delete</button>
+  </div>
+          </div>`;
+  }
+
+document.querySelectorAll(".deleteOffer").forEach((button) => {
+      button.addEventListener("click", function () {
+        const docId = button.id.split("-")[1];
+        db.collection("Offers").doc(docId).delete().then(function () {
+          alert(docId + " Deleted Successfully");
+          window.location.reload();
+        });
+      });
+    });
+
+});
+});
+// End offer
+
+// Set Overview
+function setOverview() {
+      var overviewText = document.getElementById("overviewText").value;
+
+      let obj = {
+        overview: overviewText,
+      };
+
+        db.collection("Overview")
+        .doc("Website Overview")
+        .set(obj)
+        .then(function () {
+          alert("success");
+          overviewText = "";
+
+        });
+
+    }
+// End Set Overview
 
   </script>
 

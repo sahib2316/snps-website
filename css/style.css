@@ -214,8 +214,7 @@ i:hover {
 }
 
 .amendCard img {
-  /* flex: 1; */
-  object-fit: cover;
+  /* object-fit: cover; */
   aspect-ratio: 8 / 5;
 }
 
@@ -226,6 +225,16 @@ i:hover {
 .separator {
   margin-top: 80px;
 }
+
+.separator-both {
+  margin-top: 120px;
+  margin-bottom: 100px;
+}
+
+.separator-feed {
+  margin-top: 140px;
+}
+
 input[type="text"],
 input[type="text"]:active,
 input[type="text"]:focus,
@@ -234,7 +243,10 @@ input[type="number"]:active,
 input[type="number"]:focus,
 input[type="email"],
 input[type="email"]:active,
-input[type="email"]:focus {
+input[type="email"]:focus,
+input[type="address"],
+input[type="address"]:active,
+input[type="address"]:focus {
   background-color: #555;
   color: white;
 }
@@ -246,6 +258,43 @@ input[type="number"]::placeholder,
 input[type="email"]::placeholder {
   color: rgb(161, 161, 161);
 }
+
+/* Default styles for the textarea */
+#exampleFormControlTextarea1 {
+  background-color: #555;
+  color: white;
+  height: 100px;
+  padding: 10px;
+}
+
+#exampleFormControlTextarea1::placeholder {
+  color: rgb(161, 161, 161);
+}
+
+/* Media query for screens smaller than 576px */
+@media (max-width: 575.98px) {
+  #exampleFormControlTextarea1 {
+    height: 80px;
+    padding: 5px;
+  }
+}
+
+/* Media query for screens between 576px and 767.98px */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #exampleFormControlTextarea1 {
+    height: 120px;
+    padding: 15px;
+  }
+}
+
+/* Media query for screens larger than 768px */
+@media (min-width: 768px) {
+  #exampleFormControlTextarea1 {
+    height: 150px;
+    padding: 20px;
+  }
+}
+
 .remove-bullets i {
   color: white;
 }
@@ -261,3 +310,102 @@ input[type="email"]::placeholder {
   width: 1em; /* Also needed for space (tweak if needed) */
   margin-left: -1em;
 }
+.stop-body-scroll {
+  overflow: hidden;
+  position: fixed;
+}
+
+/* @media (max-width: 767px) {
+  .modal-dialog {
+    max-height: 90vh;
+  }
+} */
+
+@media (max-width: 575px) {
+  /* Styles for devices with a maximum width of 450px */
+  .workerCards .col-sm-6 {
+    /* width: 50%; */
+    padding: 0 10px; /* Optional, add some padding between the columns */
+  }
+
+  .marginBottom {
+    margin-bottom: 90px;
+  }
+
+  .amendCard img {
+    object-fit: cover;
+    aspect-ratio: 5/8;
+  }
+
+  .xPadding {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  .carouselHeight {
+    height: 600px;
+  }
+}
+
+.amendCard img {
+  object-fit: cover;
+  aspect-ratio: 5/3;
+}
+
+.xPadding {
+  padding-left: 76px;
+  padding-right: 76px;
+}
+
+.carouselHeight {
+  height: 500px;
+}
+
+#feed {
+  height: 100%;
+  resize: vertical;
+}
+
+.headingCol h1 {
+  line-height: 1.7;
+}
+
+@media (max-width: 575px) {
+  .headingCol {
+    margin-bottom: 20px;
+  }
+}
+
+#overviewDisplay {
+  border: 0.005px solid grey;
+}
+
+.overviewText {
+  line-height: 1.4;
+}
+
+.footerColor {
+  background-color: rgb(66, 66, 66);
+}
+
+.editIconColor {
+  /* color: #555; */
+  color: aliceblue;
+}
+
+.editWorking {
+  color: #555;
+}
+
+textarea {
+  resize: none;
+}
+
+.crossSize {
+  font-weight: lighter;
+}
+
+/* #validationCustom,
+#validationCustom03 {
+  background-color: #555 !important;
+} */

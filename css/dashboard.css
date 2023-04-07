@@ -71,3 +71,36 @@ html,
 body {
   overflow-x: hidden;
 }
+
+.remove-bullets {
+  list-style-type: none;
+}
+
+.listClass {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.sizingBtn {
+  width: 80%;
+  height: 3px;
+}
+
+.borderCustom {
+  border: 0.007px solid grey;
+}
+
+.extraMargin {
+  margin-left: 120px;
+}
+
+.separator {
+  margin-top: 80px;
+}
+
+.separator-feed {
+  margin-top: 140px;
+}
+
+.newServiceInput {
+  font-size: 18px;
+}

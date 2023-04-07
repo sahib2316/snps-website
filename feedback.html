@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.usebootstrap.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="./assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a
+              class="navbar-brand animate__animated animate__pulse mt-2"
+              href="/"
+              >SNPS Pvt Ltd</a
+            >
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="/"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="/overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="/vacancies.html"
+                >Vacancies <span class="sr-only">(current)</span></a
+              >
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="login.html"
+              id="login-headerBtn"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
+              type="submit"
+            >
+              <Signup>Login</Signup>
+            </a>
+
+            <a
+              id="signup-headerBtn"
+              href="sign-up.html"
+              class="btn btn-outline-light my-2 my-sm-0"
+              type="submit"
+            >
+              <Signup class="">Signup</Signup>
+            </a>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div
+                class="dropdown-menu bg-secondary dropdown-menu-right"
+                id="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="profileDropdown"
+                    value="Profile"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="logoutDropdown"
+                    value="Logout"
+                  />
+                  <div class="parentDiv" id="parentDiv"></div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+              if (localStorage.getItem("isLoggedIn") == "true") {
+                document
+                  .getElementById("login-headerBtn")
+                  .classList.add("d-none");
+
+                document
+                  .getElementById("signup-headerBtn")
+                  .classList.add("d-none");
+
+                document.getElementById("name-headerTxt").innerHTML +=
+                  JSON.parse(localStorage.getItem("userData"))["Name"];
+
+                // profile page redirection
+                var profileDropdown =
+                  document.getElementById("profileDropdown");
+                profileDropdown.addEventListener("click", function () {
+                  window.location.assign("/profile.html");
+                });
+                // profile page redirectioOn end
+              } else {
+                document
+                  .getElementById("name-headerDropdown")
+                  .classList.add("d-none");
+              }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+            </script>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid">
+      <div class="row separator">
+        <div class="col-md-4 text-light headingCol">
+          <h1>Give Us Your valuable Feedback Here</h1>
+        </div>
+        <div class="col-md-8 mainTextarea">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group col-md-12" id="phoneField">
+                <label for="exampleFormControlInput1"
+                  ><h4>Phone/Email</h4></label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleFormControlInput1"
+                  placeholder="12345xxxxx"
+                />
+              </div>
+              <div class="form-group col-md-12">
+                <label for="exampleFormControlTextarea1"
+                  ><h3>Your Feedback</h3></label
+                >
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  placeholder="Enter Feedback"
+                ></textarea>
+              </div>
+              <div class="form-group col-md-4">
+                <input
+                  type="submit"
+                  class="form-control btn btn-light"
+                  id="exampleFormControlInput2"
+                  value="Submit Feedback"
+                  onClick="feedbackData()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Feedback Form -->
+
+    <!-- Footer Container -->
+    <div class="container mt-5">
+      <footer class="page-footer font-small pt-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body text-light">
+                <h5 class="card-title">Our Website</h5>
+                <p class="card-text">
+                  Visit our website and explore the vastness of our services. We
+                  can provide our expertise on a wide spectrum and really guide
+                  to yourd journey.
+                </p>
+                <a href="/" class="btn btn-outline-light">Go to Home</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-light">
+          @Copyright
+          <a href="/" class="text-light"> SN Point pvt Ltd</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </div>
+    <!--End Footer Container -->
+  </body>
+
+  <!-- Imports and configuration section -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+      authDomain: "projectdb-402ec.firebaseapp.com",
+      databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+      projectId: "projectdb-402ec",
+      storageBucket: "projectdb-402ec.appspot.com",
+      messagingSenderId: "818279951216",
+      appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    if (localStorage.getItem("isLoggedIn")) {
+      document.getElementById("phoneField").remove();
+    }
+
+    function feedbackData() {
+      if (JSON.parse(localStorage.getItem("isLoggedIn")) === "true") {
+        var feedbackLoggedIn = document.getElementById(
+          "exampleFormControlTextarea1"
+        ).value;
+        var phoneLoggedIn = JSON.parse(localStorage.getItem("userData"))[
+          "Mobile"
+        ];
+
+        let obj = {
+          feedback: feedbackLoggedIn,
+          phone: phoneLoggedIn,
+        };
+
+        let setDoc = db.collection("Feedbacks").doc();
+        setDoc.set(obj).then(function () {
+          alert("success");
+
+          feedback = "";
+        });
+      } else {
+        var feedback = document.getElementById(
+          "exampleFormControlTextarea1"
+        ).value;
+        var phone = document.getElementById("exampleFormControlInput1").value;
+
+        let obj = {
+          feedback: feedback,
+          phone: phone,
+        };
+
+        console.log(obj);
+
+        let setDoc = db.collection("Feedbacks").doc();
+        setDoc.set(obj).then(function () {
+          alert("success");
+
+          feedback = "";
+        });
+      }
+    }
+
+    logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+      var loginButton = document
+        .getElementById("login-headerBtn")
+        .classList.remove("d-none");
+      var signupButton = document
+        .getElementById("signup-headerBtn")
+        .classList.remove("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          logoutButton;
+          loginButton;
+          signupButton;
+          window.location.reload();
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+  </script>
+  <!-- Ending imports -->
+
+  <!-- Languages -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+  </script>
+  <!-- End Languages -->
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

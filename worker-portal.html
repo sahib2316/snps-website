@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workers-Portal</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.usebootstrap.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="./assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a
+              class="navbar-brand animate__animated animate__pulse mt-2"
+              href="index.html"
+              >SNPS Pvt Ltd</a
+            >
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback.html"
+                >Feedback <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="/vacancies.html"
+                >Vacancies <span class="sr-only">(current)</span></a
+              >
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="login.html"
+              id="login-headerBtn"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
+              type="submit"
+            >
+              <Signup>Login</Signup>
+            </a>
+
+            <a
+              id="signup-headerBtn"
+              href="sign-up.html"
+              class="btn btn-outline-light my-2 my-sm-0"
+              type="submit"
+            >
+              <Signup class="">Signup</Signup>
+            </a>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div
+                class="dropdown-menu bg-secondary dropdown-menu-right"
+                id="dropdown-menu"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="profileDropdown"
+                    value="Profile"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="logoutDropdown"
+                    value="Logout"
+                  />
+                  <div class="parentDiv" id="parentDiv"></div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-fluid my-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4 border border-secondary bg-secondary p-4">
+            <form>
+              <div class="card bg-dark" id="cardId">
+                <!-- js code is here -->
+              </div>
+
+              <!-- modal markup -->
+              <div class="modal fade" id="my-modal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content footerColor">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Modal Title</h5>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        onClick="closeModal()"
+                      ></button>
+                    </div>
+                    <div class="modal-body" id="body"></div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                        onClick="closeModal()"
+                      >
+                        Close
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="saveChanges"
+                      >
+                        Save changes
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- modal markup end-->
+
+              <script>
+                function closeModal() {
+                  document.getElementById("my-modal").style.display = "none";
+                  document
+                    .getElementsByClassName("modal-backdrop")[0]
+                    .classList.remove("show");
+                  // document.getElementById('my-modal').addEventListener('hidden.bs.modal', function () {
+                  //   getElementsByClassName('modal-backdrop').remove();
+                  // });
+                  window.location.reload();
+                }
+              </script>
+            </form>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clients that Booked Me -->
+    <div class="container-fluid text-light separator-both">
+      <h2>Booked Workers</h2>
+      <table class="table table-dark my-3">
+        <thead>
+          <tr>
+            <th scope="col"><strong>Clients</strong></th>
+            <th scope="col">Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">City</th>
+          </tr>
+        </thead>
+        <tbody class="" id="isTable">
+          <!-- table rows goes here -->
+        </tbody>
+      </table>
+    </div>
+    <!--End Clients that Booked Me -->
+
+    <div class="container">
+      <footer class="page-footer font-small blue pt-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Our Website</h5>
+                <p class="card-text">
+                  Visit our website and explore the vastness of our services. We
+                  can provide our expertise on a wide spectrum and really guide
+                  to yourd journey.
+                </p>
+                <a href="/" class="btn btn-outline-light">Go to Home</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-light">
+          @Copyright
+          <a href="/" class="text-light"> SNPS pvt Ltd</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </div>
+  </body>
+
+  <!-- Imports and configuration section -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+      authDomain: "projectdb-402ec.firebaseapp.com",
+      databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+      projectId: "projectdb-402ec",
+      storageBucket: "projectdb-402ec.appspot.com",
+      messagingSenderId: "818279951216",
+      appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.firestore();
+
+    if (localStorage.getItem("isLoggedIn") == "true") {
+      document.getElementById("login-headerBtn").classList.add("d-none");
+
+      document.getElementById("signup-headerBtn").classList.add("d-none");
+
+      document.getElementById("name-headerTxt").innerHTML += JSON.parse(
+        localStorage.getItem("userData")
+      )["Name"];
+
+      var card = document.getElementById("cardId");
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        db.collection("Workers")
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              if (
+                doc.data().name ===
+                  JSON.parse(localStorage.getItem("userData"))["Name"] &&
+                doc.data().phone ===
+                  JSON.parse(localStorage.getItem("userData"))["Mobile"]
+              ) {
+                card.innerHTML += `<div class="card-header bg-dark">
+
+      <a href="#" class="btn btn-link editIconColor" id="edit"> <i class="fa-regular fa-pen-to-square fa-2x"></i> <br>Edit</a>
+      </div>
+    <img
+                  class="card-img-top"
+                  src="/assets/images/admin-2.png"
+                  height="280px"
+                  alt="Card image cap"
+                />
+                <div class="card-body" id="cardName">
+                  <h2 class="card-title">${doc.data().name}</h2>
+                </div>
+                <ul class="list-group list-group-flush text-light" id="otherDetails">
+                  <li class="list-group-item bg-dark">Phone: ${
+                    doc.data().phone
+                  }</li>
+                  <li class="list-group-item bg-dark">Service: ${
+                    doc.data().service
+                  }</li>
+                </ul>
+                `;
+
+                var modalContent = document.getElementById("body");
+                var edit = document.getElementById("edit");
+
+                let m = 0;
+                edit.addEventListener("click", async function (event) {
+                  const myModal = new bootstrap.Modal(
+                    document.getElementById("my-modal")
+                  );
+
+                  if (m == 0) {
+                    modalContent.innerHTML += `<div class="col-md-12 border border-secondary bg-dark">
+                <div class="needs-validation" novalidate>
+                  <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom01">Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustom01"
+                        placeholder="Full Name"\
+                        value="${doc.data().name}"
+                        required
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                    </div>
+                    <div class="col-md-9 mb-3">
+                      <label for="validationCustom02">Mobile No.</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="validationCustom02"
+                        placeholder="Your Number"
+                        value="${doc.data().phone}"
+                        required
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                    </div>
+                    <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom3">Password</label>
+                      <input
+                        type="password"
+                        class="form-control bg-secondary"
+                        id="validationCustom3"
+                        value="hhhv"
+                        disabled
+                      />
+                      <div class="invalid-feedback">
+                        Please provide a valid email address.
+                      </div>
+                    </div>
+                    <div class="form-row">
+                    <div class="col-md-12 mb-3">
+                      <label for="validationCustom">Service</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="validationCustom"
+                        placeholder="Service"
+                        value="${doc.data().service}"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        Please provide a valid email address.
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              `;
+                    m++;
+
+                    event.preventDefault();
+                    myModal.show();
+
+                    var userId = JSON.parse(localStorage.getItem("userId"));
+                    var docRef = db.doc("userDetails/" + userId);
+                    var workerPhone = doc.data().phone;
+                    var workerCategory = doc.data().category;
+                    var save = document.getElementById("saveChanges");
+
+                    save.addEventListener("click", async function () {
+                      // Get all the input fields
+                      var full_name =
+                        document.getElementById("validationCustom01");
+                      var mobile =
+                        document.getElementById("validationCustom02");
+                      var service = document.getElementById("validationCustom");
+                      var password =
+                        document.getElementById("validationCustom03");
+                      // Retrieve the new data from the input field
+                      let updateData = {
+                        Name: full_name.value,
+                        Mobile: mobile.value,
+                      };
+
+                      let workerData = {
+                        name: full_name.value,
+                        phone: mobile.value,
+                        service: service.value,
+                        category: workerCategory,
+                      };
+
+                      await console.log(docRef.id);
+                      // update the data in firestore
+                      await docRef
+                        .update(updateData)
+                        .then(async function () {
+                          await console.log("document updated successfully");
+                          await localStorage.setItem(
+                            "userData",
+                            JSON.stringify(updateData)
+                          );
+                          // window.location.reload();
+                        })
+                        .catch(function (error) {
+                          console.error(
+                            "Error updating document: ".value,
+                            error
+                          );
+                        });
+
+                      await db
+                        .collection("Workers")
+                        .doc(workerPhone)
+                        .update(workerData)
+                        .then(async function (data) {
+                          await closeModal();
+                          // window.location.reload();
+
+                          await db
+                            .collection("Workers")
+                            .doc(workerData.phone)
+                            .set(workerData)
+                            .then(async function (params) {
+                              await db
+                                .collection("Workers")
+                                .doc(workerPhone)
+                                .delete()
+                                .then(function () {
+                                  console.log("finally! It's done.");
+                                });
+                            });
+                        });
+
+                      window.location.reload();
+                    });
+                  }
+                });
+              }
+            });
+          });
+
+        // Clients who booked this worker
+        let b = 1;
+        db.collection("Booked-Workers")
+          .get()
+          .then(function (query) {
+            query.forEach(function (doc) {
+              if (
+                doc.exists &&
+                doc.data().phone ==
+                  JSON.parse(localStorage.getItem("userData"))["Mobile"]
+              ) {
+                console.log(doc.data().phone);
+                db.collection("userDetails")
+                  .doc(doc.data().userId)
+                  .get()
+                  .then(function (userDoc) {
+                    let row = `<tr>
+            <th scope="row">${b}</th>
+            <td>${userDoc.data().Name}</td>
+            <td>${userDoc.data().Mobile}</td>
+            <td>${userDoc.data().Address}</td>
+          </tr>`;
+
+                    document.getElementById("isTable").innerHTML += row;
+
+                    b++;
+                  });
+              }
+            });
+          });
+        // End Clients who booked this worker
+      });
+    } else {
+      document.getElementById("name-headerDropdown").classList.add("d-none");
+    }
+
+    logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+      var loginButton = document
+        .getElementById("login-headerBtn")
+        .classList.remove("d-none");
+      var signupButton = document
+        .getElementById("signup-headerBtn")
+        .classList.remove("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          logoutButton;
+          loginButton;
+          signupButton;
+          window.location.reload();
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+  </script>
+  <!-- Ending imports -->
+
+  <!-- Languages -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+  </script>
+  <!-- End Languages -->
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

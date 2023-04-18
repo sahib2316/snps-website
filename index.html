@@ -86,38 +86,41 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                  <div
-                    class="modal fade bd-example-modal-lg"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="myLargeModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-md-2">
-                              <button>Construction</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Repairing</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Vehicles</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- <a class="nav-link text-underline-hover" href="#"></a> -->
-                </li>
-              </ul>
+            <div class="mr-3">
+              <input
+                class="form-control mr-sm-2 searchBox"
+                id="searchInput"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+
+              <button
+                class="btn btn-outline-light my-2 my-sm-0"
+                type="button"
+                onClick="searchSubmit()"
+              >
+                Search
+              </button>
             </div>
+            <!-- <script>
+              var searchInput = document.getElementById("searchInput");
+
+              searchInput.addEventListener("input", function () {
+                let filter = searchInput.value.toLowerCase();
+                let listItems = document.querySelectorAll("list-group-item");
+
+                listItems.forEach(function (item) {
+                  let text = item.textContent;
+
+                  if (text.toLocalLowerCase().includes(filter)) {
+                    item.style.display = "";
+                  } else {
+                    item.style.display = "none";
+                  }
+                });
+              });
+            </script> -->
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -175,7 +178,7 @@
                 id="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <div>
+                <div id="profileBtnDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -590,7 +593,48 @@
 
     const db = firebase.firestore();
 
+    function searchSubmit() {
+      let searchInput = document.getElementById("searchInput");
+      const selectedInput = searchInput.value;
+      // console.log(selectedOption);
+      const url = `http://127.0.0.1:5500/search-workers.html?selectedInput=${selectedInput}`;
+      let flag = false;
+      db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          for (const doc of querySnapshot.docs) {
+            if (doc.data().city === selectedInput) {
+              console.log(doc.data());
+              flag = true;
+            }
+          }
+          if (flag) {
+            window.location.assign(url);
+          } else {
+            alert(
+              "Sorry, there are no workers availabe for the selected service at the moment."
+            );
+          }
+        });
+    }
+
     document.addEventListener("DOMContentLoaded", (e) => {
+      db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileBtnDiv").style.display = "none";
+            }
+          });
+        });
+
       j = 0;
       db.collection("Categories")
         .get()
@@ -762,11 +806,29 @@
       // localStorage.setItem("New Registration", JSON.stringify(obj));
     }
 
+    // function searchSubmit() {
+    //   db.collection("Workers")
+    //     .get()
+    //     .then(function (querySnapshot) {
+    //       querySnapshot.forEach(function (doc) {
+    //         // here we can loop through the search results from the workers' city of residence
+    //         var searchInput = document.getElementById("searchInput").value;
+
+    //         // console.log(doc.data());
+    //         if (searchInput == doc.data().city) {
+    //           console.log(doc.id);
+    //         }
+    //       });
+    //     });
+    // }
+
     document.addEventListener("DOMContentLoaded", async function () {
       db.collection("Workers")
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
+            // here we can loop through the search results from the workers' city of residence
+
             if (
               localStorage.getItem("isLoggedIn") == "true" &&
               JSON.parse(localStorage.getItem("userData"))["Mobile"] ==
@@ -782,6 +844,9 @@
 
               parentDiv.appendChild(inputNode);
 
+              var profileBtn = document
+                .getElementById("profileBtnDiv")
+                .classList.add("d-none");
               var adminDropdown = document.getElementById("adminDropdown1");
               adminDropdown.addEventListener("click", function () {
                 window.location.assign("/worker-portal.html");
@@ -812,9 +877,9 @@
                   <div class="carousel-item ${idx++ === 0 ? "active" : ""}">
 
                    <div class="card mx-3 ml-auto mr-auto" style="width: 18rem;">
-    <div class="card-body">
+    <div class="card-body text-light">
       <h5 class="card-title">${doc.data().title}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">${doc.data().subtitle}</h6>
+      <h6 class="card-subtitle mb-2 text-light">${doc.data().subtitle}</h6>
       <p class="card-text">First time joinee??${doc.data().text}</p>
     </div>
             </div>

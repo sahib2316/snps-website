@@ -129,7 +129,7 @@
                 id="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <div>
+                <div id="profileElementDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -216,6 +216,17 @@
     <div></div>
     <!-- End Overview Divs -->
 
+    <div class="btn-group" role="group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Dropdown
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">Dropdown link</a>
+      <a class="dropdown-item" href="#">Dropdown link</a>
+    </div>
+  </div>
+
+
 <!-- Footer Container -->
     <div class="container mt-5 separator-feed">
       <footer class="page-footer separator-feed font-small pt-4">
@@ -269,11 +280,48 @@
     const db = firebase.firestore();
 
     document.addEventListener("DOMContentLoaded", function () {
+db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileElementDiv").style.display =
+                "none";
+
+                 const parentDiv = document.getElementById("parentDiv");
+
+              const inputNode = document.createElement("input");
+              inputNode.type = "button";
+              inputNode.className = "btn btn-outline-dark btn-block text-white";
+              inputNode.id = "adminDropdown1";
+              inputNode.value = "Worker-Portal";
+
+              parentDiv.appendChild(inputNode);
+
+              var profileBtn = document
+                .getElementById("profileElementDiv")
+                .classList.add("d-none");
+              var adminDropdown = document.getElementById("adminDropdown1");
+              adminDropdown.addEventListener("click", function () {
+                window.location.assign("/worker-portal.html");
+              });
+            }
+
+          });
+        });
+
       db.collection("Overview").get().then(function (querySnapshot) {
          querySnapshot.forEach(function (doc) {
             document.getElementById("overviewDisplay").innerHTML += `<div class="my-4"><h4 class="overviewText">${doc.data().overview}</h4></div>`;
          });
       });
+
     });
 
     logoutDropdown.addEventListener("click", (e) => {

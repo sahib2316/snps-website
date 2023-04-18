@@ -138,17 +138,26 @@
               </button>
               <div
                 class="dropdown-menu bg-secondary dropdown-menu-right"
-                id="dropdown-menu"
+                id="dropdownMenu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <div>
+                <!-- <div>
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
                     id="profileDropdown"
                     value="Profile"
                   />
-                </div>
+                </div> -->
+                <!-- <script>
+                  // profile page redirection
+                  var profileDropdown =
+                    document.getElementById("profileDropdown");
+                  profileDropdown.addEventListener("click", function () {
+                    window.location.assign("/profile.html");
+                  });
+                  // profile page redirectioOn end
+                </script> -->
                 <div>
                   <input
                     type="button"
@@ -309,7 +318,7 @@
       )["Name"];
 
       var card = document.getElementById("cardId");
-
+      let x = 0;
       document.addEventListener("DOMContentLoaded", async function () {
         db.collection("Workers")
           .get()
@@ -321,6 +330,7 @@
                 doc.data().phone ===
                   JSON.parse(localStorage.getItem("userData"))["Mobile"]
               ) {
+                console.log(x);
                 card.innerHTML += `<div class="card-header bg-dark">
 
       <a href="#" class="btn btn-link editIconColor" id="edit"> <i class="fa-regular fa-pen-to-square fa-2x"></i> <br>Edit</a>
@@ -356,7 +366,7 @@
                   if (m == 0) {
                     modalContent.innerHTML += `<div class="col-md-12 border border-secondary bg-dark">
                 <div class="needs-validation" novalidate>
-                  <div class="form-row">
+                  <div class="form-row text-white">
                     <div class="col-md-12 mb-3">
                       <label for="validationCustom01">Name</label>
                       <input
@@ -423,6 +433,7 @@
                     var userId = JSON.parse(localStorage.getItem("userId"));
                     var docRef = db.doc("userDetails/" + userId);
                     var workerPhone = doc.data().phone;
+                    console.log(workerPhone);
                     var workerCategory = doc.data().category;
                     var save = document.getElementById("saveChanges");
 
@@ -430,33 +441,53 @@
                       // Get all the input fields
                       var full_name =
                         document.getElementById("validationCustom01");
-                      var mobile =
-                        document.getElementById("validationCustom02");
+                      var phone = document.getElementById("validationCustom02");
                       var service = document.getElementById("validationCustom");
                       var password =
                         document.getElementById("validationCustom03");
+                      var email = JSON.parse(localStorage.getItem("userData"))[
+                        "Email"
+                      ];
+                      var address = JSON.parse(
+                        localStorage.getItem("userData")
+                      )["Address"];
+                      var city = JSON.parse(localStorage.getItem("userData"))[
+                        "City"
+                      ];
+                      var zipCode = JSON.parse(
+                        localStorage.getItem("userData")
+                      )["ZipCode"];
+
                       // Retrieve the new data from the input field
                       let updateData = {
                         Name: full_name.value,
-                        Mobile: mobile.value,
+                        Mobile: phone.value,
+                      };
+
+                      let fullData = {
+                        Name: full_name.value,
+                        Mobile: phone.value,
+                        Email: email,
+                        Address: address,
+                        City: city,
+                        ZipCode: zipCode,
                       };
 
                       let workerData = {
                         name: full_name.value,
-                        phone: mobile.value,
+                        phone: phone.value,
                         service: service.value,
                         category: workerCategory,
+                        city: city,
                       };
 
-                      await console.log(docRef.id);
                       // update the data in firestore
                       await docRef
                         .update(updateData)
-                        .then(async function () {
-                          await console.log("document updated successfully");
-                          await localStorage.setItem(
+                        .then(function () {
+                          localStorage.setItem(
                             "userData",
-                            JSON.stringify(updateData)
+                            JSON.stringify(fullData)
                           );
                           // window.location.reload();
                         })
@@ -467,33 +498,35 @@
                           );
                         });
 
+                      // await db
+                      //   .collection("Workers")
+                      //   .doc(workerPhone)
+                      //   .update(workerData)
+                      //   .then(async function (data) {
+                      //     await closeModal();
+                      // window.location.reload();
+                      // await alert(workerData.phone);
+
                       await db
                         .collection("Workers")
-                        .doc(workerPhone)
-                        .update(workerData)
-                        .then(async function (data) {
-                          await closeModal();
-                          // window.location.reload();
-
-                          await db
-                            .collection("Workers")
-                            .doc(workerData.phone)
-                            .set(workerData)
-                            .then(async function (params) {
-                              await db
-                                .collection("Workers")
-                                .doc(workerPhone)
-                                .delete()
-                                .then(function () {
-                                  console.log("finally! It's done.");
-                                });
+                        .doc(workerData.phone)
+                        .set(workerData)
+                        .then(function () {
+                          db.collection("Workers")
+                            .doc(workerPhone)
+                            .delete()
+                            .then(function () {
+                              console.log("finally! It's done.");
                             });
                         });
+                      // });
 
                       window.location.reload();
                     });
                   }
                 });
+
+                x++;
               }
             });
           });

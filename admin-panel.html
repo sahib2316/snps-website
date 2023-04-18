@@ -22,6 +22,11 @@
     />
     <!-- <link rel="stylesheet" href="./css/style.css" /> -->
     <link rel="stylesheet" href="/css/dashboard.css" />
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.15.8/babel.min.js"></script>
+
   </head>
   <body>
      <header>
@@ -483,6 +488,12 @@
     </div>
     <!-- End Overview -->
 
+    <!-- Introducing React -->
+<div id="intro-react"></div>
+
+<script type="text/babel" src="/src/index.js"></script>
+
+    <!-- End Introducing React -->
   </body>
 
 <!-- Imports and configuration section -->
@@ -714,7 +725,6 @@ await db.collection("Vacancy-Workers").get().then(async function (querySnapshot)
     <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
     <p class="card-text">City: ${doc.data().city}</p>
     <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call</button>
-    <a href="#" class="card-link">Another link</a>
   </div>
 </div>`;
           
@@ -742,6 +752,7 @@ for(const [idx,doc] of querySnapshot.docs.entries()){
                 <button class="btn btn-primary ml-3 changeService" id="change-${idx}">Change</button></h2>
               
               <h2>Address: ${doc.data().address}</h2>
+              <h2>City: ${doc.data().city}</h2>
               <h2>Zip: ${doc.data().zip}</h2>
               <button class="btn btn-primary adding-btn" id='addBtn-${idx}'>Add to Workers</button>
               <select name="choosing" class="choosing bg-warning ml-4" id='choose-${idx}'>Choose Category For This 
@@ -768,6 +779,7 @@ window.location.reload();
     category: "",
     service: doc.data().service,
     address: doc.data().address,
+    city: doc.data().city,
   }
  arr.push(obj);
   k=idx;

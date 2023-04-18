@@ -128,11 +128,6 @@
                   id="logoutDropdown"
                   value="Logout"
                 />
-                <!-- <input
-                  class="btn btn-outline-dark btn-block text-white"
-                  id="profileDropdown"
-                  value="Profile"
-                /> -->
               </div>
             </div>
           </form>
@@ -278,7 +273,7 @@ window.location.reload()
 
                   document.addEventListener("DOMContentLoaded", async function () {
 
-db.collection("Workers")
+ db.collection("Workers")
           .get()
           .then(function (querySnapshot) {
             querySnapshot.forEach(async function (doc) {
@@ -288,11 +283,12 @@ db.collection("Workers")
                 doc.data().phone ===
                   JSON.parse(localStorage.getItem("userData"))["Mobile"]
               ) {
- document.getElementById("portalDropdown").innerHTML += `<input
-                  class="btn btn-outline-dark btn-block text-white"
-                  id="workerPortalDropdown"
-                  value="Worker-Portal"
-                />`;
+ document.getElementById("portalDropdown").innerHTML += await `<div>
+  <input class="btn btn-outline-dark btn-block text-white"
+         id="workerPortalDropdown"
+         value="Worker-Portal"
+  />
+  </div>`;
 
                 var workerDropdown = document.getElementById("workerPortalDropdown");
                await workerDropdown.addEventListener("click", function () {
@@ -444,9 +440,19 @@ ZipCode: zipCode.value
   };
 
   // update the data in firestore
-  await docRef.update(updateData).then(async function () {
-console.log("document updated successfully");
-await localStorage.setItem('userData',JSON.stringify(updateData));
+                        // await db.collection("Workers")
+                        // .doc(Mobile)
+                        // .get()
+                        // .then(function (doc) {
+                        //   db.collection("Workers")
+                        //     .doc(workerPhone)
+                        //     .delete()
+                        //     .then(function () {
+                        //       console.log("finally! It's done.");
+                        //     });
+                        // });
+  await docRef.update(updateData).then( function () {
+localStorage.setItem('userData',JSON.stringify(updateData));
 closeModal();
 // window.location.reload();
 
@@ -508,17 +514,17 @@ querySnapshot.forEach(function (doc) {
         .getElementById("signup-headerBtn")
         .classList.remove("d-none");
 
-      firebase
+       firebase
         .auth()
         .signOut()
         .then(function () {
           // Sign-out successful.
           console.log("User Logged Out!");
            localStorage.clear();
-           window.location.reload();
           logoutButton;
           loginButton;
           signupButton;
+          window.location.reload();
         })
         .catch(function (error) {
           // An error happened.

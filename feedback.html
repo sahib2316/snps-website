@@ -134,7 +134,7 @@
                 id="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <div>
+                <div id="profileElementDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -304,34 +304,35 @@
     const db = firebase.firestore();
 
     if (localStorage.getItem("isLoggedIn")) {
-      document.getElementById("phoneField").remove();
+      document.getElementById("phoneField").style.display = "none";
     }
 
     function feedbackData() {
-      if (JSON.parse(localStorage.getItem("isLoggedIn")) === "true") {
-        var feedbackLoggedIn = document.getElementById(
+      if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
+        let feedbackLoggedIn = document.getElementById(
           "exampleFormControlTextarea1"
         ).value;
-        var phoneLoggedIn = JSON.parse(localStorage.getItem("userData"))[
+        let phoneLoggedIn = JSON.parse(localStorage.getItem("userData"))[
           "Mobile"
         ];
 
-        let obj = {
+        let objLocal = {
           feedback: feedbackLoggedIn,
           phone: phoneLoggedIn,
         };
 
-        let setDoc = db.collection("Feedbacks").doc();
-        setDoc.set(obj).then(function () {
+        let setDocLocal = db.collection("Feedbacks").doc();
+        setDocLocal.set(objLocal).then(async function () {
           alert("success");
 
-          feedback = "";
+          feedbackLoggedIn = "";
+          // window.location.reload();
         });
       } else {
-        var feedback = document.getElementById(
+        let feedback = document.getElementById(
           "exampleFormControlTextarea1"
         ).value;
-        var phone = document.getElementById("exampleFormControlInput1").value;
+        let phone = document.getElementById("exampleFormControlInput1").value;
 
         let obj = {
           feedback: feedback,
@@ -341,13 +342,51 @@
         console.log(obj);
 
         let setDoc = db.collection("Feedbacks").doc();
-        setDoc.set(obj).then(function () {
+        setDoc.set(obj).then(async function () {
           alert("success");
 
           feedback = "";
+          phone = "";
+          // window.location.reload();
         });
       }
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileElementDiv").style.display =
+                "none";
+
+              const parentDiv = document.getElementById("parentDiv");
+
+              const inputNode = document.createElement("input");
+              inputNode.type = "button";
+              inputNode.className = "btn btn-outline-dark btn-block text-white";
+              inputNode.id = "adminDropdown1";
+              inputNode.value = "Worker-Portal";
+
+              parentDiv.appendChild(inputNode);
+
+              var profileBtn = document
+                .getElementById("profileElementDiv")
+                .classList.add("d-none");
+              var adminDropdown = document.getElementById("adminDropdown1");
+              adminDropdown.addEventListener("click", function () {
+                window.location.assign("/worker-portal.html");
+              });
+            }
+          });
+        });
+    });
 
     logoutDropdown.addEventListener("click", (e) => {
       var logoutButton = document

@@ -409,3 +409,12 @@ textarea {
 #validationCustom03 {
   background-color: #555 !important;
 } */
+
+.searchBox:hover {
+  /* position: absolute; */
+  /* width: 200px; */
+  /* height: 300px;
+  border: 1px solid #fff;
+  top: 35px;
+  left: -10px; */
+}

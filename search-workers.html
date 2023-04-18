@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workers</title>
+
+    <link 
+      rel="stylesheet"
+      href="https://cdn.usebootstrap.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+<link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="/assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a class="navbar-brand animate__animated animate__pulse mt-2" href="index.html">SN Point Pvt Ltd</a>
+          </div>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="/index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#"></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="login.html"
+              id="login-headerBtn"
+              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              type="submit"
+            >
+              <Signup>Login</Signup>
+            </a>
+
+            <a
+              id="signup-headerBtn"
+              href="sign-up.html"
+              class="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+            >
+              <Signup class="">Signup</Signup>
+            </a>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+               <div id="profileElementDiv">
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="profileDropdown"
+                    value="Profile"
+                  />
+                </div>
+                 <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="logoutDropdown"
+                    value="Logout"
+                  />
+                  <div class="parentDiv" id="parentDiv"></div>
+                </div>
+              </div>
+            </div>
+
+            <script>
+               if (localStorage.getItem("isLoggedIn") == "true") {
+                document
+                  .getElementById("login-headerBtn")
+                  .classList.add("d-none");
+
+                document
+                  .getElementById("signup-headerBtn")
+                  .classList.add("d-none");
+
+                document.getElementById("name-headerTxt").innerHTML +=
+                  JSON.parse(localStorage.getItem("userData"))["Name"];
+
+                // profile page redirection
+                var profileDropdown =
+                  document.getElementById("profileDropdown");
+
+                profileDropdown.addEventListener("click", function () {
+                  window.location.assign("/profile.html");
+                });
+                // profile page redirectioOn end
+              } else {
+                document
+                  .getElementById("name-headerDropdown")
+                  .classList.add("d-none");
+              }
+            </script>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Worker options -->
+    <div class="container-fluid">
+      <div class="row">
+         <div class="col-md-12 my-5 text-light" id="workerTitle">
+        <!-- TITLE is written with javascript -->
+      </div>
+
+      <div class="col-md-12 mb-3 ratings-chudaap">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-danger dropdown-toggle"
+            id="filterBtn"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            >
+            Filter Services
+          </button>
+          <div class="dropdown-menu" id="filterDropdown">
+            <!-- Filter Dropdown is here -->
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+<div class="col-md-12 my-5">
+  <div class="container-fluid">
+    <div class="row ml-0 mb-5" id="first">
+        <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+        <script>
+          if (window.location.href === 'http://127.0.0.1:5500/workers.html') {
+            window.location.href = 'http://127.0.0.1:5500/index.html';
+          }
+          // TODO: Add SDKs for Firebase products that you want to use
+          // https://firebase.google.com/docs/web/setup#available-libraries
+
+          // Your web app's Firebase configuration
+          const firebaseConfig = {
+            apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+            authDomain: "projectdb-402ec.firebaseapp.com",
+            databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+            projectId: "projectdb-402ec",
+            storageBucket: "projectdb-402ec.appspot.com",
+            messagingSenderId: "818279951216",
+            appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+          };
+          firebase.initializeApp(firebaseConfig);
+
+          const db = firebase.firestore();
+
+          // JavaScript code
+          const urlParams = new URLSearchParams(window.location.search);
+          const selectedInput = urlParams.get("selectedInput");
+          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedInput}`;
+          // Use the query URL to fetch data or perform other actions
+
+          document.addEventListener("DOMContentLoaded", (e) => {
+            let s=0;
+            db.collection("Workers")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+
+                  if (doc.data().city === selectedInput) {
+if (s<1) {
+document.getElementById("workerTitle").innerHTML += `
+                  <h2>Available ${selectedInput} Workers</h2>
+                  `;
+                  s++;
+}
+
+document.getElementById("filterBtn").addEventListener("click", function () {
+            db.collection("Categories").get().then(function (querySnapshot) {
+querySnapshot.forEach(function (doc) {
+  let filterDropdown = document.getElementById("filterDropdown");
+
+            for (let i=0; i<doc.data().Services.length; i++) {
+filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${doc.data().Services[i]}">${doc.data().Services[i]}</a>`;
+            }
+})
+            })
+
+            document.querySelectorAll(".uniqueItem").forEach(async function (item) {
+              console.log(item.id);
+            document.getElementById(item.id).addEventListener("click", async function () {
+              const docId = item.id.split("-")[1];
+               console.log(docId);
+            })
+            });
+            
+          })
+
+document.getElementById("first").innerHTML += `
+<div class="col-sm-6 marginBottom">
+                  <div class="row workerCards mb-3" >
+          <div class="col-sm-6 p-0" >
+            <div class="card amendCard" >
+              <img
+                class="card-img-top"
+                src="https://source.unsplash.com/random/?${doc.data().category}+${selectedInput}"
+                alt="Card image cap"
+                width=""
+                height=""
+              />
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
+            <h1 class="m-0">${doc.data().name}</h1>
+            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
+            <h3>${doc.data().service} (${doc.data().category})</h3>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+          </div>
+        </div>
+      </div>            `;
+                   }
+                  // else {
+                  //   document.getElementById("first").innerHTML += 
+                  //   `<h3>No Workers Available for this Service.</h3>`;
+                  // }
+
+                });
+
+document.querySelectorAll(".bookWorker").forEach(function (button) {
+button.addEventListener("click", function () {
+  const docId = button.id.split("-")[1];
+  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+//  console.log(doc.data());
+// console.log(JSON.parse(localStorage.getItem("userId")));
+
+  let obj = {
+name: doc.data().name,
+phone: doc.data().phone,
+service: doc.data().service,
+address: doc.data().address,
+userId: JSON.parse(localStorage.getItem("userId")),
+  }
+
+     db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+alert("success");
+     });
+
+  });
+
+});
+});
+
+              });
+          });
+
+//           document.getElementById("filterBtn").addEventListener("click", function () {
+//             db.collection("Categories").get().then(function (querySnapshot) {
+// querySnapshot.forEach(function (doc) {
+//   let filterDropdown = document.getElementById("filterDropdown");
+
+//             for (let i=0; i<doc.data().Services.length; i++) {
+// filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${doc.data().Services[i]}">${doc.data().Services[i]}</a>`;
+//             }
+// })
+//             })
+
+//             document.querySelectorAll(".uniqueItem").forEach(async function (item) {
+//               console.log(item.id);
+//             document.getElementById(item.id).addEventListener("click", function () {
+//               const docId = item.id.split("-")[1];
+
+//             })
+
+//             });
+            
+//           })
+
+           logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+      var loginButton = document
+        .getElementById("login-headerBtn")
+        .classList.remove("d-none");
+      var signupButton = document
+        .getElementById("signup-headerBtn")
+        .classList.remove("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          logoutButton;
+          loginButton;
+          signupButton;
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+
+        </script>
+      </div>
+    </div>
+  
+</div>
+      </div>
+     
+      <!-- End workers options -->
+
+     <!-- SN Point ads -->
+    <section class="d-block my-5">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 px-0 d-block">
+        <div
+          id="carouselAdsIndicators"
+          class="carousel slide"
+          data-ride="carousel"
+          data-interval="3000"
+        >
+          <ol class="carousel-indicators" id="orderedSlides">
+            <!-- <li
+              data-target="#carouselAdsIndicators"
+              data-slide-to="0"
+              class="active"
+            ></li>
+            <li data-target="#carouselAdsIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselAdsIndicators" data-slide-to="2"></li> -->
+          </ol>
+          <div class="carousel-inner" id="slidesDiv">
+            <!-- ads slides are here -->
+          </div>
+          <a
+            class="carousel-control-prev"
+            href="#carouselAdsIndicators"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#carouselAdsIndicators"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- End SN Point ads -->
+    
+    <!-- Footer Container -->
+    <div class="container mt-5">
+      <footer class="page-footer font-small pt-4">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body text-light">
+                <h5 class="card-title">Our Website</h5>
+                <p class="card-text">
+                  Visit our website and explore the vastness of our services. We
+                  can provide our expertise on a wide spectrum and really guide
+                  to yourd journey.
+                </p>
+                <a href="#" class="btn btn-outline-light">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center text-light">
+          @Copyright
+          <a href="/" class="text-light"> SN Point pvt Ltd</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+    </div>
+    <!--End Footer Container -->
+    </div>
+  </body>
+
+  <script >
+    document.addEventListener("DOMContentLoaded", function () {
+db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileElementDiv").style.display =
+                "none";
+
+                 const parentDiv = document.getElementById("parentDiv");
+
+              const inputNode = document.createElement("input");
+              inputNode.type = "button";
+              inputNode.className = "btn btn-outline-dark btn-block text-white";
+              inputNode.id = "adminDropdown1";
+              inputNode.value = "Worker-Portal";
+
+              parentDiv.appendChild(inputNode);
+
+              var profileBtn = document
+                .getElementById("profileElementDiv")
+                .classList.add("d-none");
+              var adminDropdown = document.getElementById("adminDropdown1");
+              adminDropdown.addEventListener("click", function () {
+                window.location.assign("/worker-portal.html");
+              });
+            }
+
+          });
+        });
+
+
+      // ads carousel-sliders
+      let r = 0;
+      db.collection("Ad-slides")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            document.getElementById("orderedSlides").innerHTML += `<li
+              data-target="#carouselAdsIndicators"
+              data-slide-to="${r}"
+              class="${r == 0 ? "active" : ""}"
+            ></li>`;
+
+            document.getElementById(
+              "slidesDiv"
+            ).innerHTML += `<div class="carousel-item + ${
+              r == 0 ? "active" : ""
+            }">
+              <img
+                class="d-block w-100 carouselHeight"
+                src="${doc.data().slideUrl}"
+                alt="First slide"
+              />
+            </div>`;
+
+            r++;
+          });
+        });
+
+      // End ads carousel-sliders
+    })
+  </script>
+  <!-- Ending imports -->
+
+<!-- Languages -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+  </script>
+  <!-- End Languages -->
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

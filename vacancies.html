@@ -170,7 +170,7 @@
                 id="dropdown-menu"
                 aria-labelledby="dropdownMenuButton"
               >
-                <div>
+                <div id="profileElementDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -689,6 +689,43 @@
                   // End conditioning for logged-in and a logged-out user
                 });
             });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileElementDiv").style.display =
+                "none";
+
+              const parentDiv = document.getElementById("parentDiv");
+
+              const inputNode = document.createElement("input");
+              inputNode.type = "button";
+              inputNode.className = "btn btn-outline-dark btn-block text-white";
+              inputNode.id = "adminDropdown1";
+              inputNode.value = "Worker-Portal";
+
+              parentDiv.appendChild(inputNode);
+
+              var profileBtn = document
+                .getElementById("profileElementDiv")
+                .classList.add("d-none");
+              var adminDropdown = document.getElementById("adminDropdown1");
+              adminDropdown.addEventListener("click", function () {
+                window.location.assign("/worker-portal.html");
+              });
+            }
+          });
         });
     });
 

@@ -119,17 +119,24 @@
               >
                 <span id="name-headerTxt"> Hi, </span>
               </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <input
-                  class="btn btn-outline-success"
-                  id="profileDropdown"
-                  value="Profile"
-                />
-                <input
-                  class="btn btn-outline-success"
-                  id="logoutDropdown"
-                  value="Logout"
-                />
+              <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <div id="profileElementDiv">
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="profileDropdown"
+                    value="Profile"
+                  />
+                </div>
+                 <div>
+                  <input
+                    type="button"
+                    class="btn btn-outline-dark btn-block text-white"
+                    id="logoutDropdown"
+                    value="Logout"
+                  />
+                  <div class="parentDiv" id="parentDiv"></div>
+                </div>
               </div>
             </div>
 
@@ -165,6 +172,7 @@
       </nav>
     </header>
 
+
     <!-- Worker options -->
     <div class="container-fluid">
       <div class="row">
@@ -180,7 +188,6 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-            disabled
             >
             Ratings
           </button>
@@ -308,7 +315,47 @@ alert("success");
 });
 
               });
+
+              db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            if (
+              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+              doc.data().name ===
+                JSON.parse(localStorage.getItem("userData"))["Name"] &&
+              doc.data().phone ===
+                JSON.parse(localStorage.getItem("userData"))["Mobile"]
+            ) {
+              document.getElementById("profileElementDiv").style.display =
+                "none";
+
+                 const parentDiv = document.getElementById("parentDiv");
+
+              const inputNode = document.createElement("input");
+              inputNode.type = "button";
+              inputNode.className = "btn btn-outline-dark btn-block text-white";
+              inputNode.id = "adminDropdown1";
+              inputNode.value = "Worker-Portal";
+
+              parentDiv.appendChild(inputNode);
+
+              var profileBtn = document
+                .getElementById("profileElementDiv")
+                .classList.add("d-none");
+              var adminDropdown = document.getElementById("adminDropdown1");
+              adminDropdown.addEventListener("click", function () {
+                window.location.assign("/worker-portal.html");
+              });
+            }
+
           });
+        });
+
+
+          });
+
+          
 
            logoutDropdown.addEventListener("click", (e) => {
       var logoutButton = document

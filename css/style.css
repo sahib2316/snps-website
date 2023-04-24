@@ -223,7 +223,11 @@ i:hover {
 }
 
 .separator {
-  margin-top: 80px;
+  margin-top: 60px;
+}
+
+.separator-lite {
+  margin-top: 40px;
 }
 
 .separator-both {
@@ -367,6 +371,10 @@ input[type="email"]::placeholder {
 }
 
 .headingCol h1 {
+  line-height: 1.7;
+}
+
+.headingCol {
   line-height: 1.7;
 }
 

@@ -120,7 +120,7 @@
                 <span id="name-headerTxt"> Hi, </span>
               </button>
               <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-               <div id="profileElementDiv">
+                <div id="profileElementDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -172,6 +172,7 @@
       </nav>
     </header>
 
+
     <!-- Worker options -->
     <div class="container-fluid">
       <div class="row">
@@ -180,20 +181,22 @@
       </div>
 
       <div class="col-md-12 mb-3 ratings-chudaap">
-        <h1>Select Service Here</h1>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-outline-danger dropdown-toggle"
-            id="filterBtn"
+            class="btn btn-danger dropdown-toggle"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
             >
-            Filter Services
+            Ratings
           </button>
-          <div class="dropdown-menu" id="filterDropdown">
-            <!-- Filter Dropdown is here -->
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </div>
       </div>
@@ -230,43 +233,28 @@
 
           // JavaScript code
           const urlParams = new URLSearchParams(window.location.search);
-          const selectedInput = urlParams.get("selectedInput");
-          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedInput}`;
+          const appliedVacancy = urlParams.get("vacancy");
+          const queryUrl = `http://127.0.0.1:5500/vacancy-details.html?q=${appliedVacancy} `;
           // Use the query URL to fetch data or perform other actions
 
-          document.addEventListener("DOMContentLoaded", async function () {
-            
-              await db.collection("Categories").get().then(function (que) {
-que.forEach(function (docs) {
-  let filterDropdown = document.getElementById("filterDropdown");
-  // console.log(docs.data().Services.length);
+          document.addEventListener("DOMContentLoaded", function (e) {
 
-            for (let i=0; i<docs.data().Services.length; i++) {
-filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
-            }
-})
-            })
-
-           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
-              console.log(item.id);
-            item.addEventListener("click", function () {
-              const docId = item.id.split("-")[1];
-              console.log(docId); 
-
-let s=0;
-            db.collection("Workers")
+            let s=0;
+            db.collection("Vacancies")
               .get()
               .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+                querySnapshot.forEach(async function (doc) {
 
-                  if (doc.data().city === selectedInput && doc.data().service === docId) {
+                  if (doc.data().vacancy === appliedVacancy) {
+console.log(doc.id, " => ", doc.data());
 if (s<1) {
 document.getElementById("workerTitle").innerHTML += `
-                  <h2 class="text-danger" >Available ${selectedInput} Workers</h2>
+                  <h2> ${appliedVacancy} Companies </h2>
                   `;
                   s++;
 }
 
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
 document.getElementById("first").innerHTML += `
 <div class="col-sm-6 marginBottom">
                   <div class="row workerCards mb-3" >
@@ -274,7 +262,7 @@ document.getElementById("first").innerHTML += `
             <div class="card amendCard" >
               <img
                 class="card-img-top"
-                src="https://source.unsplash.com/random/?${doc.data().category}+${selectedInput}"
+                src="https://source.unsplash.com/random/?${appliedVacancy}"
                 alt="Card image cap"
                 width=""
                 height=""
@@ -282,54 +270,86 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
+            <h1 class="m-0">${doc.data().companyDetails[i].company}</h1>
+            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
+            <h3> Looking For: ${appliedVacancy}</h3>
             <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
-                   }
+ 
+}
+                  }
                   // else {
-                  //   document.getElementById("first").innerHTML = 
-                  //   `<h1>Sorry there are no workers for this service in ${doc.data().city}</h1>`;
+                  //   document.getElementById("first").innerHTML += 
+                  //   `<h3>No Workers Available for this Service.</h3>`;
                   // }
 
                 });
 
-document.querySelectorAll(".bookWorker").forEach(function (button) {
-button.addEventListener("click", function () {
-  const docId = button.id.split("-")[1];
-  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+// document.querySelectorAll(".bookWorker").forEach(function (button) {
+// button.addEventListener("click", function () {
+//   const docId = button.id.split("-")[1];
+//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
 //  console.log(doc.data());
-// console.log(JSON.parse(localStorage.getItem("userId")));
+//  console.log(JSON.parse(localStorage.getItem("userId")));
 
-  let obj = {
-name: doc.data().name,
-phone: doc.data().phone,
-service: doc.data().service,
-address: doc.data().address,
-userId: JSON.parse(localStorage.getItem("userId")),
-  }
+//   let obj = {
+// name: doc.data().name,
+// phone: doc.data().phone,
+// service: doc.data().service,
+// address: doc.data().address,
+// userId: JSON.parse(localStorage.getItem("userId")),
+//   }
 
-     db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
-alert("success");
-     });
+//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+// alert("success");
+//      });
 
-  });
+//   });
 
-});
-});
+// });
+// });
 
               });
 
-            })
-            });
-          });
+        //       db.collection("Workers")
+        // .get()
+        // .then(function (querySnapshot) {
+        //   querySnapshot.forEach(function (doc) {
+        //     if (
+        //       JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+        //       doc.data().name ===
+        //         JSON.parse(localStorage.getItem("userData"))["Name"] &&
+        //       doc.data().phone ===
+        //         JSON.parse(localStorage.getItem("userData"))["Mobile"]
+        //     ) {
+        //       document.getElementById("profileElementDiv").style.display =
+        //         "none";
 
-          // document.getElementById("filterBtn").addEventListener("click", function () {
-           
-          // })
+        //          const parentDiv = document.getElementById("parentDiv");
+
+        //       const inputNode = document.createElement("input");
+        //       inputNode.type = "button";
+        //       inputNode.className = "btn btn-outline-dark btn-block text-white";
+        //       inputNode.id = "adminDropdown1";
+        //       inputNode.value = "Worker-Portal";
+
+        //       parentDiv.appendChild(inputNode);
+
+        //       var profileBtn = document
+        //         .getElementById("profileElementDiv")
+        //         .classList.add("d-none");
+        //       var adminDropdown = document.getElementById("adminDropdown1");
+        //       adminDropdown.addEventListener("click", function () {
+        //         window.location.assign("/worker-portal.html");
+        //       });
+        //     }
+
+        //   });
+        // });
+
+          });
 
            logoutDropdown.addEventListener("click", (e) => {
       var logoutButton = document
@@ -446,49 +466,14 @@ alert("success");
 
   <script >
     document.addEventListener("DOMContentLoaded", function () {
-db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            if (
-              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
-              doc.data().name ===
-                JSON.parse(localStorage.getItem("userData"))["Name"] &&
-              doc.data().phone ===
-                JSON.parse(localStorage.getItem("userData"))["Mobile"]
-            ) {
-              document.getElementById("profileElementDiv").style.display =
-                "none";
-
-                 const parentDiv = document.getElementById("parentDiv");
-
-              const inputNode = document.createElement("input");
-              inputNode.type = "button";
-              inputNode.className = "btn btn-outline-dark btn-block text-white";
-              inputNode.id = "adminDropdown1";
-              inputNode.value = "Worker-Portal";
-
-              parentDiv.appendChild(inputNode);
-
-              var profileBtn = document
-                .getElementById("profileElementDiv")
-                .classList.add("d-none");
-              var adminDropdown = document.getElementById("adminDropdown1");
-              adminDropdown.addEventListener("click", function () {
-                window.location.assign("/worker-portal.html");
-              });
-            }
-
-          });
-        });
-
-
       // ads carousel-sliders
       let r = 0;
       db.collection("Ad-slides")
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
+
             document.getElementById("orderedSlides").innerHTML += `<li
               data-target="#carouselAdsIndicators"
               data-slide-to="${r}"

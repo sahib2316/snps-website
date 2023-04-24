@@ -254,11 +254,45 @@
     </div>
     <!-- End Vacancies -->
 
-    <!-- Vacancy Modal -->
-    <div id="vacancyModal">
-      <!-- vacancy modal goes here -->
-    </div>
-    <!-- End Vacancy Modal -->
+    <hr class="bg-light separator" />
+
+    <!-- Private Jobs -->
+    <section>
+      <div class="container-fluid px-0 mt-5">
+        <div class="my-3"></div>
+        <div class="jumbotron py-4 my-4">
+          <div class="container-fluid">
+            <div class="row text-center py-4">
+              <div class="col-md-6 mb-3 text-light">
+                <h1 class="mb-3 text-center my-5">Private Jobs</h1>
+                <h4 class="headingCol mb-5">
+                  Browse through the vacancies available in the private section.
+                </h4>
+                <h4 class="headingCol">
+                  See for yourself and apply for as many companies as you can.
+                </h4>
+              </div>
+              <div class="col-md-6 mb-3 text-light">
+                <h4 class="my-3">Click on the icon</h4>
+                <img
+                  class="rounded-circle"
+                  src="https://source.unsplash.com/random/?employment+jobs"
+                  id="privateJobs"
+                  alt="Card image cap"
+                  width="360px"
+                  height="360px"
+                  onClick="privateJobs()"
+                />
+                <h4 class="my-3">to view jobs</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--End Private Jobs -->
+
+    <hr class="bg-light separator" />
 
     <!-- Register Worker -->
 
@@ -540,7 +574,7 @@
                               </p>
                               <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy-${
                                 doc.id
-                              }">Apply</a>
+                              }-${doc.data().vacancy}">Apply</a>
                             </div>
                             <div class="card-footer text-light bg-dark">Total Vacancies Available: <strong class="text-light">${
                               doc.data().totalVacancies
@@ -556,137 +590,157 @@
               document
                 .getElementById(button.id)
                 .addEventListener("click", async function () {
-                  const docId = button.id.split("-")[1];
-                  await console.log(docId);
+                  const appliedVacancy = button.id.split("-")[2];
+                  await console.log(appliedVacancy);
 
-                  let child = document.createElement("div");
-                  child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-
-                  <div class="form-group">
-                    <label for="formGroupExampleInput">Name</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput1">Phone</label>
-                    <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
-                  </div>
-                  <div class="form-group">
-                    <label for="formGroupExampleInput2">City</label>
-                    <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
-                  </div>
-
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" id=
-                        "newClose" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>`;
-                  let parent = document.getElementById("vacancyModal");
-
-                  await parent.appendChild(child);
-
-                  let exampleModalNode =
-                    document.getElementById("exampleModal");
-
-                  function closeModal() {
-                    exampleModalNode.classList.remove("show");
-                    exampleModalNode.classList.add("hide");
-                    exampleModalNode.style.display = "none";
-                  }
-
-                  // conditioning for logged in and a random user
-                  var userLocal = JSON.parse(localStorage.getItem("userData"));
-
-                  if (userLocal) {
-                    // console.log("correct if statement");
-                    let objLocal = {
-                      name: JSON.parse(localStorage.getItem("userData"))[
-                        "Name"
-                      ],
-                      phone: JSON.parse(localStorage.getItem("userData"))[
-                        "Mobile"
-                      ],
-                      city: JSON.parse(localStorage.getItem("userData"))[
-                        "City"
-                      ],
-                    };
-
-                    db.collection("Vacancy-Workers")
-                      .doc(
-                        JSON.parse(localStorage.getItem("userData"))["Mobile"]
-                      )
-                      .set(objLocal)
-                      .then(function () {
-                        closeModal();
+                  const url = `http://127.0.0.1:5500/vacancy-details.html?vacancy=${appliedVacancy}`;
+                  let flag = false;
+                  db.collection("Workers")
+                    .get()
+                    .then(function (querySnapshot) {
+                      for (const doc of querySnapshot.docs) {
+                        if (doc.data().service === appliedVacancy) {
+                          console.log(doc.data());
+                          flag = true;
+                        }
+                      }
+                      if (flag) {
+                        window.location.assign(url);
+                      } else {
                         alert(
-                          "You have successfully applied for a vacancy. We will contact you soon."
+                          "Sorry, there are no workers availabe for the selected service at the moment."
                         );
-                      });
-                  } else {
-                    exampleModalNode.classList.remove("hide");
-                    exampleModalNode.classList.add("show");
-                    // document.getElementsByTagName("body")[0].classList.add("modal-open");
-                    exampleModalNode.style.display = "block";
+                      }
+                    });
 
-                    document
-                      .getElementById("saveData")
-                      .addEventListener("click", function () {
-                        var nameInput = document.getElementById(
-                          "formGroupExampleInput"
-                        ).value;
-                        var phoneInput = document.getElementById(
-                          "formGroupExampleInput1"
-                        ).value;
-                        var cityInput = document.getElementById(
-                          "formGroupExampleInput2"
-                        ).value;
+                  //       let child = document.createElement("div");
+                  //       child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  //       <div class="modal-dialog" role="document">
+                  //         <div class="modal-content">
+                  //           <div class="modal-header">
+                  //             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                  //             <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
+                  //               <span aria-hidden="true">&times;</span>
+                  //             </button>
+                  //           </div>
+                  //           <div class="modal-body">
 
-                        console.log(
-                          nameInput + "," + phoneInput + "," + cityInput
-                        );
+                  //       <div class="form-group">
+                  //         <label for="formGroupExampleInput">Name</label>
+                  //         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                  //       </div>
+                  //       <div class="form-group">
+                  //         <label for="formGroupExampleInput1">Phone</label>
+                  //         <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
+                  //       </div>
+                  //       <div class="form-group">
+                  //         <label for="formGroupExampleInput2">City</label>
+                  //         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
+                  //       </div>
 
-                        let obj = {
-                          name: nameInput,
-                          phone: phoneInput,
-                          city: cityInput,
-                        };
+                  //           </div>
+                  //           <div class="modal-footer">
+                  //             <button type="button" class="btn btn-secondary" id=
+                  //             "newClose" data-dismiss="modal">Close</button>
+                  //             <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
+                  //           </div>
+                  //         </div>
+                  //       </div>
+                  //     </div>`;
+                  //       let parent = document.getElementById("vacancyModal");
 
-                        db.collection("Vacancy-Workers")
-                          .doc(phoneInput)
-                          .set(obj)
-                          .then(function () {
-                            alert(
-                              "You have successfully applied for a vacancy. We will contact you soon."
-                            );
-                            closeModal();
-                          });
-                      });
+                  //       await parent.appendChild(child);
 
-                    document
-                      .getElementById("offerModalCloseBtn")
-                      .addEventListener("click", () => {
-                        closeModal();
-                      });
+                  //       let exampleModalNode =
+                  //         document.getElementById("exampleModal");
 
-                    document
-                      .getElementById("newClose")
-                      .addEventListener("click", () => {
-                        closeModal();
-                      });
-                  }
-                  // End conditioning for logged-in and a logged-out user
+                  //       function closeModal() {
+                  //         exampleModalNode.classList.remove("show");
+                  //         exampleModalNode.classList.add("hide");
+                  //         exampleModalNode.style.display = "none";
+                  //       }
+
+                  //       // conditioning for logged in and a random user
+                  //       var userLocal = JSON.parse(localStorage.getItem("userData"));
+
+                  //       if (userLocal) {
+                  //         // console.log("correct if statement");
+                  //         let objLocal = {
+                  //           name: JSON.parse(localStorage.getItem("userData"))[
+                  //             "Name"
+                  //           ],
+                  //           phone: JSON.parse(localStorage.getItem("userData"))[
+                  //             "Mobile"
+                  //           ],
+                  //           city: JSON.parse(localStorage.getItem("userData"))[
+                  //             "City"
+                  //           ],
+                  //         };
+
+                  //         db.collection("Vacancy-Workers")
+                  //           .doc(
+                  //             JSON.parse(localStorage.getItem("userData"))["Mobile"]
+                  //           )
+                  //           .set(objLocal)
+                  //           .then(function () {
+                  //             closeModal();
+                  //             alert(
+                  //               "You have successfully applied for a vacancy. We will contact you soon."
+                  //             );
+                  //           });
+                  //       } else {
+                  //         exampleModalNode.classList.remove("hide");
+                  //         exampleModalNode.classList.add("show");
+                  //         // document.getElementsByTagName("body")[0].classList.add("modal-open");
+                  //         exampleModalNode.style.display = "block";
+
+                  //         document
+                  //           .getElementById("saveData")
+                  //           .addEventListener("click", function () {
+                  //             var nameInput = document.getElementById(
+                  //               "formGroupExampleInput"
+                  //             ).value;
+                  //             var phoneInput = document.getElementById(
+                  //               "formGroupExampleInput1"
+                  //             ).value;
+                  //             var cityInput = document.getElementById(
+                  //               "formGroupExampleInput2"
+                  //             ).value;
+
+                  //             console.log(
+                  //               nameInput + "," + phoneInput + "," + cityInput
+                  //             );
+
+                  //             let obj = {
+                  //               name: nameInput,
+                  //               phone: phoneInput,
+                  //               city: cityInput,
+                  //             };
+
+                  //             db.collection("Vacancy-Workers")
+                  //               .doc(phoneInput)
+                  //               .set(obj)
+                  //               .then(function () {
+                  //                 alert(
+                  //                   "You have successfully applied for a vacancy. We will contact you soon."
+                  //                 );
+                  //                 closeModal();
+                  //               });
+                  //           });
+
+                  //         document
+                  //           .getElementById("offerModalCloseBtn")
+                  //           .addEventListener("click", () => {
+                  //             closeModal();
+                  //           });
+
+                  //         document
+                  //           .getElementById("newClose")
+                  //           .addEventListener("click", () => {
+                  //             closeModal();
+                  //           });
+                  //       }
+                  //       // End conditioning for logged-in and a logged-out user
                 });
             });
         });
@@ -730,6 +784,10 @@
     });
 
     // End Vacant cards
+
+    function privateJobs() {
+      window.location.assign("./private-jobs.html");
+    }
   </script>
   <!-- Ending imports -->
 

@@ -1,11 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import "./myComponent";
+import ReactDOM from "react-dom";
+import MyComponent from "./MyComponent";
 
-const root = ReactDOM.createRoot(document.getElementById("intro-react"));
-root.render(
-  <React.StrictMode>
-    <myComponent />
-  </React.StrictMode>
-);
+ReactDOM.render(<MyComponent />, document.getElementById("intro-react"));

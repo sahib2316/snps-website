@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workers</title>
+    <title>Private Jobs</title>
 
     <link 
       rel="stylesheet"
@@ -93,7 +93,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +102,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -120,7 +120,7 @@
                 <span id="name-headerTxt"> Hi, </span>
               </button>
               <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-               <div id="profileElementDiv">
+                <div id="profileElementDiv">
                   <input
                     type="button"
                     class="btn btn-outline-dark btn-block text-white"
@@ -166,34 +166,64 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+            
             </script>
           </form>
         </div>
       </nav>
     </header>
 
+    <!-- Vacancy Modal -->
+    <div id="vacancyModal">
+      <!-- vacancy modal goes here -->
+    </div>
+    <!-- End Vacancy Modal -->
+
     <!-- Worker options -->
     <div class="container-fluid">
       <div class="row">
-         <div class="col-md-12 my-5 text-light" id="workerTitle">
+         <div class="col-md-12 my-5 text-light" id="companyHeading">
         <!-- TITLE is written with javascript -->
       </div>
 
       <div class="col-md-12 mb-3 ratings-chudaap">
-        <h1>Select Service Here</h1>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-outline-danger dropdown-toggle"
-            id="filterBtn"
+            class="btn btn-danger dropdown-toggle"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
             >
-            Filter Services
+            Ratings
           </button>
-          <div class="dropdown-menu" id="filterDropdown">
-            <!-- Filter Dropdown is here -->
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </div>
       </div>
@@ -202,7 +232,7 @@
 
 <div class="col-md-12 my-5">
   <div class="container-fluid">
-    <div class="row ml-0 mb-5" id="first">
+    <div class="row ml-0 mb-5" id="companyCards">
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
@@ -228,53 +258,38 @@
 
           const db = firebase.firestore();
 
-          // JavaScript code
-          const urlParams = new URLSearchParams(window.location.search);
-          const selectedInput = urlParams.get("selectedInput");
-          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedInput}`;
-          // Use the query URL to fetch data or perform other actions
+          // // JavaScript code
+          // const urlParams = new URLSearchParams(window.location.search);
+          // const appliedVacancy = urlParams.get("vacancy");
+          // const queryUrl = `http://127.0.0.1:5500/vacancy-details.html?q=${appliedVacancy} `;
+          // // Use the query URL to fetch data or perform other actions
 
-          document.addEventListener("DOMContentLoaded", async function () {
-            
-              await db.collection("Categories").get().then(function (que) {
-que.forEach(function (docs) {
-  let filterDropdown = document.getElementById("filterDropdown");
-  // console.log(docs.data().Services.length);
+          document.addEventListener("DOMContentLoaded", function (e) {
 
-            for (let i=0; i<docs.data().Services.length; i++) {
-filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
-            }
-})
-            })
-
-           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
-              console.log(item.id);
-            item.addEventListener("click", function () {
-              const docId = item.id.split("-")[1];
-              console.log(docId); 
-
-let s=0;
-            db.collection("Workers")
+            let s=0;
+            db.collection("Vacancies")
               .get()
               .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+                querySnapshot.forEach(async function (doc) {
 
-                  if (doc.data().city === selectedInput && doc.data().service === docId) {
+                  if (doc.data().vacancy === "Private Jobs") {
+console.log(doc.id, " => ", doc.data());
 if (s<1) {
-document.getElementById("workerTitle").innerHTML += `
-                  <h2 class="text-danger" >Available ${selectedInput} Workers</h2>
+document.getElementById("companyHeading").innerHTML += `
+                  <h2> Private Job Companies </h2>
                   `;
                   s++;
 }
 
-document.getElementById("first").innerHTML += `
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
+document.getElementById("companyCards").innerHTML += `
 <div class="col-sm-6 marginBottom">
                   <div class="row workerCards mb-3" >
           <div class="col-sm-6 p-0" >
             <div class="card amendCard" >
               <img
                 class="card-img-top"
-                src="https://source.unsplash.com/random/?${doc.data().category}+${selectedInput}"
+                src="https://source.unsplash.com/random/?employment+jobs"
                 alt="Card image cap"
                 width=""
                 height=""
@@ -282,54 +297,220 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <h1 class="m-0">${doc.data().companyDetails[i].company}</h1>
+            <h4 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h4>
+            <h4> Eligibility: ${doc.data().companyDetails[i].eligibility}</h4>
+            <h3> Salary: ${doc.data().companyDetails[i].salary}</h3>
+            <button class="btn btn-outline-light applyJob" id="applyJob-${doc.id}"><strong>Apply For This Job</strong></button>
           </div>
         </div>
       </div>            `;
-                   }
-                  // else {
-                  //   document.getElementById("first").innerHTML = 
-                  //   `<h1>Sorry there are no workers for this service in ${doc.data().city}</h1>`;
-                  // }
+
+      if (!doc.data().companyDetails) {
+                    document.getElementById("companyCards").innerHTML = 
+                    `<h2 class="text-light">No Vacancies in Private Jobs available at present.</h2>`;
+                  }
+ 
+}
+                  }
+
+                  
 
                 });
 
-document.querySelectorAll(".bookWorker").forEach(function (button) {
+document.querySelectorAll(".applyJob").forEach(function (button) {
 button.addEventListener("click", function () {
   const docId = button.id.split("-")[1];
-  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
-//  console.log(doc.data());
-// console.log(JSON.parse(localStorage.getItem("userId")));
+//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+//  console.log(docId);
+//  console.log(JSON.parse(localStorage.getItem("userId")));
 
-  let obj = {
-name: doc.data().name,
-phone: doc.data().phone,
-service: doc.data().service,
-address: doc.data().address,
-userId: JSON.parse(localStorage.getItem("userId")),
-  }
+//   let obj = {
+// name: doc.data().name,
+// phone: doc.data().phone,
+// service: doc.data().service,
+// address: doc.data().address,
+// userId: JSON.parse(localStorage.getItem("userId")),
+//   }
 
-     db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
-alert("success");
-     });
+//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+// alert("success");
+//      });
 
-  });
+//});
+
+      let child = document.createElement("div");
+                        child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Name</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput1">Phone</label>
+                          <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput2">City</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
+                        </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" id=
+                              "newClose" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`;
+                        let parent = document.getElementById("vacancyModal");
+
+                         parent.appendChild(child);
+
+                        let exampleModalNode =
+                          document.getElementById("exampleModal");
+
+                        function closeModal() {
+                          exampleModalNode.classList.remove("show");
+                          exampleModalNode.classList.add("hide");
+                          exampleModalNode.style.display = "none";
+                        }
+
+                        // conditioning for logged in and a random user
+                        var userLocal = JSON.parse(localStorage.getItem("userData"));
+
+                        if (userLocal) {
+                          // console.log("correct if statement");
+                          let objLocal = {
+                            name: JSON.parse(localStorage.getItem("userData"))[
+                              "Name"
+                            ],
+                            phone: JSON.parse(localStorage.getItem("userData"))[
+                              "Mobile"
+                            ],
+                            city: JSON.parse(localStorage.getItem("userData"))[
+                              "City"
+                            ],
+                          };
+
+                          db.collection("Private-job Volunteers")
+                            .doc(
+                              JSON.parse(localStorage.getItem("userData"))["Mobile"]
+                            )
+                            .set(objLocal)
+                            .then(function () {
+                              closeModal();
+                              alert(
+                                "You have successfully applied for a vacancy. We will contact you soon."
+                              );
+                            });
+                        } else {
+                          exampleModalNode.classList.remove("hide");
+                          exampleModalNode.classList.add("show");
+                          // document.getElementsByTagName("body")[0].classList.add("modal-open");
+                          exampleModalNode.style.display = "block";
+
+                          document
+                            .getElementById("saveData")
+                            .addEventListener("click", function () {
+                              var nameInput = document.getElementById(
+                                "formGroupExampleInput"
+                              ).value;
+                              var phoneInput = document.getElementById(
+                                "formGroupExampleInput1"
+                              ).value;
+                              var cityInput = document.getElementById(
+                                "formGroupExampleInput2"
+                              ).value;
+
+                              console.log(
+                                nameInput + "," + phoneInput + "," + cityInput
+                              );
+
+                              let obj = {
+                                name: nameInput,
+                                phone: phoneInput,
+                                city: cityInput,
+                              };
+
+                              db.collection("Private-job Volunteers")
+                                .doc(phoneInput)
+                                .set(obj)
+                                .then(function () {
+                                  alert(
+                                    "You have successfully applied for a Job. We will contact you soon."
+                                  );
+                                  closeModal();
+                                });
+                            });
+
+                          document
+                            .getElementById("offerModalCloseBtn")
+                            .addEventListener("click", () => {
+                              closeModal();
+                            });
+
+                          document
+                            .getElementById("newClose")
+                            .addEventListener("click", () => {
+                              closeModal();
+                            });
+                        }
+                        // End conditioning for logged-in and a logged-out user
+             
 
 });
 });
 
               });
 
-            })
-            });
-          });
+        //       db.collection("Workers")
+        // .get()
+        // .then(function (querySnapshot) {
+        //   querySnapshot.forEach(function (doc) {
+        //     if (
+        //       JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+        //       doc.data().name ===
+        //         JSON.parse(localStorage.getItem("userData"))["Name"] &&
+        //       doc.data().phone ===
+        //         JSON.parse(localStorage.getItem("userData"))["Mobile"]
+        //     ) {
+        //       document.getElementById("profileElementDiv").style.display =
+        //         "none";
 
-          // document.getElementById("filterBtn").addEventListener("click", function () {
-           
-          // })
+        //          const parentDiv = document.getElementById("parentDiv");
+
+        //       const inputNode = document.createElement("input");
+        //       inputNode.type = "button";
+        //       inputNode.className = "btn btn-outline-dark btn-block text-white";
+        //       inputNode.id = "adminDropdown1";
+        //       inputNode.value = "Worker-Portal";
+
+        //       parentDiv.appendChild(inputNode);
+
+        //       var profileBtn = document
+        //         .getElementById("profileElementDiv")
+        //         .classList.add("d-none");
+        //       var adminDropdown = document.getElementById("adminDropdown1");
+        //       adminDropdown.addEventListener("click", function () {
+        //         window.location.assign("/worker-portal.html");
+        //       });
+        //     }
+
+        //   });
+        // });
+
+          });
 
            logoutDropdown.addEventListener("click", (e) => {
       var logoutButton = document
@@ -446,49 +627,14 @@ alert("success");
 
   <script >
     document.addEventListener("DOMContentLoaded", function () {
-db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            if (
-              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
-              doc.data().name ===
-                JSON.parse(localStorage.getItem("userData"))["Name"] &&
-              doc.data().phone ===
-                JSON.parse(localStorage.getItem("userData"))["Mobile"]
-            ) {
-              document.getElementById("profileElementDiv").style.display =
-                "none";
-
-                 const parentDiv = document.getElementById("parentDiv");
-
-              const inputNode = document.createElement("input");
-              inputNode.type = "button";
-              inputNode.className = "btn btn-outline-dark btn-block text-white";
-              inputNode.id = "adminDropdown1";
-              inputNode.value = "Worker-Portal";
-
-              parentDiv.appendChild(inputNode);
-
-              var profileBtn = document
-                .getElementById("profileElementDiv")
-                .classList.add("d-none");
-              var adminDropdown = document.getElementById("adminDropdown1");
-              adminDropdown.addEventListener("click", function () {
-                window.location.assign("/worker-portal.html");
-              });
-            }
-
-          });
-        });
-
-
       // ads carousel-sliders
       let r = 0;
       db.collection("Ad-slides")
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
+
             document.getElementById("orderedSlides").innerHTML += `<li
               data-target="#carouselAdsIndicators"
               data-slide-to="${r}"

@@ -5,12 +5,6 @@ import { useState } from "react";
 // import { ReactDOM } from "react";
 
 export default function MyComponent(props) {
-  // document.getElementById("logoUrl").value;
-  // document.getElementById("urlName").value;
-  // obj = {
-  //   url: document.getElementById("logoUrl").value;
-  //   unique: document.getElementById("urlName").value;
-  // };
   const [logoUrl, setLogoUrl] = useState("");
 
   const [uniqueName, setUniqueName] = useState("");
@@ -32,12 +26,12 @@ export default function MyComponent(props) {
     // });
 
     const websiteLogo = {
-      url: logoUrl,
+      url: "./assets/images/" + logoUrl,
       unique: uniqueName,
     };
 
     db.collection("WebsiteLogo")
-      .doc()
+      .doc("WebsiteLogo")
       .set(websiteLogo)
       .then(function (querySnapshot) {
         alert("successful till here");
@@ -67,8 +61,9 @@ export default function MyComponent(props) {
                 className="btn btn-primary ml-5"
                 id="add-logo"
                 onClick={addWebsiteLogo}
-              />
-              <i className="fa-solid fa-circle-plus"></i>
+              >
+                <i className="fa-solid fa-circle-plus"></i>
+              </button>
             </h5>
           </div>
           {/* <!-- End label div --> */}

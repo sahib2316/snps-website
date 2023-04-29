@@ -297,11 +297,12 @@ document.getElementById("companyCards").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().companyDetails[i].company}</h1>
-            <h4 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h4>
-            <h4> Eligibility: ${doc.data().companyDetails[i].eligibility}</h4>
-            <h3> Salary: ${doc.data().companyDetails[i].salary}</h3>
-            <button class="btn btn-outline-light applyJob" id="applyJob-${doc.id}"><strong>Apply For This Job</strong></button>
+            <h3 class="m-0"><strong>${doc.data().companyDetails[i].company}</strong></h3>
+            <h6 class="extraIcon mb-0"><i class="fa-solid fa-phone px-2"  style="font-size: 0.7em;"></i>${doc.data().companyDetails[i].phone}</h6>
+            <h5 class="mb-0"><strong>Position:</strong> ${doc.data().companyDetails[i].position}</h5>
+            <h5 class="my-0"> <strong>Eligibility:</strong> ${doc.data().companyDetails[i].eligibility}</h5>
+            <h5> <strong>Salary:</strong> ${doc.data().companyDetails[i].salary}</h5>
+            <button class="btn btn-outline-light applyJob" id="applyJob_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}"><strong>Apply For This Job</strong></button>
           </div>
         </div>
       </div>            `;
@@ -319,8 +320,15 @@ document.getElementById("companyCards").innerHTML += `
                 });
 
 document.querySelectorAll(".applyJob").forEach(function (button) {
-button.addEventListener("click", function () {
-  const docId = button.id.split("-")[1];
+button.addEventListener("click", async function () {
+  const companyName = await button.id.split("_")[1];
+  await console.log(companyName);
+  // await JSON.stringify(localStorage.setItem
+  // ("private-job-data", companyName));
+  const docId = await button.id.split("_")[2];
+  await console.log(docId);
+  await JSON.stringify(localStorage.setItem
+  ("private-job-data", docId + " at " + companyName));
 //   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
 //  console.log(docId);
 //  console.log(JSON.parse(localStorage.getItem("userId")));
@@ -342,14 +350,12 @@ button.addEventListener("click", function () {
       let child = document.createElement("div");
                         child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                              <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                          <div class="modal-content text-light">
+                            <div class="modal-header footerColor">
+                              <h5 class="modal-title" id="exampleModalLabel">Fill Your Details</h5>
+                              
                             </div>
-                            <div class="modal-body">
+                            <div class="modal-body footerColor">
 
                         <div class="form-group">
                           <label for="formGroupExampleInput">Name</label>
@@ -363,9 +369,13 @@ button.addEventListener("click", function () {
                           <label for="formGroupExampleInput2">City</label>
                           <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
                         </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput3">Position</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Position">
+                        </div>
 
                             </div>
-                            <div class="modal-footer">
+                            <div class="modal-footer footerColor">
                               <button type="button" class="btn btn-secondary" id=
                               "newClose" data-dismiss="modal">Close</button>
                               <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
@@ -401,6 +411,7 @@ button.addEventListener("click", function () {
                             city: JSON.parse(localStorage.getItem("userData"))[
                               "City"
                             ],
+                            position: (localStorage.getItem("private-job-data")),
                           };
 
                           db.collection("Private-job Volunteers")
@@ -432,6 +443,9 @@ button.addEventListener("click", function () {
                               var cityInput = document.getElementById(
                                 "formGroupExampleInput2"
                               ).value;
+                              var positionInput = document.getElementById(
+                                "formGroupExampleInput3"
+                              ).value;
 
                               console.log(
                                 nameInput + "," + phoneInput + "," + cityInput
@@ -441,6 +455,7 @@ button.addEventListener("click", function () {
                                 name: nameInput,
                                 phone: phoneInput,
                                 city: cityInput,
+                                position: positionInput,
                               };
 
                               db.collection("Private-job Volunteers")
@@ -452,12 +467,6 @@ button.addEventListener("click", function () {
                                   );
                                   closeModal();
                                 });
-                            });
-
-                          document
-                            .getElementById("offerModalCloseBtn")
-                            .addEventListener("click", () => {
-                              closeModal();
                             });
 
                           document

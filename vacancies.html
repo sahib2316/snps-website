@@ -56,7 +56,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="index.html"
-              >SNPS Pvt Ltd</a
+              >SN Point Pvt Ltd</a
             >
           </div>
 
@@ -557,9 +557,11 @@
         .then(async function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // console.log(doc.id);
-            document.getElementById(
-              "vacancyRow"
-            ).innerHTML += `<div class="col-md-6">
+            if (doc.data().vacancy !== "Private Jobs") {
+              console.log("whats wrong!!??");
+              document.getElementById(
+                "vacancyRow"
+              ).innerHTML += `<div class="col-md-6">
                           <div class="card text-center text-light">
                             <div class="card-header bg-dark">Vacancy</div>
                             <div class="card-body">
@@ -581,6 +583,7 @@
                             }</strong</div>
                           </div>
                         </div>`;
+            }
           });
 
           document
@@ -612,135 +615,6 @@
                         );
                       }
                     });
-
-                  //       let child = document.createElement("div");
-                  //       child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  //       <div class="modal-dialog" role="document">
-                  //         <div class="modal-content">
-                  //           <div class="modal-header">
-                  //             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  //             <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
-                  //               <span aria-hidden="true">&times;</span>
-                  //             </button>
-                  //           </div>
-                  //           <div class="modal-body">
-
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput">Name</label>
-                  //         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
-                  //       </div>
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput1">Phone</label>
-                  //         <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
-                  //       </div>
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput2">City</label>
-                  //         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
-                  //       </div>
-
-                  //           </div>
-                  //           <div class="modal-footer">
-                  //             <button type="button" class="btn btn-secondary" id=
-                  //             "newClose" data-dismiss="modal">Close</button>
-                  //             <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
-                  //           </div>
-                  //         </div>
-                  //       </div>
-                  //     </div>`;
-                  //       let parent = document.getElementById("vacancyModal");
-
-                  //       await parent.appendChild(child);
-
-                  //       let exampleModalNode =
-                  //         document.getElementById("exampleModal");
-
-                  //       function closeModal() {
-                  //         exampleModalNode.classList.remove("show");
-                  //         exampleModalNode.classList.add("hide");
-                  //         exampleModalNode.style.display = "none";
-                  //       }
-
-                  //       // conditioning for logged in and a random user
-                  //       var userLocal = JSON.parse(localStorage.getItem("userData"));
-
-                  //       if (userLocal) {
-                  //         // console.log("correct if statement");
-                  //         let objLocal = {
-                  //           name: JSON.parse(localStorage.getItem("userData"))[
-                  //             "Name"
-                  //           ],
-                  //           phone: JSON.parse(localStorage.getItem("userData"))[
-                  //             "Mobile"
-                  //           ],
-                  //           city: JSON.parse(localStorage.getItem("userData"))[
-                  //             "City"
-                  //           ],
-                  //         };
-
-                  //         db.collection("Vacancy-Workers")
-                  //           .doc(
-                  //             JSON.parse(localStorage.getItem("userData"))["Mobile"]
-                  //           )
-                  //           .set(objLocal)
-                  //           .then(function () {
-                  //             closeModal();
-                  //             alert(
-                  //               "You have successfully applied for a vacancy. We will contact you soon."
-                  //             );
-                  //           });
-                  //       } else {
-                  //         exampleModalNode.classList.remove("hide");
-                  //         exampleModalNode.classList.add("show");
-                  //         // document.getElementsByTagName("body")[0].classList.add("modal-open");
-                  //         exampleModalNode.style.display = "block";
-
-                  //         document
-                  //           .getElementById("saveData")
-                  //           .addEventListener("click", function () {
-                  //             var nameInput = document.getElementById(
-                  //               "formGroupExampleInput"
-                  //             ).value;
-                  //             var phoneInput = document.getElementById(
-                  //               "formGroupExampleInput1"
-                  //             ).value;
-                  //             var cityInput = document.getElementById(
-                  //               "formGroupExampleInput2"
-                  //             ).value;
-
-                  //             console.log(
-                  //               nameInput + "," + phoneInput + "," + cityInput
-                  //             );
-
-                  //             let obj = {
-                  //               name: nameInput,
-                  //               phone: phoneInput,
-                  //               city: cityInput,
-                  //             };
-
-                  //             db.collection("Vacancy-Workers")
-                  //               .doc(phoneInput)
-                  //               .set(obj)
-                  //               .then(function () {
-                  //                 alert(
-                  //                   "You have successfully applied for a vacancy. We will contact you soon."
-                  //                 );
-                  //                 closeModal();
-                  //               });
-                  //           });
-
-                  //         document
-                  //           .getElementById("offerModalCloseBtn")
-                  //           .addEventListener("click", () => {
-                  //             closeModal();
-                  //           });
-
-                  //         document
-                  //           .getElementById("newClose")
-                  //           .addEventListener("click", () => {
-                  //             closeModal();
-                  //           });
-                  //       }
-                  //       // End conditioning for logged-in and a logged-out user
                 });
             });
         });

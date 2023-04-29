@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workers</title>
+    <title>Vacancy Details</title>
 
     <link 
       rel="stylesheet"
@@ -166,11 +166,38 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
             </script>
           </form>
         </div>
       </nav>
     </header>
+
+    <!-- Vacancy Modal -->
+    <div id="vacancyModal">
+      <!-- vacancy modal goes here -->
+    </div>
+    <!-- End Vacancy Modal -->
 
 
     <!-- Worker options -->
@@ -270,10 +297,10 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().companyDetails[i].company}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
-            <h3> Looking For: ${appliedVacancy}</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <h2 class="m-0">${doc.data().companyDetails[i].company}</h2>
+            <h3 class="extraIcon mt-2"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
+            <h4> Looking For: ${appliedVacancy}</h4>
+            <button class="btn btn-outline-light applyWorker" id="applyWorker_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}"><strong>Apply</strong></button>
           </div>
         </div>
       </div>            `;
@@ -286,6 +313,169 @@ document.getElementById("first").innerHTML += `
                   // }
 
                 });
+
+                document.querySelectorAll(".applyWorker").forEach(function (button) {
+button.addEventListener("click", async function () {
+  const companyName = await button.id.split("_")[1];
+  await console.log(companyName);
+  // await JSON.stringify(localStorage.setItem
+  // ("private-job-data", companyName));
+  const docId = await button.id.split("_")[2];
+  await console.log(docId);
+  await JSON.stringify(localStorage.setItem
+  ("vacancy-worker-data", docId + " at " + companyName));
+//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+//  console.log(docId);
+//  console.log(JSON.parse(localStorage.getItem("userId")));
+
+//   let obj = {
+// name: doc.data().name,
+// phone: doc.data().phone,
+// service: doc.data().service,
+// address: doc.data().address,
+// userId: JSON.parse(localStorage.getItem("userId")),
+//   }
+
+//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+// alert("success");
+//      });
+
+//});
+
+      let child = document.createElement("div");
+                        child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content text-light">
+                            <div class="modal-header footerColor">
+                              <h5 class="modal-title" id="exampleModalLabel">Fill Your Details</h5>
+                              
+                            </div>
+                            <div class="modal-body footerColor">
+
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Name</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput1">Phone</label>
+                          <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput2">City</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput3">Position</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Position">
+                        </div>
+
+                            </div>
+                            <div class="modal-footer footerColor">
+                              <button type="button" class="btn btn-secondary" id=
+                              "newClose" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`;
+                        let parent = document.getElementById("vacancyModal");
+
+                         parent.appendChild(child);
+
+                        let exampleModalNode =
+                          document.getElementById("exampleModal");
+
+                        function closeModal() {
+                          exampleModalNode.classList.remove("show");
+                          exampleModalNode.classList.add("hide");
+                          exampleModalNode.style.display = "none";
+                        }
+
+                        // conditioning for logged in and a random user
+                        var userLocal = JSON.parse(localStorage.getItem("userData"));
+
+                        if (userLocal) {
+                          // console.log("correct if statement");
+                          let objLocal = {
+                            name: JSON.parse(localStorage.getItem("userData"))[
+                              "Name"
+                            ],
+                            phone: JSON.parse(localStorage.getItem("userData"))[
+                              "Mobile"
+                            ],
+                            city: JSON.parse(localStorage.getItem("userData"))[
+                              "City"
+                            ],
+                            position: (localStorage.getItem("vacancy-worker-data")),
+                          };
+
+                          db.collection("Vacancy-Workers")
+                            .doc(
+                              JSON.parse(localStorage.getItem("userData"))["Mobile"]
+                            )
+                            .set(objLocal)
+                            .then(function () {
+                              closeModal();
+                              alert(
+                                "You have successfully applied for a vacancy. We will contact you soon."
+                              );
+                            });
+                        } else {
+                          exampleModalNode.classList.remove("hide");
+                          exampleModalNode.classList.add("show");
+                          // document.getElementsByTagName("body")[0].classList.add("modal-open");
+                          exampleModalNode.style.display = "block";
+
+                          document
+                            .getElementById("saveData")
+                            .addEventListener("click", function () {
+                              var nameInput = document.getElementById(
+                                "formGroupExampleInput"
+                              ).value;
+                              var phoneInput = document.getElementById(
+                                "formGroupExampleInput1"
+                              ).value;
+                              var cityInput = document.getElementById(
+                                "formGroupExampleInput2"
+                              ).value;
+                              var positionInput = document.getElementById(
+                                "formGroupExampleInput3"
+                              ).value;
+
+                              console.log(
+                                nameInput + "," + phoneInput + "," + cityInput
+                              );
+
+                              let obj = {
+                                name: nameInput,
+                                phone: phoneInput,
+                                city: cityInput,
+                                position: positionInput,
+                              };
+
+                              db.collection("Vacancy-Workers")
+                                .doc(phoneInput)
+                                .set(obj)
+                                .then(function () {
+                                  alert(
+                                    "You have successfully applied for a Open Vacancy In this shop. We will contact you soon."
+                                  );
+                                  closeModal();
+                                });
+                            });
+
+                          document
+                            .getElementById("newClose")
+                            .addEventListener("click", () => {
+                              closeModal();
+                            });
+                        }
+                        // End conditioning for logged-in and a logged-out user
+             
+
+});
+});
+
 
 // document.querySelectorAll(".bookWorker").forEach(function (button) {
 // button.addEventListener("click", function () {

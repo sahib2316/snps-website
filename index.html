@@ -88,40 +88,16 @@
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
             <div class="mr-3">
-              <input
-                class="form-control mr-sm-2 searchBox"
-                id="searchInput"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-
-              <button
-                class="btn btn-outline-light my-2 my-sm-0"
-                type="button"
-                onClick="searchSubmit()"
-              >
-                Search
-              </button>
+              <label for="cities_dropdown" class="text-light">
+                Search for Workers in different Cities:
+              </label>
+              <select class="marginLeft" id="cities_dropdown">
+                <!-- option is here -->
+              </select>
+              <!-- <button class="btn btn-outline-light my-2 my-sm-0" type="button">
+                Search Workers in Different Cities
+              </button> -->
             </div>
-            <!-- <script>
-              var searchInput = document.getElementById("searchInput");
-
-              searchInput.addEventListener("input", function () {
-                let filter = searchInput.value.toLowerCase();
-                let listItems = document.querySelectorAll("list-group-item");
-
-                listItems.forEach(function (item) {
-                  let text = item.textContent;
-
-                  if (text.toLocalLowerCase().includes(filter)) {
-                    item.style.display = "";
-                  } else {
-                    item.style.display = "none";
-                  }
-                });
-              });
-            </script> -->
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -460,7 +436,7 @@
               <input type="text" class="form-control" id="inputCity" required />
             </div>
             <div class="form-group col-md-6">
-              <label for="inputZip">ZipCode</label>
+              <label for="inputZip">Pincode</label>
               <input type="number" class="form-control" id="inputZip" />
             </div>
           </div>
@@ -604,7 +580,7 @@
       <!-- Copyright -->
       <div class="footer-copyright text-center text-white py-3">
         &copy;
-        <a href="/" class="text-light"> SNPS Pvt. Ltd</a>
+        <a href="/" class="text-light"> SN Point Pvt. Ltd</a>
         All rights reserved.
       </div>
       <!-- Copyright -->
@@ -616,9 +592,16 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
-
+  <script type="text/javascript" src="indian_cities.js"></script>
   <script>
     // Your web app's Firebase configuration
+    // console.log(cities);
+    // cities.map(
+    //   (city) =>
+    //     (document.getElementById(
+    //       "cities_dropdown"
+    //     ).innerHTML += `<option value='${city}'>${city}</option>`)
+    // );
     const firebaseConfig = {
       apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
       authDomain: "projectdb-402ec.firebaseapp.com",
@@ -632,38 +615,71 @@
 
     const db = firebase.firestore();
 
-    function searchSubmit() {
-      let searchInput = document.getElementById("searchInput");
-      const selectedInput = searchInput.value;
-      // console.log(selectedOption);
-      const url = `http://127.0.0.1:5500/search-workers.html?selectedInput=${selectedInput}`;
-      let flag = false;
+    document.addEventListener("DOMContentLoaded", (e) => {
+      var uniqueCities = new Set(); // maintain a set of unique cities
+
+      let t = 0;
+      if (t === 0) {
+        document.getElementById(
+          "cities_dropdown"
+        ).innerHTML += `<option class="font-weight-bold" value="Choose City">Choose City</option>`;
+        t++;
+      }
+
+      let v = 0;
       db.collection("Workers")
         .get()
         .then(function (querySnapshot) {
-          for (const doc of querySnapshot.docs) {
-            if (doc.data().city === selectedInput) {
-              console.log(doc.data());
-              flag = true;
+          for (const [idx, doc] of querySnapshot.docs.entries()) {
+            // var cityDrop = document.getElementById("cities_dropdown")[0].value;
+
+            if (!uniqueCities.has(doc.data().city)) {
+              // check if city is already fetched
+              uniqueCities.add(doc.data().city); // add city to set
+
+              document.getElementById(
+                "cities_dropdown"
+              ).innerHTML += `<option value="${doc.data().city}">${
+                doc.data().city
+              }</option>`;
+
+              document
+                .getElementById("cities_dropdown")
+                .addEventListener("change", function (city) {
+                  console.log(city.target.value);
+                  var selectedCity = city.target.value;
+
+                  const url = `http://127.0.0.1:5500/search-workers.html?city=${selectedCity}`;
+                  let flag = false;
+                  db.collection("Workers")
+                    .get()
+                    .then(function (querySnapshot) {
+                      for (const doc of querySnapshot.docs) {
+                        if (doc.data().city === selectedCity) {
+                          console.log(doc.data());
+                          flag = true;
+                        }
+                      }
+                      if (flag) {
+                        window.location.assign(url);
+                      } else {
+                        alert(
+                          "Sorry, there are no workers availabe for the selected service at the moment."
+                        );
+                      }
+                    });
+                });
             }
           }
-          if (flag) {
-            window.location.assign(url);
-          } else {
-            alert(
-              "Sorry, there are no workers availabe for the selected service at the moment."
-            );
-          }
         });
-    }
 
-    document.addEventListener("DOMContentLoaded", (e) => {
       db.collection("WebsiteLogo")
         .get()
         .then(function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             document.getElementById("logoImg").src = `${doc.data().url}`;
           });
+          console.log(document.getElementById("logoImg").src);
         });
 
       db.collection("Workers")
@@ -816,7 +832,7 @@
       var inputAddress = document.getElementById("inputAddress").value;
       var inputService = document.getElementById("inputService").value;
       var inputCity = document.getElementById("inputCity").value;
-      var inputZip = document.getElementById("inputZip").value;
+      var inputPin = document.getElementById("inputZip").value;
 
       let obj = {
         name: inputName,
@@ -824,7 +840,7 @@
         address: inputAddress,
         service: inputService,
         city: inputCity,
-        zip: inputZip,
+        pinCode: inputPin,
       };
 
       db.collection("New Registerations")
@@ -839,7 +855,7 @@
           inputAddress = "";
           inputService = "";
           inputCity = "";
-          inputZip = "";
+          inputPin = "";
         });
 
       // document.getElementById("register-form").classList.add("separator-both");
@@ -852,22 +868,6 @@
 
       // localStorage.setItem("New Registration", JSON.stringify(obj));
     }
-
-    // function searchSubmit() {
-    //   db.collection("Workers")
-    //     .get()
-    //     .then(function (querySnapshot) {
-    //       querySnapshot.forEach(function (doc) {
-    //         // here we can loop through the search results from the workers' city of residence
-    //         var searchInput = document.getElementById("searchInput").value;
-
-    //         // console.log(doc.data());
-    //         if (searchInput == doc.data().city) {
-    //           console.log(doc.id);
-    //         }
-    //       });
-    //     });
-    // }
 
     document.addEventListener("DOMContentLoaded", async function () {
       db.collection("Workers")

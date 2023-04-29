@@ -277,7 +277,7 @@ signUp.addEventListener("click", (e) => {
   var password = document.getElementById("validationCustom03").value;
   var address = document.getElementById("validationCustom04").value;
   var city = document.getElementById("validationCustom05").value;
-  var zipCode = document.getElementById("validationCustom06").value;
+  var pinCode = document.getElementById("validationCustom06").value;
 
   firebase.auth().createUserWithEmailAndPassword( email, password)
     .then((userCredential) => {
@@ -289,7 +289,7 @@ signUp.addEventListener("click", (e) => {
       Mobile: mobile,
       Address: address,
       City: city,
-      ZipCode: zipCode,
+      PinCode: pinCode,
       role:""
     };
           const db = firebase.firestore();

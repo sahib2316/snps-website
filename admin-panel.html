@@ -330,10 +330,12 @@
      </div>
     <!-- End Vacancy Worker Cards -->
 
+    <hr class="separator mb-5 borderCustom">
+
     <!-- New Vacancy -->
       <div class="container pl-0 ">
       <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
-      <h3>New Vacancy</h3>
+      <h3>Set Private-Jobs Vacancy Details</h3>
       <hr />
 
 <div class="container text-center d-flex flex-column border-flex bg-secondary p-2 py-0">
@@ -387,11 +389,19 @@
         </div>
       </div>
     </div>
- 
- 
 
       <div class="container">
 <div class="d-flex ">
+  <!-- position -->
+        <div class="flex-grow-1 form-group mt-2 mr-3 mx-3">
+          <div class="">
+            <label class="" for="position"><strong>Position</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="position" id="position">
+          </div>
+        </div>
+        <!-- end position -->
         <!-- eligibility -->
         <div class="flex-grow-1 form-group mt-2 mr-3 mx-3">
           <div class="">
@@ -419,6 +429,16 @@
     </div>
   </div>
     <!-- End New Vacancy -->
+
+    <!-- Private-Job Volunteers -->
+    
+    <div class="container my-5">
+      <h2 class="mb-5">Applicants for private Jobs</h2>
+      <div class="row" id="private-job-cards" >
+        <!-- script -->
+      </div>
+    </div>
+    <!-- End Private-Job Volunteers -->
     
     <hr class="separator borderCustom">
 
@@ -493,7 +513,7 @@
     <!-- Offer Cards-->
       <div class="container my-5">
         <div class="row" id="offerRow">
-      
+      <!-- script here -->
         </div>
       </div>
     <!-- End Offer Cards -->
@@ -848,12 +868,14 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
   var vacancyDropdown = document.getElementById("vacancy-type-dropdown").value;
   var company = document.getElementById("company").value;
   var phone = document.getElementById("phoneDetail").value;
+  var position = document.getElementById("position").value
   var eligibility = document.getElementById("eligibility").value;
   var salary = document.getElementById("salary").value;
 
   companyDetails.push({
     company: company,
     phone: phone,
+    position: position,
     eligibility: eligibility,
     salary: salary,
   });
@@ -928,7 +950,8 @@ await db.collection("Vacancy-Workers").get().then(async function (querySnapshot)
   <div class="card-body">
     <h5 class="card-title">Name: ${doc.data().name}</h5>
     <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
-    <p class="card-text">City: ${doc.data().city}</p>
+    <h6 class="card-subtitle mb-2 text-muted">City: ${doc.data().city}</h6>
+    <p class="card-text">Position: ${doc.data().position}</p>
     <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call</button>
   </div>
 </div>`;
@@ -939,7 +962,7 @@ await db.collection("Vacancy-Workers").get().then(async function (querySnapshot)
 // End Vacancy Workers
 });
 
-
+ 
  document.addEventListener("DOMContentLoaded", function () {
 
 db.collection("New Registerations").get().then(async function (querySnapshot) {
@@ -1117,6 +1140,21 @@ window.location.reload();
 });
 
 document.addEventListener("DOMContentLoaded", async function () {
+
+await db.collection("Private-job Volunteers").get().then(function (querySnapshot) {
+  querySnapshot.forEach(function (doc) {
+document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3 borderCustom" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">${doc.data().name}</h5>
+    <h6 class="card-subtitle mb-2">${doc.data().phone}</h6>
+    <h6 class="card-subtitle mb-2">${doc.data().city}</h6>
+    <p class="card-text">${doc.data().position}, For Company: <strong>${doc.data().position}</strong></p>
+    <button class="btn btn-danger deleteOffer" id="deleteOffer-${doc.id}"  >Delete</button>
+  </div>
+          </div>`;
+  })
+})
+
   await db.collection("Offers").get().then(function (querySnapshot) {
   for(const [idx,doc] of querySnapshot.docs.entries()){
    // console.log(doc.id);

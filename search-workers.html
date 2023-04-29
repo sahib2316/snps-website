@@ -93,7 +93,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +102,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -230,8 +230,8 @@
 
           // JavaScript code
           const urlParams = new URLSearchParams(window.location.search);
-          const selectedInput = urlParams.get("selectedInput");
-          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedInput}`;
+          const selectCity = urlParams.get("city");
+          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectCity}`;
           // Use the query URL to fetch data or perform other actions
 
           document.addEventListener("DOMContentLoaded", async function () {
@@ -242,39 +242,83 @@ que.forEach(function (docs) {
   // console.log(docs.data().Services.length);
 
             for (let i=0; i<docs.data().Services.length; i++) {
-filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
+filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
             }
 })
             })
 
-           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
-              console.log(item.id);
-            item.addEventListener("click", function () {
-              const docId = item.id.split("-")[1];
-              console.log(docId); 
-
-let s=0;
+            let s=0;
             db.collection("Workers")
               .get()
               .then(function (querySnapshot) {
                 querySnapshot.forEach(function (doc) {
+                  // console.log(document.getElementById("first").value + "e");
 
-                  if (doc.data().city === selectedInput && doc.data().service === docId) {
 if (s<1) {
 document.getElementById("workerTitle").innerHTML += `
-                  <h2 class="text-danger" >Available ${selectedInput} Workers</h2>
+                  <h2 class="text-danger" >Available ${selectCity} Workers</h2>
                   `;
                   s++;
 }
-
-document.getElementById("first").innerHTML += `
+            if (doc.data().city === selectCity) {
+                    document.getElementById("first").innerHTML += `
 <div class="col-sm-6 marginBottom">
                   <div class="row workerCards mb-3" >
           <div class="col-sm-6 p-0" >
             <div class="card amendCard" >
               <img
                 class="card-img-top"
-                src="https://source.unsplash.com/random/?${doc.data().category}+${selectedInput}"
+                src="https://source.unsplash.com/random/?${doc.data().category}+${selectCity}"
+                alt="Card image cap"
+                width=""
+                height=""
+              />
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
+            <h2 class="m-0">${doc.data().name}</h2>
+            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
+            <h3>${doc.data().service} (${doc.data().category})</h3>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+          </div>
+        </div>
+      </div>            `;
+
+                  }
+
+                })
+              })
+
+
+           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
+              console.log(item.id);
+            item.addEventListener("click", function () {
+              const docId = item.id.split("_")[1];
+              console.log(docId); 
+
+let o=0;
+            db.collection("Workers")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                  // console.log(document.getElementById("first").value + "e");
+
+                  if (doc.data().city === selectCity && doc.data().service === docId) {
+if (o<1) {
+document.getElementById("workerTitle").innerHTML = `
+                  <h2 class="text-danger" >Available ${selectCity} Workers</h2>
+                  `;
+                  o++;
+}
+
+document.getElementById("first").innerHTML = `
+<div class="col-sm-6 marginBottom">
+                  <div class="row workerCards mb-3" >
+          <div class="col-sm-6 p-0" >
+            <div class="card amendCard" >
+              <img
+                class="card-img-top"
+                src="https://source.unsplash.com/random/?${doc.data().category}+${selectCity}"
                 alt="Card image cap"
                 width=""
                 height=""

@@ -180,7 +180,7 @@ i:hover {
 }
 
 .extraIcon {
-  font-size: 1.8em;
+  font-size: 1.2em;
   transform: translateX(-5px);
 }
 
@@ -215,7 +215,7 @@ i:hover {
 
 .amendCard img {
   /* object-fit: cover; */
-  aspect-ratio: 8 / 5;
+  aspect-ratio: 9 / 6;
 }
 
 .carousel-item img {
@@ -336,10 +336,10 @@ input[type="email"]::placeholder {
     margin-bottom: 90px;
   }
 
-  .amendCard img {
+  /* .amendCard img {
     object-fit: cover;
     aspect-ratio: 5/8;
-  }
+  } */
 
   .xPadding {
     padding-left: 6px;
@@ -351,10 +351,10 @@ input[type="email"]::placeholder {
   }
 }
 
-.amendCard img {
+/* .amendCard img {
   object-fit: cover;
   aspect-ratio: 5/3;
-}
+} */
 
 .xPadding {
   padding-left: 76px;
@@ -425,4 +425,8 @@ textarea {
   border: 1px solid #fff;
   top: 35px;
   left: -10px; */
+}
+
+.marginLeft {
+  margin-left: 70px;
 }

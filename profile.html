@@ -49,7 +49,7 @@
               height="50px"
               alt=""
             />
-            <a class="navbar-brand mt-2" href="index.html">SNPS Pvt Ltd</a>
+            <a class="navbar-brand mt-2" href="index.html">SN Point Pvt Ltd</a>
           </div>
 
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -217,7 +217,7 @@
           <!-- Copyright -->
           <div class="footer-copyright text-center">
             @Copyright
-            <a href="/" class="text-light"> SNPS pvt Ltd</a>
+            <a href="/" class="text-light"> SN Point pvt Ltd</a>
           </div>
           <!-- Copyright -->
         </footer>
@@ -397,7 +397,7 @@ modalContent.innerHTML += `<div class="col-md-12 border border-secondary bg-dark
                     class="form-control"
                     id="validationCustom05"
                     placeholder="Zip"
-                    value="${JSON.parse(localStorage.getItem("userData"))["ZipCode"]}"
+                    value="${JSON.parse(localStorage.getItem("userData"))["PinCode"]}"
                     required
                   />
                   <div class="invalid-feedback">
@@ -428,7 +428,7 @@ save.addEventListener("click", async function () {
   var email = document.getElementById("validationCustom");
   var password = document.getElementById("validationCustom03");
   var address = document.getElementById("validationCustom04");
-  var zipCode = document.getElementById("validationCustom05");
+  var pinCode = document.getElementById("validationCustom05");
 
   // Retrieve the new data from the input field
   var updateData = {
@@ -436,7 +436,7 @@ Name: full_name.value,
 Mobile: mobile.value,
 Email: email.value,
 Address: address.value,
-ZipCode: zipCode.value
+PinCode: pinCode.value
   };
 
   // update the data in firestore
@@ -467,7 +467,7 @@ docRef.onSnapshot(function (doc) {
     mobile.value = data.Mobile;
     email.value = data.Email;
     address.value = data.Address;
-    zipCode.value = data.ZipCode;
+    pinCode.value = data.PinCode;
   } else {
     console.log('No such document');
   }

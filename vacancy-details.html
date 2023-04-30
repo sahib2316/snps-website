@@ -238,8 +238,8 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
 
         <script>
-          if (window.location.href === 'http://127.0.0.1:5500/workers.html') {
-            window.location.href = 'http://127.0.0.1:5500/index.html';
+          if (window.location.href === './workers.html') {
+            window.location.href = './index.html';
           }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
@@ -261,7 +261,7 @@
           // JavaScript code
           const urlParams = new URLSearchParams(window.location.search);
           const appliedVacancy = urlParams.get("vacancy");
-          const queryUrl = `http://127.0.0.1:5500/vacancy-details.html?q=${appliedVacancy} `;
+          const queryUrl = `./vacancy-details.html?q=${appliedVacancy} `;
           // Use the query URL to fetch data or perform other actions
 
           document.addEventListener("DOMContentLoaded", function (e) {

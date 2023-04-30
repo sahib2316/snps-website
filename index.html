@@ -649,7 +649,7 @@
                   console.log(city.target.value);
                   var selectedCity = city.target.value;
 
-                  const url = `http://127.0.0.1:5500/search-workers.html?city=${selectedCity}`;
+                  const url = `http://./search-workers.html?city=${selectedCity}`;
                   let flag = false;
                   db.collection("Workers")
                     .get()
@@ -746,7 +746,7 @@
             await selectElement.addEventListener("change", function () {
               const selectedOption = selectElement.value;
               // console.log(selectedOption);
-              const url = `http://127.0.0.1:5500/workers.html?selectedOption=${selectedOption}`;
+              const url = `http://./workers.html?selectedOption=${selectedOption}`;
               let flag = false;
               db.collection("Workers")
                 .get()

@@ -91,12 +91,9 @@
               <label for="cities_dropdown" class="text-light">
                 Search for Workers in different Cities:
               </label>
-              <select class="marginLeft" id="cities_dropdown">
+              <select class="marginLeft " id="cities_dropdown">
                 <!-- option is here -->
               </select>
-              <!-- <button class="btn btn-outline-light my-2 my-sm-0" type="button">
-                Search Workers in Different Cities
-              </button> -->
             </div>
             <div
               class="btn-group mr-3"
@@ -249,22 +246,22 @@
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icontent/jdrwd_new/jdmart-banner.jpg"
+                class="d-block w-100 carousel-image"
+                src="https://source.unsplash.com/random/?employment+jobs"
                 alt="First slide"
               />
             </div>
             <div class="carousel-item">
               <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icons/new/webshopping.png"
+                class="d-block w-100 carousel-image"
+                src="https://source.unsplash.com/random/?jobs+friendly-work"
                 alt="Second slide"
               />
             </div>
             <div class="carousel-item">
               <img
-                class="d-block w-100"
-                src="https://akam.cdn.jdmagicbox.com/images/icontent/newwap/brand_connect/web_jd_hp_eureka.jpg"
+                class="d-block w-100 carousel-image"
+                src="https://source.unsplash.com/random/?construction"
                 alt="Third slide"
               />
             </div>
@@ -360,12 +357,12 @@
               <div class="col-md-6 mb-3 text-light">
                 <h4 class="my-3">Click on the icon</h4>
                 <img
-                  class="rounded-circle"
+                  class="rounded-circle image-fluid imageSize"
                   src="https://source.unsplash.com/random/?employment+jobs"
                   id="privateJobs"
                   alt="Card image cap"
-                  width="360px"
-                  height="360px"
+                  width="100%"
+                  height="auto"
                   onClick="privateJobs()"
                 />
                 <h4 class="my-3">to view jobs</h4>
@@ -398,6 +395,7 @@
                 placeholder="Full Name"
                 required
               />
+              <div class="valid-feedback">Name doesn't look good</div>
             </div>
           </div>
           <div class="form-group">
@@ -410,6 +408,7 @@
               required
             />
           </div>
+          <div class="valid-feedback">Phone No. isnt valid.</div>
           <div class="form-group">
             <label for="inputService">Service (Your Work)</label>
             <input
@@ -420,6 +419,9 @@
               required
             />
           </div>
+          <div class="valid-feedback">
+                    Please provide a valid service name.
+                  </div>
           <div class="form-group">
             <label for="inputAddress">Address</label>
             <input
@@ -429,15 +431,24 @@
               placeholder="Apartment, studio, or floor"
               required
             />
+            <div class="invalid-feedback">
+                    Please provide a valid Address.
+                  </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
               <label for="inputCity">City</label>
               <input type="text" class="form-control" id="inputCity" required />
+              <div class="invalid-feedback">
+                    Please provide a valid City Name.
+                  </div>
             </div>
             <div class="form-group col-md-6">
               <label for="inputZip">Pincode</label>
               <input type="number" class="form-control" id="inputZip" />
+               <div class="invalid-feedback">
+                    Please provide a valid Pin.
+                  </div>
             </div>
           </div>
           <div class="form-group">
@@ -451,6 +462,9 @@
               <label class="form-check-label" for="gridCheck">
                 Do you validate for the above provided information
               </label>
+              <div class="invalid-feedback">
+                    You must validate before submitting.
+                  </div>
             </div>
           </div>
           <button
@@ -515,7 +529,7 @@
               <div class="d-flex">
                 <ul class="colored-bullet-list">
                   <li>
-                    <a href="#" class="text-light">Call</a>
+                    <a href="tel:7988229xxx" class="text-light">Call</a>
                   </li>
                   <li>
                     <a href="#" class="text-light">Instagram</a>
@@ -534,7 +548,11 @@
                   <li><i class="fa-brands fa-facebook"></i></li>
                 </ul>
               </div>
-              <a href="#" class="btn btn-outline-light">WhatsApp</a>
+              <a
+                href="https://wa.me/+917988229080"
+                class="btn btn-outline-light"
+                >WhatsApp</a
+              >
             </div>
           </div>
         </div>
@@ -544,36 +562,32 @@
               <h5 class="card-title">Account And Bookings</h5>
               <ul class="colored-bullet-list">
                 <li>
-                  <a href="/profile.html" class="text-light">Your Account</a>
+                  <a id="yourAccount" class="text-light">Your Account</a>
+                  <script>
+                    if (JSON.parse(localStorage.getItem("userData"))) {
+                      document.getElementById("yourAccount").href = `./profile.html`;
+                    }
+                  </script>
                 </li>
                 <li>
-                  <a href="/profile.html" class="text-light">Your Bookings</a>
+                  <a  id="yourBookings" class="text-light">Your Bookings</a>
+                  <script>
+                    if (JSON.parse(localStorage.getItem("userData"))) {
+                      document.getElementById("yourBookings").href = `./profile.html`;
+                    }
+                  </script>
                 </li>
                 <li>
-                  <a href="/" class="text-light">Our Businesses</a>
+                  <a href="./overview.html" class="text-light">Website Overview</a>
                 </li>
                 <li>
-                  <a href="/" class="text-light">Our Store</a>
+                  <a href="/" class="text-light">Workers And Categories</a>
                 </li>
               </ul>
-              <a href="/" class="btn btn-outline-light">Book Now</a>
+              <a href="./vacancies.html" class="btn btn-outline-light">See Vacancies</a>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="card website-info-card">
-            <div class="card-body">
-              <h5 class="card-title">Our Website</h5>
-              <p class="card-text text-light">
-                Visit our website and explore the vastness of our services. We
-                can provide our expertise on a wide spectrum and really guide to
-                your journey.
-              </p>
-              <a href="/overview.html" class="btn btn-outline-light"
-                >Website Overview</a
-              >
-            </div>
-          </div>
         </div>
       </div>
 
@@ -649,33 +663,29 @@
                       console.log(city.target.value);
                       var selectedCity = city.target.value;
 
-    <<<<<<< HEAD
-                      const url = `http://./search-workers.html?city=${selectedCity}`;
-    =======
-                      const url = `./search-workers.html?city=${selectedCity}`;
-    >>>>>>> 89477dab63f2fa84537de9e431cb43c4da79e1d6
-                      let flag = false;
-                      db.collection("Workers")
-                        .get()
-                        .then(function (querySnapshot) {
-                          for (const doc of querySnapshot.docs) {
-                            if (doc.data().city === selectedCity) {
-                              console.log(doc.data());
-                              flag = true;
-                            }
-                          }
-                          if (flag) {
-                            window.location.assign(url);
-                          } else {
-                            alert(
-                              "Sorry, there are no workers availabe for the selected service at the moment."
-                            );
-                          }
-                        });
+                  const url = `./search-workers.html?city=${selectedCity}`;
+                  let flag = false;
+                  db.collection("Workers")
+                    .get()
+                    .then(function (querySnapshot) {
+                      for (const doc of querySnapshot.docs) {
+                        if (doc.data().city === selectedCity) {
+                          console.log(doc.data());
+                          flag = true;
+                        }
+                      }
+                      if (flag) {
+                        window.location.assign(url);
+                      } else {
+                        alert(
+                          "Sorry, there are no workers availabe for the selected service at the moment."
+                        );
+                      }
                     });
-                }
-              }
-            });
+                });
+            }
+          }
+        });
 
           db.collection("WebsiteLogo")
             .get()
@@ -745,43 +755,39 @@
                 j++;
               });
 
-              for (let i = 0; i < j; i++) {
-                let selectElement = document.getElementsByClassName("mySelect")[i];
-                await selectElement.addEventListener("change", function () {
-                  const selectedOption = selectElement.value;
-                  // console.log(selectedOption);
-    <<<<<<< HEAD
-                  const url = `http://./workers.html?selectedOption=${selectedOption}`;
-    =======
-                  const url = `./workers.html?selectedOption=${selectedOption}`;
-    >>>>>>> 89477dab63f2fa84537de9e431cb43c4da79e1d6
-                  let flag = false;
-                  db.collection("Workers")
-                    .get()
-                    .then(function (querySnapshot) {
-                      for (const doc of querySnapshot.docs) {
-                        if (doc.data().service === selectedOption) {
-                          console.log(doc.data());
-                          flag = true;
-                        }
-                      }
-                      if (flag) window.location.assign(url);
-                      else
-                        alert(
-                          "Sorry, there are no workers availabe for the selected service at the moment."
-                        );
-                    });
+          for (let i = 0; i < j; i++) {
+            let selectElement = document.getElementsByClassName("mySelect")[i];
+            await selectElement.addEventListener("change", function () {
+              const selectedOption = selectElement.value;
+              // console.log(selectedOption);
+              const url = `./workers.html?selectedOption=${selectedOption}`;
+              let flag = false;
+              db.collection("Workers")
+                .get()
+                .then(function (querySnapshot) {
+                  for (const doc of querySnapshot.docs) {
+                    if (doc.data().service === selectedOption) {
+                      console.log(doc.data());
+                      flag = true;
+                    }
+                  }
+                  if (flag) window.location.assign(url);
+                  else
+                    alert(
+                      "Sorry, there are no workers availabe for the selected service at the moment."
+                    );
                 });
-              }
             });
+          }
+        });
 
-          // ads carousel-sliders
-          let r = 0;
-          db.collection("Ad-slides")
-            .get()
-            .then(function (querySnapshot) {
-              querySnapshot.forEach(function (doc) {
-                console.log(doc.data());
+      // ads carousel-sliders
+      let r = 0;
+      db.collection("Ad-slides")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(function (doc) {
+            console.log(doc.data());
 
                 document.getElementById("orderedSlides").innerHTML += `<li
                   data-target="#carouselAdsIndicators"
@@ -841,6 +847,19 @@
           var inputService = document.getElementById("inputService").value;
           var inputCity = document.getElementById("inputCity").value;
           var inputPin = document.getElementById("inputZip").value;
+      var inputCheck = document.getElementById("gridCheck").value;
+
+if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService === "" || inputCity === "" || inputPin === "") {
+  alert("Please fill all the fields to register.");
+
+  return false;
+}
+
+if (!inputCheck.checked) {
+  alert("You have to check the confirmation checkbox to register.");
+
+  return false;
+}
 
           let obj = {
             name: inputName,

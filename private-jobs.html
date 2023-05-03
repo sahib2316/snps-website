@@ -207,7 +207,7 @@
         <!-- TITLE is written with javascript -->
       </div>
 
-      <div class="col-md-12 mb-3 ratings-chudaap">
+      <!-- <div class="col-md-12 mb-3 ratings-chudaap">
         <div class="btn-group">
           <button
             type="button"
@@ -226,7 +226,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <hr />
 
@@ -261,7 +261,7 @@
           // // JavaScript code
           // const urlParams = new URLSearchParams(window.location.search);
           // const appliedVacancy = urlParams.get("vacancy");
-          // const queryUrl = `./vacancy-details.html?q=${appliedVacancy} `;
+          // const queryUrl = `http://./vacancy-details.html?q=${appliedVacancy} `;
           // // Use the query URL to fetch data or perform other actions
 
           document.addEventListener("DOMContentLoaded", function (e) {
@@ -298,7 +298,7 @@ document.getElementById("companyCards").innerHTML += `
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
             <h3 class="m-0"><strong>${doc.data().companyDetails[i].company}</strong></h3>
-            <h6 class="extraIcon mb-0"><i class="fa-solid fa-phone px-2"  style="font-size: 0.7em;"></i>${doc.data().companyDetails[i].phone}</h6>
+            <h6 class="extraIcon mb-0"><i class="fa-solid fa-phone px-2"  style="font-size: 0.7em;"></i>${doc.data().companyDetails[i].phone} , ${doc.data().companyDetails[i].city}</h6>
             <h5 class="mb-0"><strong>Position:</strong> ${doc.data().companyDetails[i].position}</h5>
             <h5 class="my-0"> <strong>Eligibility:</strong> ${doc.data().companyDetails[i].eligibility}</h5>
             <h5> <strong>Salary:</strong> ${doc.data().companyDetails[i].salary}</h5>
@@ -605,22 +605,6 @@ button.addEventListener("click", async function () {
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

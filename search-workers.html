@@ -180,7 +180,7 @@
       </div>
 
       <div class="col-md-12 mb-3 ratings-chudaap">
-        <h1>Select Service Here</h1>
+        <h2 class="text-danger">Select Service Here</h2>
         <div class="btn-group">
           <button
             type="button"
@@ -236,16 +236,14 @@
 
           document.addEventListener("DOMContentLoaded", async function () {
             
-              await db.collection("Categories").get().then(function (que) {
-que.forEach(function (docs) {
-  let filterDropdown = document.getElementById("filterDropdown");
-  // console.log(docs.data().Services.length);
-
-            for (let i=0; i<docs.data().Services.length; i++) {
-filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
-            }
+await db.collection("Workers").where("city", "==", selectCity).get().then(function (querr) {
+  querr.forEach(function (docum) {
+let filterDropdown = document.getElementById("filterDropdown");
+  // console.log(docum.data());
+filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docum.data().service}">${docum.data().service}</a>`;
+          
+  })
 })
-            })
 
             let s=0;
             db.collection("Workers")
@@ -276,7 +274,7 @@ document.getElementById("workerTitle").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h2 class="m-0">${doc.data().name}</h2>
+            <h2 class="m-0 nameHeight">${doc.data().name}</h2>
             <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
             <h3>${doc.data().service} (${doc.data().category})</h3>
             <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
@@ -459,22 +457,6 @@ alert("success");
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

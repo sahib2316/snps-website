@@ -190,13 +190,6 @@
                   <div class="modal-content footerColor">
                     <div class="modal-header">
                       <h5 class="modal-title">Modal Title</h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        onClick="closeModal()"
-                      ></button>
                     </div>
                     <div class="modal-body" id="body"></div>
                     <div class="modal-footer">
@@ -454,9 +447,25 @@
                       var city = JSON.parse(localStorage.getItem("userData"))[
                         "City"
                       ];
-                      var zipCode = JSON.parse(
+                      var pinCode = JSON.parse(
                         localStorage.getItem("userData")
                       )["PinCode"];
+
+                      if (
+                        full_name.value === "" ||
+                        phone.value === "" ||
+                        service.value === "" ||
+                        password.value === "" ||
+                        email === "" ||
+                        address === "" ||
+                        city === "" ||
+                        pinCode === ""
+                      ) {
+                        alert("Please fill in all the fields");
+
+                        // Return false to prevent submission
+                        return false;
+                      }
 
                       // Retrieve the new data from the input field
                       let updateData = {

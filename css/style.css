@@ -341,13 +341,20 @@ input[type="email"]::placeholder {
     aspect-ratio: 5/8;
   } */
 
-  .xPadding {
+  /* .xPadding {
     padding-left: 6px;
     padding-right: 6px;
-  }
+  } */
 
   .carouselHeight {
     height: 600px;
+  }
+}
+
+@media only screen and (min-width: 120px) and (max-width: 574px) {
+  .xPadding {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 }
 
@@ -430,3 +437,15 @@ textarea {
 .marginLeft {
   margin-left: 70px;
 }
+
+.carousel-image {
+  max-height: 400px; /* Adjust the value to your desired height */
+}
+
+.imageSize {
+  max-width: 100%;
+}
+
+/* .nameHeight {
+  line-height: 1.2;
+} */

@@ -93,7 +93,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +102,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -207,26 +207,24 @@
         <!-- TITLE is written with javascript -->
       </div>
 
-      <div class="col-md-12 mb-3 ratings-chudaap">
+      <!-- <div class="col-md-12 mb-3 ratings-chudaap">
+        <h1>Select City-Wise</h1>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-danger dropdown-toggle"
+            class="btn btn-outline-danger dropdown-toggle"
+            id="cityFilter"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
             >
-            Ratings
+            Filter City
           </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+          <div class="dropdown-menu" id="filterDropdown">
+            
           </div>
         </div>
-      </div>
+      </div> -->
 
       <hr />
 
@@ -266,6 +264,15 @@
 
           document.addEventListener("DOMContentLoaded", function (e) {
 
+// await db.collection("Workers").where("city", "==", selectCity).get().then(function (querr) {
+//   querr.forEach(function (docum) {
+// let filterDropdown = document.getElementById("filterDropdown");
+//   // console.log(docum.data());
+// filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docum.data().service}">${docum.data().service}</a>`;
+          
+//   })
+// })
+
             let s=0;
             db.collection("Vacancies")
               .get()
@@ -299,6 +306,7 @@ document.getElementById("first").innerHTML += `
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
             <h2 class="m-0">${doc.data().companyDetails[i].company}</h2>
             <h3 class="extraIcon mt-2"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
+            <h4>City: ${doc.data().companyDetails[i].city}</h4>
             <h4> Looking For: ${appliedVacancy}</h4>
             <button class="btn btn-outline-light applyWorker" id="applyWorker_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}"><strong>Apply</strong></button>
           </div>
@@ -475,69 +483,7 @@ button.addEventListener("click", async function () {
 
 });
 });
-
-
-// document.querySelectorAll(".bookWorker").forEach(function (button) {
-// button.addEventListener("click", function () {
-//   const docId = button.id.split("-")[1];
-//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
-//  console.log(doc.data());
-//  console.log(JSON.parse(localStorage.getItem("userId")));
-
-//   let obj = {
-// name: doc.data().name,
-// phone: doc.data().phone,
-// service: doc.data().service,
-// address: doc.data().address,
-// userId: JSON.parse(localStorage.getItem("userId")),
-//   }
-
-//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
-// alert("success");
-//      });
-
-//   });
-
-// });
-// });
-
               });
-
-        //       db.collection("Workers")
-        // .get()
-        // .then(function (querySnapshot) {
-        //   querySnapshot.forEach(function (doc) {
-        //     if (
-        //       JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
-        //       doc.data().name ===
-        //         JSON.parse(localStorage.getItem("userData"))["Name"] &&
-        //       doc.data().phone ===
-        //         JSON.parse(localStorage.getItem("userData"))["Mobile"]
-        //     ) {
-        //       document.getElementById("profileElementDiv").style.display =
-        //         "none";
-
-        //          const parentDiv = document.getElementById("parentDiv");
-
-        //       const inputNode = document.createElement("input");
-        //       inputNode.type = "button";
-        //       inputNode.className = "btn btn-outline-dark btn-block text-white";
-        //       inputNode.id = "adminDropdown1";
-        //       inputNode.value = "Worker-Portal";
-
-        //       parentDiv.appendChild(inputNode);
-
-        //       var profileBtn = document
-        //         .getElementById("profileElementDiv")
-        //         .classList.add("d-none");
-        //       var adminDropdown = document.getElementById("adminDropdown1");
-        //       adminDropdown.addEventListener("click", function () {
-        //         window.location.assign("/worker-portal.html");
-        //       });
-        //     }
-
-        //   });
-        // });
 
           });
 
@@ -625,22 +571,6 @@ button.addEventListener("click", async function () {
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

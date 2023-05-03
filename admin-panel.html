@@ -99,14 +99,14 @@
               >
                 <span id="name-headerTxt"> Hi, </span>
               </button>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+              <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <input
-                  class="btn btn-outline-success"
+                  class="btn btn-outline-dark text-white"
                   id="logoutDropdown"
                   value="Logout"
                 />
                 <input
-                  class="btn btn-outline-success"
+                  class="btn btn-outline-dark text-white"
                   id="profileDropdown"
                   value="Profile"
                 />
@@ -315,7 +315,9 @@
     <!--End vacancies -->
 
     <!-- Vacancy Cards -->
+    
      <div class="container my-5 extraMargin">
+      <h3>Available Vacancies</h3>
       <div class="row iterable" id="iterable">
         <!-- vacancy cards are embedded here -->
       </div>
@@ -324,6 +326,7 @@
 
     <!-- Vacancy Worker Cards -->
      <div class="container separator">
+      <h3>Applied Workers</h3>
       <div class="row applicants" id="applicants">
         <!-- vacancy worker cards are here -->
       </div>
@@ -366,7 +369,7 @@
         <div class="container-fluid">
           <div class="row">
             <!-- Company name -->
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div>
             <label class="" for="company"><strong>Company Name</strong></label>
           </div>
@@ -376,7 +379,7 @@
             </div>  
             <!-- end company name -->
             <!-- phone -->
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="mt-2">
             <label class="" for="phoneDetail"><strong>Phone</strong></label>
           </div>
@@ -385,6 +388,16 @@
           </div>
         </div>
         <!-- end phpne -->
+        <!-- city -->
+        <div class="col-md-4">
+          <div class="mt-2">
+            <label class="" for="cityDetail"><strong>City</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="cityDetail" id="cityDetail">
+          </div>
+        </div>
+        <!-- End city -->
           </div> 
         </div>
       </div>
@@ -554,12 +567,15 @@
     <!--End of add slides -->
 
     <!-- slides card -->
-     <div class="container my-5">
+     <div class="container newMargin">
+      <h4 class="my-2">Slide Cards</h4>
       <div class="row slideDelete" id="slideDelete">
         <!-- slide cards are embedded here -->
       </div>
      </div>
     <!-- End slides card -->
+
+    <hr class="separator borderCustom"/>
 
     <!--Customer Feedback -->
       <div class="container my-5 borderCustom p-3 pt-1">
@@ -573,7 +589,7 @@
     <!--End Customer Feedback -->
 
      <!-- Overview -->
-    <div class="container text-center my-5" id="overviewDiv">
+    <div class="container text-center separator-feed mb-5" id="overviewDiv">
       <div class="row">
         <div class="col-md-12">
           <h1>Set An Overview For The Website</h1>
@@ -591,7 +607,7 @@
     <!-- End Overview -->
 
     <!-- Introducing React -->
-<div id="intro-react"></div>
+<!-- <div id="intro-react"></div>
 
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -601,7 +617,7 @@
 
 <script type="text/babel" src="/src/index.js"></script>
 
-<script src="dist/main.js"></script>
+<script src="dist/main.js"></script> -->
 
     <!-- End Introducing React -->
   </body>
@@ -741,7 +757,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await db.collection("Vacancies").get().then(async function (querySnapshot) {
   querySnapshot.forEach( function (doc) {
     // console.log(doc.id);
- document.getElementById("iterable").innerHTML += `<div class="col-md-4 borderCustom my-2">
+ document.getElementById("iterable").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
           <div class="row">
             <div class="col-md-6 d-flex">
          <h3>${doc.data().vacancy}</h3>
@@ -750,11 +766,10 @@ document.addEventListener("DOMContentLoaded", async function () {
          
         </div>
         <div class="col-md-6 text-right">
-         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy}" id="deleteVacancy-${doc.id}">Delete</button>
+         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy} / ${doc.data().totalVacancies}" id="deleteVacancy-${doc.id}">Delete</button>
         </div>
           </div>
-        </div>
-        <div class="col-md-8"></div>`;
+        </div>`;
   });
 }).then( function () {
 
@@ -763,10 +778,15 @@ document.addEventListener("DOMContentLoaded", async function () {
  delBtn.addEventListener("click",  ()=> {
         const docId = delBtn.id.split("-")[1];
         const vacancyName=delBtn.classList.value.split("/")[1].trim();
-        db.collection("Vacancies").doc(docId).delete().then(function () {
-          alert(vacancyName + " Deleted Successfully");
+        const countNumber = delBtn.classList.value.split("/")[2].trim();
+
+        if (countNumber != 0) {
+db.collection("Vacancies").doc(docId).update({totalVacancies: countNumber - 1}).then(function () {
+          alert(vacancyName + " One Vacancy Minused Successfully");
           window.location.reload();
         });
+        }
+        
       });
 // delBtn.addEventListener("click",()=>console.log("working"))
 };
@@ -794,7 +814,7 @@ document.getElementById('vacancy').
       // for (let i = 0; i < obj.length; i++) {
       //   document.getElementById("vacancy").innerHTML += `<option value="${obj[i]}">${obj[i]}</option>`;
       // }
-      obj.forEach(service => {
+      obj.forEach(function (service) {
         const option = document.createElement('option');
         option.value = service;
         option.text = service;
@@ -805,28 +825,66 @@ document.getElementById('vacancy').
 
   document.getElementById("vacancy").addEventListener("change", (e) => {
     const selectedService = e.target.value;
-    console.log(selectedService);
+    console.log(selectedService + "x");
   });
 
-document.getElementById("add-vacancy").addEventListener("click", function () {
-var vacancy = document.getElementById("vacancy").value;
-  var numberOf = document.getElementById("count").value;
-
+  document.getElementById("add-vacancy").addEventListener("click", function () {
+  var vacancy = document.getElementById("vacancy").value;
+  
   let obj={
     vacancy: vacancy,
-    totalVacancies: numberOf,
+    totalVacancies: 0,
   }
 
-  db.collection("Vacancies").doc().set(obj).then(function (querySnapshot) {
-alert("Vacancy added");
-document.getElementById("vacancy").value="";
-document.getElementById("count").value="";
-// window.location.reload();
-  });
-console.log(vacancy);
-  // End Vacancy Script
+  db.collection("Vacancies").add(obj).then(function (docc) {
+    alert("Vacancy added");
+    document.getElementById("vacancy").value="";
+
+    db.collection("Vacancies").doc(docc.id).get().then(function (doc) {
+      if (doc.exists && doc.data().totalVacancies !== undefined) {
+        db.collection("Vacancies").doc(docc.id).update({
+          totalVacancies: doc.data().totalVacancies + 1
+        }).then(function () {
+          console.log("Total vacancies updated");
+        })
+      }
+    });
+  })
 });
 
+// document.getElementById("add-vacancy").addEventListener("click", function () {
+// var vacancy = document.getElementById("vacancy").value;
+//   // var numberOf = document.getElementById("count").value;
+
+//   let obj={
+//     vacancy: vacancy,
+//     totalVacancies: 0,
+//   }
+
+//   db.collection("Vacancies").doc().set(obj).then(function (querySnapshot) {
+// alert("Vacancy added");
+// document.getElementById("vacancy").value="";
+// // document.getElementById("count").value="";
+// // window.location.reload();
+
+// db.collection("Vacancies").doc().get().then(function (docc) {
+// console.log(docc.data().totalVacancies + "y");
+// //  if (docc.data().totalVacancies) {
+// //   db.collection("Vacancies").doc().update({totalVacancies: docc.data().totalVacancies + 1}).
+// //   then(function (querySnapshot) {
+// // alert("Vacancy added");
+// // document.getElementById("vacancy").value="";
+// // // document.getElementById("count").value="";
+// // // window.location.reload();
+// //   });
+// //  }
+//   })
+
+//   });
+
+// // console.log(vacancy);
+//   // End Vacancy Script
+// });
 
 
 // Vacancy Details Script
@@ -871,6 +929,9 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
   var position = document.getElementById("position").value
   var eligibility = document.getElementById("eligibility").value;
   var salary = document.getElementById("salary").value;
+  var city = document.getElementById("cityDetail").value;
+
+  console.log("its working till here.");
 
   companyDetails.push({
     company: company,
@@ -878,6 +939,7 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
     position: position,
     eligibility: eligibility,
     salary: salary,
+    city: city,
   });
 
   db.collection("Vacancies").get().then(function (querr) {
@@ -897,6 +959,7 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
             company = "";
             eligibility = "";
             salary = "";
+            city = "";
 
             // Clear the companyDetails array
             companyDetails = [];

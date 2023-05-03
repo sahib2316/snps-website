@@ -95,10 +95,15 @@ body {
 
 .separator {
   margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .separator-feed {
   margin-top: 140px;
+}
+
+.newMargin {
+  margin-bottom: 120px;
 }
 
 .newServiceInput {

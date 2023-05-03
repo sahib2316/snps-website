@@ -594,425 +594,433 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
   <script type="text/javascript" src="indian_cities.js"></script>
   <script>
-    // Your web app's Firebase configuration
-    // console.log(cities);
-    // cities.map(
-    //   (city) =>
-    //     (document.getElementById(
-    //       "cities_dropdown"
-    //     ).innerHTML += `<option value='${city}'>${city}</option>`)
-    // );
-    const firebaseConfig = {
-      apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
-      authDomain: "projectdb-402ec.firebaseapp.com",
-      databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
-      projectId: "projectdb-402ec",
-      storageBucket: "projectdb-402ec.appspot.com",
-      messagingSenderId: "818279951216",
-      appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
-    };
-    firebase.initializeApp(firebaseConfig);
+        // Your web app's Firebase configuration
+        // console.log(cities);
+        // cities.map(
+        //   (city) =>
+        //     (document.getElementById(
+        //       "cities_dropdown"
+        //     ).innerHTML += `<option value='${city}'>${city}</option>`)
+        // );
+        const firebaseConfig = {
+          apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+          authDomain: "projectdb-402ec.firebaseapp.com",
+          databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+          projectId: "projectdb-402ec",
+          storageBucket: "projectdb-402ec.appspot.com",
+          messagingSenderId: "818279951216",
+          appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+        };
+        firebase.initializeApp(firebaseConfig);
 
-    const db = firebase.firestore();
+        const db = firebase.firestore();
 
-    document.addEventListener("DOMContentLoaded", (e) => {
-      var uniqueCities = new Set(); // maintain a set of unique cities
+        document.addEventListener("DOMContentLoaded", (e) => {
+          var uniqueCities = new Set(); // maintain a set of unique cities
 
-      let t = 0;
-      if (t === 0) {
-        document.getElementById(
-          "cities_dropdown"
-        ).innerHTML += `<option class="font-weight-bold" value="Choose City">Choose City</option>`;
-        t++;
-      }
+          let t = 0;
+          if (t === 0) {
+            document.getElementById(
+              "cities_dropdown"
+            ).innerHTML += `<option class="font-weight-bold" value="Choose City">Choose City</option>`;
+            t++;
+          }
 
-      let v = 0;
-      db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          for (const [idx, doc] of querySnapshot.docs.entries()) {
-            // var cityDrop = document.getElementById("cities_dropdown")[0].value;
+          let v = 0;
+          db.collection("Workers")
+            .get()
+            .then(function (querySnapshot) {
+              for (const [idx, doc] of querySnapshot.docs.entries()) {
+                // var cityDrop = document.getElementById("cities_dropdown")[0].value;
 
-            if (!uniqueCities.has(doc.data().city)) {
-              // check if city is already fetched
-              uniqueCities.add(doc.data().city); // add city to set
+                if (!uniqueCities.has(doc.data().city)) {
+                  // check if city is already fetched
+                  uniqueCities.add(doc.data().city); // add city to set
 
-              document.getElementById(
-                "cities_dropdown"
-              ).innerHTML += `<option value="${doc.data().city}">${
-                doc.data().city
-              }</option>`;
+                  document.getElementById(
+                    "cities_dropdown"
+                  ).innerHTML += `<option value="${doc.data().city}">${
+                    doc.data().city
+                  }</option>`;
 
-              document
-                .getElementById("cities_dropdown")
-                .addEventListener("change", function (city) {
-                  console.log(city.target.value);
-                  var selectedCity = city.target.value;
+                  document
+                    .getElementById("cities_dropdown")
+                    .addEventListener("change", function (city) {
+                      console.log(city.target.value);
+                      var selectedCity = city.target.value;
 
-                  const url = `http://./search-workers.html?city=${selectedCity}`;
+    <<<<<<< HEAD
+                      const url = `http://./search-workers.html?city=${selectedCity}`;
+    =======
+                      const url = `./search-workers.html?city=${selectedCity}`;
+    >>>>>>> 89477dab63f2fa84537de9e431cb43c4da79e1d6
+                      let flag = false;
+                      db.collection("Workers")
+                        .get()
+                        .then(function (querySnapshot) {
+                          for (const doc of querySnapshot.docs) {
+                            if (doc.data().city === selectedCity) {
+                              console.log(doc.data());
+                              flag = true;
+                            }
+                          }
+                          if (flag) {
+                            window.location.assign(url);
+                          } else {
+                            alert(
+                              "Sorry, there are no workers availabe for the selected service at the moment."
+                            );
+                          }
+                        });
+                    });
+                }
+              }
+            });
+
+          db.collection("WebsiteLogo")
+            .get()
+            .then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                document.getElementById("logoImg").src = `${doc.data().url}`;
+              });
+              console.log(document.getElementById("logoImg").src);
+            });
+
+          db.collection("Workers")
+            .get()
+            .then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                if (
+                  JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
+                  doc.data().name ===
+                    JSON.parse(localStorage.getItem("userData"))["Name"] &&
+                  doc.data().phone ===
+                    JSON.parse(localStorage.getItem("userData"))["Mobile"]
+                ) {
+                  document.getElementById("profileBtnDiv").style.display = "none";
+                }
+              });
+            });
+
+          j = 0;
+          db.collection("Categories")
+            .get()
+            .then(async function (querySnapshot) {
+              await querySnapshot.forEach(async function (doc) {
+                document.getElementById("rowloop").innerHTML += `
+                         <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12 my-3">
+                          <div class="container">
+                               <div class="card border amendCard">
+                                 <img
+                                   src="https://source.unsplash.com/random?${doc.id}"
+                                   alt="The image was not found."
+                                   width=""
+                                   height=""
+                                   class="img-fluid"
+                                 />
+                                 <div class="card-body">
+                                   <h5 class="card-title">${doc.id}</h5>
+                                   <p class="card-text">
+
+                                   </p>
+              <div class="forSelect container-fluid px-0">
+                  <select name="mySelect" class="mySelect col-md-12 mb-3 px-0" id="mySelectId" aria-labelledby="dropdownMenuButton">
+                      <option class="" value="Choose Service">Choose Service</option>
+                      </div>
+
+                  </select>
+
+                                  </div>
+                                 </div>
+                               </div>
+                             </div>`;
+
+                var arrayElements = doc.data().Services;
+
+                for (let i = 0; i < arrayElements.length; i++) {
+                  document.getElementsByClassName("mySelect")[
+                    j
+                  ].innerHTML += `<option value="${arrayElements[i]}">${arrayElements[i]}</option>`;
+                }
+                j++;
+              });
+
+              for (let i = 0; i < j; i++) {
+                let selectElement = document.getElementsByClassName("mySelect")[i];
+                await selectElement.addEventListener("change", function () {
+                  const selectedOption = selectElement.value;
+                  // console.log(selectedOption);
+    <<<<<<< HEAD
+                  const url = `http://./workers.html?selectedOption=${selectedOption}`;
+    =======
+                  const url = `./workers.html?selectedOption=${selectedOption}`;
+    >>>>>>> 89477dab63f2fa84537de9e431cb43c4da79e1d6
                   let flag = false;
                   db.collection("Workers")
                     .get()
                     .then(function (querySnapshot) {
                       for (const doc of querySnapshot.docs) {
-                        if (doc.data().city === selectedCity) {
+                        if (doc.data().service === selectedOption) {
                           console.log(doc.data());
                           flag = true;
                         }
                       }
-                      if (flag) {
-                        window.location.assign(url);
-                      } else {
+                      if (flag) window.location.assign(url);
+                      else
                         alert(
                           "Sorry, there are no workers availabe for the selected service at the moment."
                         );
-                      }
                     });
                 });
-            }
-          }
-        });
-
-      db.collection("WebsiteLogo")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            document.getElementById("logoImg").src = `${doc.data().url}`;
-          });
-          console.log(document.getElementById("logoImg").src);
-        });
-
-      db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            if (
-              JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
-              doc.data().name ===
-                JSON.parse(localStorage.getItem("userData"))["Name"] &&
-              doc.data().phone ===
-                JSON.parse(localStorage.getItem("userData"))["Mobile"]
-            ) {
-              document.getElementById("profileBtnDiv").style.display = "none";
-            }
-          });
-        });
-
-      j = 0;
-      db.collection("Categories")
-        .get()
-        .then(async function (querySnapshot) {
-          await querySnapshot.forEach(async function (doc) {
-            document.getElementById("rowloop").innerHTML += `
-                     <div class="col-xl-4 col-md-4 col-sm-6 col-xs-12 my-3">
-                      <div class="container">
-                           <div class="card border amendCard">
-                             <img
-                               src="https://source.unsplash.com/random?${doc.id}"
-                               alt="The image was not found."
-                               width=""
-                               height=""
-                               class="img-fluid"
-                             />
-                             <div class="card-body">
-                               <h5 class="card-title">${doc.id}</h5>
-                               <p class="card-text">
-
-                               </p>
-          <div class="forSelect container-fluid px-0">
-              <select name="mySelect" class="mySelect col-md-12 mb-3 px-0" id="mySelectId" aria-labelledby="dropdownMenuButton">
-                  <option class="" value="Choose Service">Choose Service</option>
-                  </div>
-
-              </select>
-
-                              </div>
-                             </div>
-                           </div>
-                         </div>`;
-
-            var arrayElements = doc.data().Services;
-
-            for (let i = 0; i < arrayElements.length; i++) {
-              document.getElementsByClassName("mySelect")[
-                j
-              ].innerHTML += `<option value="${arrayElements[i]}">${arrayElements[i]}</option>`;
-            }
-            j++;
-          });
-
-          for (let i = 0; i < j; i++) {
-            let selectElement = document.getElementsByClassName("mySelect")[i];
-            await selectElement.addEventListener("change", function () {
-              const selectedOption = selectElement.value;
-              // console.log(selectedOption);
-              const url = `http://./workers.html?selectedOption=${selectedOption}`;
-              let flag = false;
-              db.collection("Workers")
-                .get()
-                .then(function (querySnapshot) {
-                  for (const doc of querySnapshot.docs) {
-                    if (doc.data().service === selectedOption) {
-                      console.log(doc.data());
-                      flag = true;
-                    }
-                  }
-                  if (flag) window.location.assign(url);
-                  else
-                    alert(
-                      "Sorry, there are no workers availabe for the selected service at the moment."
-                    );
-                });
+              }
             });
-          }
-        });
 
-      // ads carousel-sliders
-      let r = 0;
-      db.collection("Ad-slides")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            console.log(doc.data());
-
-            document.getElementById("orderedSlides").innerHTML += `<li
-              data-target="#carouselAdsIndicators"
-              data-slide-to="${r}"
-              class="${r == 0 ? "active" : ""}"
-            ></li>`;
-
-            document.getElementById(
-              "slidesDiv"
-            ).innerHTML += `<div class="carousel-item + ${
-              r == 0 ? "active" : ""
-            }">
-              <img
-                class="d-block w-100 carouselHeight"
-                src="${doc.data().slideUrl}"
-                alt="First slide"
-              />
-            </div>`;
-
-            r++;
-          });
-        });
-
-      // End ads carousel-sliders
-    });
-
-    logoutDropdown.addEventListener("click", (e) => {
-      var logoutButton = document
-        .getElementById("name-headerDropdown")
-        .classList.add("d-none");
-      var loginButton = document
-        .getElementById("login-headerBtn")
-        .classList.remove("d-none");
-      var signupButton = document
-        .getElementById("signup-headerBtn")
-        .classList.remove("d-none");
-
-      firebase
-        .auth()
-        .signOut()
-        .then(function () {
-          // Sign-out successful.
-          localStorage.clear();
-          logoutButton;
-          loginButton;
-          signupButton;
-        })
-        .catch(function (error) {
-          // An error happened.
-        });
-    });
-
-    function registerWorker() {
-      var inputName = document.getElementById("inputName").value;
-      var inputPhone = document.getElementById("inputPhone").value;
-      var inputAddress = document.getElementById("inputAddress").value;
-      var inputService = document.getElementById("inputService").value;
-      var inputCity = document.getElementById("inputCity").value;
-      var inputPin = document.getElementById("inputZip").value;
-
-      let obj = {
-        name: inputName,
-        phone: inputPhone,
-        address: inputAddress,
-        service: inputService,
-        city: inputCity,
-        pinCode: inputPin,
-      };
-
-      db.collection("New Registerations")
-        .doc(inputPhone)
-        .set(obj)
-        .then(function () {
-          alert(
-            "We have recieved your registered data. We will contact you soon regarding other details and final confirmation."
-          );
-          inputName = "";
-          inputPhone = "";
-          inputAddress = "";
-          inputService = "";
-          inputCity = "";
-          inputPin = "";
-        });
-
-      // document.getElementById("register-form").classList.add("separator-both");
-      document.getElementById(
-        "register-form"
-      ).innerHTML = `<div class="container border border-warning separator-both p-5">
-        <h2>We have recieved your registered data.
-           We will contact you soon regarding other details and final confirmation.</h2>
-        </div>`;
-
-      // localStorage.setItem("New Registration", JSON.stringify(obj));
-    }
-
-    document.addEventListener("DOMContentLoaded", async function () {
-      db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            // here we can loop through the search results from the workers' city of residence
-
-            if (
-              localStorage.getItem("isLoggedIn") == "true" &&
-              JSON.parse(localStorage.getItem("userData"))["Mobile"] ==
-                doc.data().phone
-            ) {
-              const parentDiv = document.getElementById("parentDiv");
-
-              const inputNode = document.createElement("input");
-              inputNode.type = "button";
-              inputNode.className = "btn btn-outline-dark btn-block text-white";
-              inputNode.id = "adminDropdown1";
-              inputNode.value = "Worker-Portal";
-
-              parentDiv.appendChild(inputNode);
-
-              var profileBtn = document
-                .getElementById("profileBtnDiv")
-                .classList.add("d-none");
-              var adminDropdown = document.getElementById("adminDropdown1");
-              adminDropdown.addEventListener("click", function () {
-                window.location.assign("/worker-portal.html");
-              });
-            }
-          });
-        });
-
-      document
-        .getElementById("offerModalCloseBtn")
-        .addEventListener("click", () => {
-          document.getElementById("exampleModal").classList.remove("show");
-          document
-            .getElementsByTagName("body")[0]
-            .classList.remove("modal-open");
-          document.getElementById("exampleModal").classList.add("hide");
-          document.getElementById("exampleModal").style.display = "none";
-        });
-      let exampleModalNode = await document.getElementById("exampleModal");
-      document.getElementById("exampleModal").remove();
-      let carouselContent = ``;
-      db.collection("Offers")
-        .get()
-        .then(async (query) => {
-          let idx = 0;
-          await query.forEach((doc) => {
-            carouselContent += `
-                  <div class="carousel-item ${idx++ === 0 ? "active" : ""}">
-
-                   <div class="card mx-3 ml-auto mr-auto" style="width: 18rem;">
-    <div class="card-body text-light">
-      <h5 class="card-title">${doc.data().title}</h5>
-      <h6 class="card-subtitle mb-2 text-light">${doc.data().subtitle}</h6>
-      <p class="card-text">First time joinee??${doc.data().text}</p>
-    </div>
-            </div>
-                  </div>
-             `;
-          });
-        })
-        .then(() => {
-          document.getElementsByTagName("section")[0].append(exampleModalNode);
-        })
-        .then(() => {
-          let offerModal = (document.getElementById(
-            "offerModal"
-          ).innerHTML += `<div
-                id="carouselOfferIndicators"
-                class="carousel slide"
-                data-ride="carousel"
-              >
-                <ol class="carousel-indicators" id="indicators">
-
-                </ol>
-                <div class="carousel-inner" id="carousel-content">
-                </div>
-                <a
-                  class="carousel-control-prev"
-                  href="#carouselOfferIndicators"
-                  role="button"
-                  data-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a
-                  class="carousel-control-next"
-                  href="#carouselOfferIndicators"
-                  role="button"
-                  data-slide="next"
-                >
-                  <span
-                    class="carousel-control-next-icon"
-                    aria-hidden="true"
-                  ></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>`);
-
-          let h = 0;
-          db.collection("Offers")
+          // ads carousel-sliders
+          let r = 0;
+          db.collection("Ad-slides")
             .get()
             .then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
-                if (doc.exists) {
-                  document.getElementById("indicators").innerHTML += `<li
-                    data-target="#carouselOfferIndicators"
-                    data-slide-to="${h}"
-                    class="${h === 0 ? "active" : ""}"
-                  ></li>`;
+                console.log(doc.data());
 
-                  h++;
+                document.getElementById("orderedSlides").innerHTML += `<li
+                  data-target="#carouselAdsIndicators"
+                  data-slide-to="${r}"
+                  class="${r == 0 ? "active" : ""}"
+                ></li>`;
 
-                  document
-                    .getElementById("exampleModal")
-                    .classList.remove("hide");
-                  document.getElementById("exampleModal").classList.add("show");
-                  document
-                    .getElementsByTagName("body")[0]
-                    .classList.add("modal-open");
+                document.getElementById(
+                  "slidesDiv"
+                ).innerHTML += `<div class="carousel-item + ${
+                  r == 0 ? "active" : ""
+                }">
+                  <img
+                    class="d-block w-100 carouselHeight"
+                    src="${doc.data().slideUrl}"
+                    alt="First slide"
+                  />
+                </div>`;
 
-                  document.getElementById("exampleModal").style.display =
-                    "block";
+                r++;
+              });
+            });
+
+          // End ads carousel-sliders
+        });
+
+        logoutDropdown.addEventListener("click", (e) => {
+          var logoutButton = document
+            .getElementById("name-headerDropdown")
+            .classList.add("d-none");
+          var loginButton = document
+            .getElementById("login-headerBtn")
+            .classList.remove("d-none");
+          var signupButton = document
+            .getElementById("signup-headerBtn")
+            .classList.remove("d-none");
+
+          firebase
+            .auth()
+            .signOut()
+            .then(function () {
+              // Sign-out successful.
+              localStorage.clear();
+              logoutButton;
+              loginButton;
+              signupButton;
+            })
+            .catch(function (error) {
+              // An error happened.
+            });
+        });
+
+        function registerWorker() {
+          var inputName = document.getElementById("inputName").value;
+          var inputPhone = document.getElementById("inputPhone").value;
+          var inputAddress = document.getElementById("inputAddress").value;
+          var inputService = document.getElementById("inputService").value;
+          var inputCity = document.getElementById("inputCity").value;
+          var inputPin = document.getElementById("inputZip").value;
+
+          let obj = {
+            name: inputName,
+            phone: inputPhone,
+            address: inputAddress,
+            service: inputService,
+            city: inputCity,
+            pinCode: inputPin,
+          };
+
+          db.collection("New Registerations")
+            .doc(inputPhone)
+            .set(obj)
+            .then(function () {
+              alert(
+                "We have recieved your registered data. We will contact you soon regarding other details and final confirmation."
+              );
+              inputName = "";
+              inputPhone = "";
+              inputAddress = "";
+              inputService = "";
+              inputCity = "";
+              inputPin = "";
+            });
+
+          // document.getElementById("register-form").classList.add("separator-both");
+          document.getElementById(
+            "register-form"
+          ).innerHTML = `<div class="container border border-warning separator-both p-5">
+            <h2>We have recieved your registered data.
+               We will contact you soon regarding other details and final confirmation.</h2>
+            </div>`;
+
+          // localStorage.setItem("New Registration", JSON.stringify(obj));
+        }
+
+        document.addEventListener("DOMContentLoaded", async function () {
+          db.collection("Workers")
+            .get()
+            .then(function (querySnapshot) {
+              querySnapshot.forEach(function (doc) {
+                // here we can loop through the search results from the workers' city of residence
+
+                if (
+                  localStorage.getItem("isLoggedIn") == "true" &&
+                  JSON.parse(localStorage.getItem("userData"))["Mobile"] ==
+                    doc.data().phone
+                ) {
+                  const parentDiv = document.getElementById("parentDiv");
+
+                  const inputNode = document.createElement("input");
+                  inputNode.type = "button";
+                  inputNode.className = "btn btn-outline-dark btn-block text-white";
+                  inputNode.id = "adminDropdown1";
+                  inputNode.value = "Worker-Portal";
+
+                  parentDiv.appendChild(inputNode);
+
+                  var profileBtn = document
+                    .getElementById("profileBtnDiv")
+                    .classList.add("d-none");
+                  var adminDropdown = document.getElementById("adminDropdown1");
+                  adminDropdown.addEventListener("click", function () {
+                    window.location.assign("/worker-portal.html");
+                  });
                 }
               });
             });
-        })
-        .then(() => {
-          document.getElementById("carousel-content").innerHTML +=
-            carouselContent;
-        });
-    });
 
-    function privateJobs() {
-      window.location.assign("./private-jobs.html");
-    }
+          document
+            .getElementById("offerModalCloseBtn")
+            .addEventListener("click", () => {
+              document.getElementById("exampleModal").classList.remove("show");
+              document
+                .getElementsByTagName("body")[0]
+                .classList.remove("modal-open");
+              document.getElementById("exampleModal").classList.add("hide");
+              document.getElementById("exampleModal").style.display = "none";
+            });
+          let exampleModalNode = await document.getElementById("exampleModal");
+          document.getElementById("exampleModal").remove();
+          let carouselContent = ``;
+          db.collection("Offers")
+            .get()
+            .then(async (query) => {
+              let idx = 0;
+              await query.forEach((doc) => {
+                carouselContent += `
+                      <div class="carousel-item ${idx++ === 0 ? "active" : ""}">
+
+                       <div class="card mx-3 ml-auto mr-auto" style="width: 18rem;">
+        <div class="card-body text-light">
+          <h5 class="card-title">${doc.data().title}</h5>
+          <h6 class="card-subtitle mb-2 text-light">${doc.data().subtitle}</h6>
+          <p class="card-text">First time joinee??${doc.data().text}</p>
+        </div>
+                </div>
+                      </div>
+                 `;
+              });
+            })
+            .then(() => {
+              document.getElementsByTagName("section")[0].append(exampleModalNode);
+            })
+            .then(() => {
+              let offerModal = (document.getElementById(
+                "offerModal"
+              ).innerHTML += `<div
+                    id="carouselOfferIndicators"
+                    class="carousel slide"
+                    data-ride="carousel"
+                  >
+                    <ol class="carousel-indicators" id="indicators">
+
+                    </ol>
+                    <div class="carousel-inner" id="carousel-content">
+                    </div>
+                    <a
+                      class="carousel-control-prev"
+                      href="#carouselOfferIndicators"
+                      role="button"
+                      data-slide="prev"
+                    >
+                      <span
+                        class="carousel-control-prev-icon"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a
+                      class="carousel-control-next"
+                      href="#carouselOfferIndicators"
+                      role="button"
+                      data-slide="next"
+                    >
+                      <span
+                        class="carousel-control-next-icon"
+                        aria-hidden="true"
+                      ></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>`);
+
+              let h = 0;
+              db.collection("Offers")
+                .get()
+                .then(function (querySnapshot) {
+                  querySnapshot.forEach(function (doc) {
+                    if (doc.exists) {
+                      document.getElementById("indicators").innerHTML += `<li
+                        data-target="#carouselOfferIndicators"
+                        data-slide-to="${h}"
+                        class="${h === 0 ? "active" : ""}"
+                      ></li>`;
+
+                      h++;
+
+                      document
+                        .getElementById("exampleModal")
+                        .classList.remove("hide");
+                      document.getElementById("exampleModal").classList.add("show");
+                      document
+                        .getElementsByTagName("body")[0]
+                        .classList.add("modal-open");
+
+                      document.getElementById("exampleModal").style.display =
+                        "block";
+                    }
+                  });
+                });
+            })
+            .then(() => {
+              document.getElementById("carousel-content").innerHTML +=
+                carouselContent;
+            });
+        });
+
+        function privateJobs() {
+          window.location.assign("./private-jobs.html");
+        }
   </script>
   <!-- Ending imports -->
 

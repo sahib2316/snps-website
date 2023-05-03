@@ -247,10 +247,7 @@ input[type="number"]:active,
 input[type="number"]:focus,
 input[type="email"],
 input[type="email"]:active,
-input[type="email"]:focus,
-input[type="address"],
-input[type="address"]:active,
-input[type="address"]:focus {
+input[type="email"]:focus {
   background-color: #555;
   color: white;
 }

@@ -446,3 +446,19 @@ textarea {
 /* .nameHeight {
   line-height: 1.2;
 } */
+
+.tableLayout {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.forFlex {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 576px) {
+  #align1 {
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
+}

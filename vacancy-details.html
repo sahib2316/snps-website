@@ -58,11 +58,15 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
+             <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback.html"
+                >Feedback <span class="sr-only">(current)</span></a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -236,8 +240,9 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
 
         <script>
-          if (window.location.href === './workers.html') {
+          if (window.location.href === './vacancy-details.html' || !localStorage.getItem("isLoggedIn")) {
             window.location.href = './index.html';
+            alert("You have to log-in to avail the benefits of  this website.");
           }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
@@ -308,7 +313,7 @@ document.getElementById("first").innerHTML += `
             <h3 class="extraIcon mt-2"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
             <h4>City: ${doc.data().companyDetails[i].city}</h4>
             <h4> Looking For: ${appliedVacancy}</h4>
-            <button class="btn btn-outline-light applyWorker" id="applyWorker_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}"><strong>Apply</strong></button>
+            <button class="btn btn-outline-light applyWorker" id="applyWorker_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}"><strong>Apply</strong></button>
           </div>
         </div>
       </div>            `;
@@ -325,15 +330,22 @@ document.getElementById("first").innerHTML += `
                 document.querySelectorAll(".applyWorker").forEach(function (button) {
 button.addEventListener("click", async function () {
   const companyName = await button.id.split("_")[1];
-  await console.log(companyName);
+
+  // await JSON.stringify(localStorage.setItem
+  // ("company-name", companyName));
   // await JSON.stringify(localStorage.setItem
   // ("private-job-data", companyName));
-  const docId = await button.id.split("_")[2];
-  await console.log(docId);
+  const companyPosition = await button.id.split("_")[2];
+  await console.log(companyPosition);
   await JSON.stringify(localStorage.setItem
-  ("vacancy-worker-data", docId + " at " + companyName));
-//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
-//  console.log(docId);
+  ("vacancy-worker-data", companyPosition));
+  const currentVacancies = await button.id.split("_")[3];
+  await console.log(currentVacancies);
+  const docId = await button.id.split("_")[4];
+  await console.log(docId);
+
+//   const docRef = db.collection("Workers").doc(companyPosition).get().then(async function (doc) {
+//  console.log(companyPosition);
 //  console.log(JSON.parse(localStorage.getItem("userId")));
 
 //   let obj = {
@@ -344,7 +356,7 @@ button.addEventListener("click", async function () {
 // userId: JSON.parse(localStorage.getItem("userId")),
 //   }
 
-//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+//      db.collection("Booked-Workers").doc(companyPosition).set(obj).then(function () {
 // alert("success");
 //      });
 
@@ -415,23 +427,24 @@ button.addEventListener("click", async function () {
                               "City"
                             ],
                             position: (localStorage.getItem("vacancy-worker-data")),
+                            for: companyName,
                           };
 
                           db.collection("Vacancy-Workers")
-                            .doc(
-                              JSON.parse(localStorage.getItem("userData"))["Mobile"]
-                            )
+                            .doc()
                             .set(objLocal)
                             .then(function () {
                               closeModal();
                               alert(
                                 "You have successfully applied for a vacancy. We will contact you soon."
                               );
+                              // db.collection("Vacancies").doc(docId).update({totalVacancies: currentVacancies - 1}).then(function (qur) {
+                              //   console.log("vacancies reduced by 1");
+                              // });
                             });
                         } else {
                           exampleModalNode.classList.remove("hide");
                           exampleModalNode.classList.add("show");
-                          // document.getElementsByTagName("body")[0].classList.add("modal-open");
                           exampleModalNode.style.display = "block";
 
                           document
@@ -459,16 +472,21 @@ button.addEventListener("click", async function () {
                                 phone: phoneInput,
                                 city: cityInput,
                                 position: positionInput,
+                                for: companyName,
                               };
 
                               db.collection("Vacancy-Workers")
-                                .doc(phoneInput)
+                                .doc()
                                 .set(obj)
                                 .then(function () {
                                   alert(
                                     "You have successfully applied for a Open Vacancy In this shop. We will contact you soon."
                                   );
+                              //     db.collection("Vacancies").doc(docId).update({totalVacancies: currentVacancies - 1}).then(function (qur) {
+                              //   console.log("vacancies reduced by 1");
+                              // });
                                   closeModal();
+                                  
                                 });
                             });
 

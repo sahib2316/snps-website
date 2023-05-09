@@ -255,20 +255,6 @@
     <div class="container">
       <footer class="page-footer font-small blue pt-4">
         <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="/" class="btn btn-outline-light">Go to Home</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
@@ -300,6 +286,11 @@
     firebase.initializeApp(firebaseConfig);
 
     const db = firebase.firestore();
+
+    if (window.location.href === './worker-portal.html') {
+            window.location.href = './index.html';
+            alert("You have to log-in as a Worker to avail the benefits of this page.");
+          }
 
     if (localStorage.getItem("isLoggedIn") == "true") {
       document.getElementById("login-headerBtn").classList.add("d-none");
@@ -506,15 +497,6 @@
                             error
                           );
                         });
-
-                      // await db
-                      //   .collection("Workers")
-                      //   .doc(workerPhone)
-                      //   .update(workerData)
-                      //   .then(async function (data) {
-                      //     await closeModal();
-                      // window.location.reload();
-                      // await alert(workerData.phone);
 
                       await db
                         .collection("Workers")

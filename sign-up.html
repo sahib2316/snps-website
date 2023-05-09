@@ -290,13 +290,13 @@ e.preventDefault(); // prevent default behavior of form submission
     return false;
   }
 
-if (!agreeCheck.checked) {
-  alert("You have to check to our terms to sign-up!");
+// if (!agreeCheck.checked) {
+//   alert("You have to check to our terms to sign-up!");
 
-  return false;
-}
+//   return false;
+// }
 
-  firebase.auth().createUserWithEmailAndPassword( email, password)
+  firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;

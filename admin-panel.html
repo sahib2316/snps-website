@@ -56,15 +56,8 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"></a>
-            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            </div>
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -101,12 +94,12 @@
               </button>
               <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <input
-                  class="btn btn-outline-dark text-white"
+                  class="btn btn-outline-dark text-light"
                   id="logoutDropdown"
                   value="Logout"
                 />
                 <input
-                  class="btn btn-outline-dark text-white"
+                  class="btn btn-outline-dark text-light"
                   id="profileDropdown"
                   value="Profile"
                 />
@@ -283,12 +276,23 @@
     </div>
     <!-- End Worker -->
 
+    <!-- Booked Worker Cards -->
+     <div class="container separator">
+      <h3>Booked Workers</h3>
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+        <div class="row applicants" id="booked_workers">
+        <!-- Booked worker cards are here -->
+        </div>
+      </div>
+     </div>
+    <!-- End Booked Worker Cards -->
+
     <!-- vacancies -->
-   <div class="container my-5 pl-0 extraMargin">
-           <h3>Vacancies</h3>
+   <div class="container my-5 pl-0 ">
+    <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+      <h3>Vacancies</h3>
       <hr />
-   </div>
-   <div class="container bg-secondary mb-5 extraMargin">
+       <div class="container bg-secondary mb-5 ">
       <div class="row ">
         <!-- label div -->
         <div class=" col-md-2 border-input bg-light pr-0 mx-3 mt-2">
@@ -306,54 +310,61 @@
         <!--End input div -->
       </div>
       <!-- no.of vacancies -->
-      <div class="text-center">
+      <!-- <div class="text-center">
           <div><label for="count"><strong>No. Of Vacancies</strong></label></div>
           <div class="pb-3"><input type="number" name="count" id="count"></div>
-      </div>
+      </div> -->
       <!-- End no.of vacancies-->
+   </div>
+    </div>      
    </div>
     <!--End vacancies -->
 
-    <!-- Vacancy Cards -->
-    
-     <div class="container my-5 extraMargin">
+    <!--Available Vacancy Cards -->
+     <div class="container my-5 ">
       <h3>Available Vacancies</h3>
       <div class="row iterable" id="iterable">
         <!-- vacancy cards are embedded here -->
       </div>
      </div>
-    <!-- End Vacancy Cards -->
+    <!-- End Available Vacancy Cards -->
 
     <!-- Vacancy Worker Cards -->
      <div class="container separator">
       <h3>Applied Workers</h3>
-      <div class="row applicants" id="applicants">
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+        <div class="row applicants" id="applicants">
         <!-- vacancy worker cards are here -->
+        </div>
       </div>
      </div>
     <!-- End Vacancy Worker Cards -->
 
+
+  <div class="container">
+    <h3>Worker Companies</h3>
+    <div class="row ml-0 my-5" id="companySmallCards">
+      <!-- company names are here -->
+      </div>
+    </div>
+
     <hr class="separator mb-5 borderCustom">
 
-    <!-- New Vacancy -->
+    <!-- Private Jobs -->
       <div class="container pl-0 ">
       <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
-      <h3>Set Private-Jobs Vacancy Details</h3>
+      <h3>Set Workers/Private-Jobs Company Details</h3>
       <hr />
 
-<div class="container text-center d-flex flex-column border-flex bg-secondary p-2 py-0">
-      <div class="d-flex ">
-        <!-- label+icon -->
-        <div class="flex-grow-5 border-input bg-light px-3 mx-3">
-          <label for=""
+<div class="container text-center border-flex bg-secondary py-0">
+    <div class="row">
+      <div class="col-md-4 bg-light"><label for="vacancyDetail"
             ><h5 class="mb-0 mt-4">
               Add A Vacancy Detail<br /><button class="btn btn-primary" id="vacancyDetail"><i class="fa-solid fa-circle-plus"></i
               ></button></h5
           ></label>
         </div>
-        <!-- end label+icon -->
-        <!-- vacancydropdown -->
-        <div class="flex-grow-1 form-group">
+        <div class="col-md-8 mt-2">
           <div class="container-fluid">
             
           <label class="mx-3" for="vacancy_type"
@@ -370,7 +381,7 @@
           <div class="row">
             <!-- Company name -->
             <div class="col-md-4">
-              <div>
+              <div class="mt-2">
             <label class="" for="company"><strong>Company Name</strong></label>
           </div>
           <div>
@@ -400,13 +411,12 @@
         <!-- End city -->
           </div> 
         </div>
-      </div>
+        </div>
     </div>
 
-      <div class="container">
-<div class="d-flex ">
-  <!-- position -->
-        <div class="flex-grow-1 form-group mt-2 mr-3 mx-3">
+      <div class="row my-3 ml-md-2">
+        <!-- position -->
+        <div class="col-md-4">
           <div class="">
             <label class="" for="position"><strong>Position</strong></label>
           </div>
@@ -416,7 +426,7 @@
         </div>
         <!-- end position -->
         <!-- eligibility -->
-        <div class="flex-grow-1 form-group mt-2 mr-3 mx-3">
+        <div class="col-md-4">
           <div class="">
             <label class="" for="eligibility"><strong>Eligibility</strong></label>
           </div>
@@ -426,8 +436,8 @@
         </div>
         <!-- end eligibility -->
         <!-- Salary -->
-        <div class="flex-grow-1 form-group mx-3">
-          <div class="mt-2">
+        <div class="col-md-3">
+          <div class="">
             <label class="" for="salary"><strong>Salary</strong></label>
           </div>
           <div class="">
@@ -435,13 +445,31 @@
           </div>
         </div>
         <!-- end Salary -->
+        
       </div>
-      </div>
-      
-      </div>
+
+</div>
     </div>
   </div>
-    <!-- End New Vacancy -->
+    <!-- End Private Jobs -->
+
+    <!--Available Private-Jobs Cards -->
+     <div class="container my-5 ">
+      <h3>Available Private-Jobs</h3>
+      <div class="row noOfPrivateJobs" id="noOfPrivateJobs">
+        <!-- vacancy cards are embedded here -->
+      </div>
+     </div>
+    <!-- End Available Private-Jobs Cards -->
+
+    <!-- Private-Job Companies -->
+    <div class="container">
+    <h3>Private-Job Companies</h3>
+    <div class="row ml-0 my-5" id="jobCompanyCards">
+      <!-- company names are here -->
+      </div>
+    </div>
+    <!-- End Private-Job Companies -->
 
     <!-- Private-Job Volunteers -->
     
@@ -452,6 +480,7 @@
       </div>
     </div>
     <!-- End Private-Job Volunteers -->
+
     
     <hr class="separator borderCustom">
 
@@ -459,9 +488,7 @@
     <div class="container text-center">
       <h1 class=" my-5">New Worker Registerations</h1>
     </div>
-
       <div class="container px-4">
-       
       <div class="row registerCards">
         <!-- new workers html is here -->
         </div>
@@ -578,7 +605,7 @@
     <hr class="separator borderCustom"/>
 
     <!--Customer Feedback -->
-      <div class="container my-5 borderCustom p-3 pt-1">
+      <div class="container my-5 newRegBorder bg-secondary p-3 pt-1">
       <div class="row" id="feedbackDisplay">
         <div class="col-md-12 my-3">
           <h2>Customer Feedbacks</h2>
@@ -593,7 +620,7 @@
       <div class="row">
         <div class="col-md-12">
           <h1>Set An Overview For The Website</h1>
-          <textarea class="form-control borderCustom" rows="5" cols="" id="overviewText"></textarea>
+          <textarea class="form-control newRegBorder" rows="5" cols="" id="overviewText"></textarea>
         </div>
         <div class="col-md-12 my-3">
           <input
@@ -756,8 +783,24 @@ document.getElementById("service-workers-dropdown").value="no_option";
 document.addEventListener("DOMContentLoaded", async function () {
   await db.collection("Vacancies").get().then(async function (querySnapshot) {
   querySnapshot.forEach( function (doc) {
-    // console.log(doc.id);
- document.getElementById("iterable").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
+    if(doc.data().vacancy !== "Private Jobs") {
+document.getElementById("iterable").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+         <h5>${doc.data().vacancy}</h5>
+         <div class=""><button class="btn btn-warning mx-2 my-1 text-center">
+          ${doc.data().totalVacancies}</button></div>
+         
+        </div>
+        <div class="col-md-6 text-right">
+         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy} / ${doc.data().totalVacancies}" id="deleteVacancy-${doc.id}">Delete</button>
+        </div>
+          </div>
+        </div>`;
+    } 
+
+    if(doc.data().vacancy === "Private Jobs") {
+document.getElementById("noOfPrivateJobs").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
           <div class="row">
             <div class="col-md-6 d-flex">
          <h3>${doc.data().vacancy}</h3>
@@ -770,6 +813,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         </div>
           </div>
         </div>`;
+    } 
   });
 }).then( function () {
 
@@ -794,7 +838,7 @@ db.collection("Vacancies").doc(docId).update({totalVacancies: countNumber - 1}).
 // End Vacant cards
 
 // Vacancy script
-document.getElementById('vacancy').
+document.getElementById("vacancy").
            innerHTML=`<option value="no_option">Choose Service</option>`;        
     
   db.collection("Categories").get().then(function (querySnapshot) {
@@ -823,72 +867,45 @@ document.getElementById('vacancy').
     }
   });
 
-  document.getElementById("vacancy").addEventListener("change", (e) => {
-    const selectedService = e.target.value;
-    console.log(selectedService + "x");
-  });
+document.getElementById("vacancy").addEventListener("change", function (e) {
+  let selectedService = e.target.value;
 
   document.getElementById("add-vacancy").addEventListener("click", function () {
-  var vacancy = document.getElementById("vacancy").value;
-  
-  let obj={
-    vacancy: vacancy,
-    totalVacancies: 0,
-  }
+    let obj = {
+      vacancy: selectedService,
+      totalVacancies: 0,
+    }
+    
+    if (selectedService !== "no_option") {
+      db.collection("Vacancies").get().then(async function (query) {
 
-  db.collection("Vacancies").add(obj).then(function (docc) {
-    alert("Vacancy added");
-    document.getElementById("vacancy").value="";
+        let vacancyFound = false; // flag variable
 
-    db.collection("Vacancies").doc(docc.id).get().then(function (doc) {
-      if (doc.exists && doc.data().totalVacancies !== undefined) {
-        db.collection("Vacancies").doc(docc.id).update({
-          totalVacancies: doc.data().totalVacancies + 1
-        }).then(function () {
-          console.log("Total vacancies updated");
-        })
-      }
-    });
-  })
+        query.forEach( function (doccc) {
+
+          if (doccc.data().vacancy === selectedService) {
+
+            if (doccc.data().totalVacancies !== undefined) {
+              console.log(doccc.id + doccc.data().totalVacancies);
+               db.collection("Vacancies").doc(selectedService).update({
+                totalVacancies: doccc.data().totalVacancies + 1,
+              });
+            }
+            vacancyFound = true; // vacancy found
+          }
+        });
+        
+        if (!vacancyFound) {
+  // if vacancy not found, add new vacancy
+  await db.collection("Vacancies").doc(selectedService).set(obj);
+  console.log("Vacancy Added with ID:", selectedService);
+}
+
+      });
+    }
+  });
 });
 
-// document.getElementById("add-vacancy").addEventListener("click", function () {
-// var vacancy = document.getElementById("vacancy").value;
-//   // var numberOf = document.getElementById("count").value;
-
-//   let obj={
-//     vacancy: vacancy,
-//     totalVacancies: 0,
-//   }
-
-//   db.collection("Vacancies").doc().set(obj).then(function (querySnapshot) {
-// alert("Vacancy added");
-// document.getElementById("vacancy").value="";
-// // document.getElementById("count").value="";
-// // window.location.reload();
-
-// db.collection("Vacancies").doc().get().then(function (docc) {
-// console.log(docc.data().totalVacancies + "y");
-// //  if (docc.data().totalVacancies) {
-// //   db.collection("Vacancies").doc().update({totalVacancies: docc.data().totalVacancies + 1}).
-// //   then(function (querySnapshot) {
-// // alert("Vacancy added");
-// // document.getElementById("vacancy").value="";
-// // // document.getElementById("count").value="";
-// // // window.location.reload();
-// //   });
-// //  }
-//   })
-
-//   });
-
-// // console.log(vacancy);
-//   // End Vacancy Script
-// });
-
-
-// Vacancy Details Script
- 
   const dropdown = document.getElementById('vacancy-type-dropdown');
 
   dropdown.innerHTML = `<option value="no_option">Choose Service</option>`;        
@@ -942,6 +959,13 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
     city: city,
   });
 
+  // if (vacancyDropdown != "no_option" || company !== "" || phone !== "" || position !== "" || eligibility !== "" || salary !== "" || city !== "") {
+  //   alert("Please fill in all the fields");
+    
+  //   // Return false to prevent submission
+  //   return false;
+  // }
+
   db.collection("Vacancies").get().then(function (querr) {
     querr.forEach(function (docc) {
       if (docc.data().vacancy === vacancyDropdown) {
@@ -964,20 +988,48 @@ document.getElementById("vacancyDetail").addEventListener("click", function () {
             // Clear the companyDetails array
             companyDetails = [];
           });
-      }
-    });
-  });
+      } 
+      
+if (docc.data().vacancy === vacancyDropdown && !docc.data().companyDetails) {
+// let newCompanyDetails = docc.data().companyDetails || [];
+//         newCompanyDetails.push(...companyDetails);
 
+vacancyObj = {
+  companyDetails: [{
+    company: company,
+    phone: phone,
+    position: position,
+    eligibility: eligibility,
+    salary: salary,
+    city: city,
+  }],
+}
+
+db.collection("Vacancies").doc(vacancyDropdown).update(vacancyObj).then(function () {
+console.log("how many does it runs?");
+          vacancyDropdown = "";
+            company = "";
+            eligibility = "";
+            salary = "";
+            city = "";
+
+           // Clear the companyDetails array
+            // companyDetails = [];
+        });
+        
+      }
+    
+              });
+  });
   // End Vacancy Script
 });
-
 // End Vacancy Details Script
 
 // Slide cards
 await db.collection("Ad-slides").get().then(async function (querySnapshot) {
   querySnapshot.forEach( function (doc) {
     // console.log(doc.id);
- document.getElementById("slideDelete").innerHTML += `<div class="col-md-4 borderCustom my-2 mx-3">
+ document.getElementById("slideDelete").innerHTML += `<div class="col-md-4 newRegBorder my-2 mx-3">
           <div class="row">
             <div class="col-md-6 d-flex">
          <h3>${doc.data().slideName}</h3>
@@ -1004,25 +1056,178 @@ await db.collection("Ad-slides").get().then(async function (querySnapshot) {
 });
 // End Slide cards
 
-// Vacancy Workers
-
-await db.collection("Vacancy-Workers").get().then(async function (querySnapshot) {
+// Booked Workers
+await db.collection("Booked-Workers").get().then(async function (querySnapshot) {
   querySnapshot.forEach( function (doc) {
-    // console.log(doc.id);
- document.getElementById("applicants").innerHTML += `<div class="card m-3 borderCustom" style="width: 18rem;">
+
+    db.collection("userDetails").doc(doc.data().userId).get().then(function (data) {
+let userPhone = data.data().phone;
+
+document.getElementById("booked_workers").innerHTML += `<div class="card m-3 borderCustom offerCardWidth my-2">
   <div class="card-body">
     <h5 class="card-title">Name: ${doc.data().name}</h5>
     <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
     <h6 class="card-subtitle mb-2 text-muted">City: ${doc.data().city}</h6>
-    <p class="card-text">Position: ${doc.data().position}</p>
-    <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call</button>
+    <p class="card-text positionField" id="positionField-${doc.data().phone}"><strong>For Service:  ${doc.data().service}</strong></p>
+    <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call Worker</button>
+    <button onClick="window.open('tel:${data.data().phone}', '_blank')" class="card-link btn btn-warning">Call User</button>
   </div>
 </div>`;
+    })
           
   });
 });
+// End Booked Workers
 
+// Vacancy Workers
+
+await db.collection("Vacancy-Workers").get().then(async function (querySnapshot) {
+  querySnapshot.forEach(async function (doc) {
+    
+let appliedCompanyContact = "";
+
+    await db.collection("Vacancies").get().then(function (queryy) {
+      queryy.forEach(function (doccc) {
+
+        if (doccc.data().companyDetails) {
+for (let i=0; i<doccc.data().companyDetails.length; i++) {
+if (doc.data().for == doccc.data().companyDetails[i].company) {
+ appliedCompanyContact = doccc.data().companyDetails[i].phone;
+}
+        }
+ 
+        }
+             })
+
+      document.getElementById("applicants").innerHTML += `<div class="card m-3 borderCustom offerCardWidth my-2">
+  <div class="card-body">
+    <h5 class="card-title">Name: ${doc.data().name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">City: ${doc.data().city}</h6>
+    <p class="card-text positionField mb-1" id="positionField-${doc.data().phone}"><strong>Position:</strong> ${doc.data().position}</p>
+    <p class="card-text atCompany" id="atCompany-${doc.data().phone}"><strong>At Company:</strong> ${doc.data().for}</p>
+    <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success btn-sm">Call Worker</button>
+    <button onClick="window.open('tel:${appliedCompanyContact}', '_blank')" class="card-link btn btn-dark text-light btn-sm">Call Company</button>
+    <button class="card-link btn btn-danger text-light btn-sm deleteWorker my-2 ml-0" id="deleteWorker_${doc.id}">Delete Worker</button>
+  </div>
+</div>`;
+    })
+ 
+   await document.querySelectorAll(".deleteWorker").forEach(async function (button) {
+document.getElementById(button.id).addEventListener("click", async function () {
+  const documId = await button.id.split("_")[1];
+  console.log(documId);
+  await db.collection("Vacancy-Workers").doc(documId).delete().then(function () {
+    console.log("deleted successfully eh??!!");
+    window.location.reload();
+  })
+})
+    })
+          
+  });
+});
 // End Vacancy Workers
+
+// Vacancy Companies
+db.collection("Vacancies")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(async function (doc) {
+                  if (doc.data().companyDetails) {
+
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
+  if (doc.data().vacancy !== "Private Jobs") {
+document.getElementById("companySmallCards").innerHTML += `
+<div class="col-sm-2 marginBottom mx-2">
+                  <div class="row card newRegBorder workerCards mb-3 " >
+            <h6 class="m-0 bg-secondary text-light"><strong class="text-dark">Company:</strong> <p>${doc.data().companyDetails[i].company}</p></h6>
+            <p class="m-0 bg-secondary text-light"><strong class="text-dark">Vacancy for:</strong> ${doc.data().vacancy}</p>
+<button class="btn btn-outline-danger deleteCompany" 
+id="deleteCompany_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}">
+<strong>Delete</strong></button>
+        </div>
+      </div>`;
+  }
+                  }
+                  }
+
+                });
+
+                document.querySelectorAll(".deleteCompany").forEach(function (button) {
+button.addEventListener("click", async function () {
+  await db.collection("Vacancies").get().then(function (q) {
+    q.forEach(function (d) {
+      // if (d.data().companyDetails["company"] == button.id.split("_")[1]) {
+
+      // }
+      if (d.data().companyDetails) {
+var updatedDetails = d.data().companyDetails.filter((detail) => {
+      return detail.company !== button.id.split("_")[1];
+    });
+
+     d.ref.update({
+      companyDetails: updatedDetails,
+    });
+      }
+      
+   window.location.reload();
+    })
+  })
+});
+});
+              });
+
+// End Vacancy Companies
+
+// Private Job Companies
+db.collection("Vacancies")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(async function (doc) {
+                  if (doc.data().companyDetails) {
+
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
+  if (doc.data().vacancy === "Private Jobs") {
+document.getElementById("jobCompanyCards").innerHTML += `
+<div class="col-sm-2 marginBottom mx-2 ">
+                  <div class="row card newRegBorder workerCards mb-3 " >
+            <h2 class="m-0 bg-secondary">${doc.data().companyDetails[i].company}</h2>
+<button class="btn btn-outline-danger deleteCompany" 
+id="deleteCompany_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}">
+<strong>Delete</strong></button>
+        </div>
+      </div>`;
+ }
+                  }
+                  }
+
+                });
+
+                document.querySelectorAll(".deleteCompany").forEach(function (button) {
+button.addEventListener("click", async function () {
+  await db.collection("Vacancies").get().then(function (q) {
+    q.forEach(function (d) {
+      // if (d.data().companyDetails["company"] == button.id.split("_")[1]) {
+
+      // }
+      if (d.data().companyDetails) {
+var updatedDetails = d.data().companyDetails.filter((detail) => {
+      return detail.company !== button.id.split("_")[1];
+    });
+
+     d.ref.update({
+      companyDetails: updatedDetails,
+    });
+      }
+      
+   window.location.reload();
+    })
+  })
+});
+});
+              });
+
+// End Private-Job Companies
 });
 
  
@@ -1031,97 +1236,92 @@ await db.collection("Vacancy-Workers").get().then(async function (querySnapshot)
 db.collection("New Registerations").get().then(async function (querySnapshot) {
   let k=0,arr=[];
 for(const [idx,doc] of querySnapshot.docs.entries()){
+  let obj = doc.data(); // Define obj variable herelet obj = doc.data(); // Define obj variable here
   // console.log(idx);
   let child = document.createElement("div");
   child.classList.add("col-md-5", "m-3", "p-0");
-  child.innerHTML += `<div class="card">
+  child.innerHTML += `<div class="card newRegBorder">
             <div class="card-body">
               <h5 class="card-title">New Worker</h5>
-              <h2>Name:${doc.data().name}</h2>
-              <h2>Phone: ${doc.data().phone}</h2>
-              <h2>Service: <input type="text" class="bg-light newServiceInput" name="serviceInput" id="changeInput-${idx}" value=" ${doc.data().service}">
-                <button class="btn btn-primary ml-3 changeService" id="change-${idx}">Change</button></h2>
-              
-              <h2>Address: ${doc.data().address}</h2>
-              <h2>City: ${doc.data().city}</h2>
-              <h2>Zip: ${doc.data().zip}</h2>
+              <h4>Name:${doc.data().name}</h4>
+              <h4>Phone: ${doc.data().phone}</h4>
+  <div class="row">
+  <div class="col-md-6">
+    <h4>Service:</h4>
+    <input type="text" class="bg-light newServiceInput"
+       name="serviceInput" id="changeInput-${idx}" value="${doc.data().service}">
+  </div>
+  <div class="col-md-6">
+    <h4>&nbsp;</h4>
+    <select class="btn btn-primary changeService btn-sm" id="change-${idx}" value="Change Service Name"></select>
+  </div>
+</div>
+
+              <h5>Address: ${doc.data().address},${doc.data().pinCode}</h5>
+              <h5>City: ${doc.data().city}</h5>
               <button class="btn btn-primary adding-btn" id='addBtn-${idx}'>Add to Workers</button>
               <select name="choosing" class="choosing bg-warning ml-4" id='choose-${idx}'>Choose Category For This 
                 </select>
             </div>
           </div>
 `;
- await document.getElementsByClassName("registerCards")[0].appendChild(child); 
+ await document.getElementsByClassName("registerCards")[0].appendChild(child);
 
-await document.getElementById(`change-${idx}`).addEventListener("click", function () {
-let changeInput = document.getElementById(`changeInput-${idx}`).value;
-let updateData = {
-  service: changeInput,
-}
-db.collection("New Registerations").doc(doc.data().phone).update(updateData).then(async function () {
-window.location.reload();
+ console.log(`addBtn-${idx}`);
+
+    await db.collection("Categories").get().then(function (queryy) {
+        let selectElem = document.getElementById(`change-${idx}`);
+  selectElem.innerHTML=`<option value="Change service-name">Change service-name</option>`;
+
+        queryy.forEach(function (doc) {          
+    let services = doc.data().Services;
+    services.forEach(function (service) {
+      let optionElem = document.createElement("option");
+      optionElem.value = service;
+      optionElem.text = service;
+      selectElem.appendChild(optionElem);
+
+      // Add an event listener for the "change" event on the select element
+let inputElem = document.getElementById(`changeInput-${idx}`);
+selectElem.addEventListener("change", function () {
+  // Get the value of the selected option
+  let selectedOption = selectElem.options[selectElem.selectedIndex];
+  let selectedValue = selectedOption.value;
+  // Set the value of the input element
+  inputElem.value = selectedValue;
 });
+    });
+       })
+     })
 
-});
-
- let obj = {
-    name: doc.data().name,
-    phone: doc.data().phone,
-    category: "",
-    service: doc.data().service,
-    address: doc.data().address,
-    city: doc.data().city,
-  }
- arr.push(obj);
-  k=idx;
-
+     k++;
+     arr.push(obj); // Push obj variable to the arr arrayarr.push(obj); // Push obj variable to the arr array
 }
 
- db.collection("Workers").get().then( function (que) {
-que.forEach( function (document) {
- db.collection("Categories").doc(document.data().category).get().then(function (data) {
-if (!data.data().Services.includes(document.data().service)) {
+console.log("value of k: "+k);
 
-let arrayyy = data.data().Services;
-let obj = [...arrayyy];
-obj.push(document.data().service);
+    db.collection("Categories").get().then( function (querySnapshot) {
+      querySnapshot.forEach( function (doc) {
 
- db.collection("Categories").doc(document.data().category).set({Services: obj}).then(function () {
-  console.log("mission far from successfull");
-})
-
-}
-  
-});
-
-})
-})
-
-
-
-
-let m = 0;
-    db.collection("Categories").get().then(async function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-
-        for (let i = 0; i <= k; i++) {
+        for (let i = 0; i < k; i++) {
           let chooseElem = document.getElementById(`choose-${i}`);
           chooseElem.innerHTML += `<option value="${doc.id}">${doc.id}</option>`;
         }
-        m++;
+        
       });
     });
 
-for(let i=0;i<=k;i++){
+for(let i=0;i<k;i++){
   let obj=arr[i];
- document.getElementById(`addBtn-${i}`).addEventListener("click", function () {
+  console.log(i + " " + obj + " " + arr[i] + " " + k);
+ document.getElementById(`addBtn-${i}`).addEventListener("click", async function () {
 
-  let chosenCategory = document.getElementById(`choose-${i}`).value;
-        obj.category = chosenCategory;
-        console.log(i + " button clicked. Category chosen: " + chosenCategory);
+  let chosenCategory = await document.getElementById(`choose-${i}`).value;
+        obj.category = await chosenCategory;
+        await console.log(i + " button clicked. Category chosen: " + chosenCategory);
             // console.log(i + "button clicked");
 
-            db.collection("Workers").doc(obj.phone).set(obj)
+           await db.collection("Workers").doc(obj.phone).set(obj)
               .then(function (data) {
 
 db.collection("New Registerations").doc(obj.phone).delete()
@@ -1163,8 +1363,10 @@ window.location.reload();
 
 // feedback
 db.collection("Feedbacks").get().then(function (querySnapshot) {
+ let m=0;
   querySnapshot.forEach(function (doc) {
-document.getElementById("feedbackDisplay").innerHTML += `<div class="card m-3 borderCustom" style="width: 20rem;">
+    if (m<5) {
+      document.getElementById("feedbackDisplay").innerHTML += `<div class="card borderCustom m-3 offerCardWidth">
   <div class="card-body">
     <div class="container">
       <div class="row">
@@ -1174,10 +1376,26 @@ document.getElementById("feedbackDisplay").innerHTML += `<div class="card m-3 bo
     <p class="card-title ml-3"><strong>Feedback:</strong> ${doc.data().feedback}</p>
   </div>
 </div>`;
+m++;
+    }
   });
 });
 
 });
+
+// db.collection("Feedbacks")
+//   .orderBy("feedback", "desc") // assuming you have a "createdA" field in your documents
+//   .limit(5)
+//   .get()
+//   .then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       console.log(doc.id, " => ", doc.data()); // log the id and data of each document
+//     });
+//   })
+//   .catch((error) => {
+//     console.error("Error getting documents: ", error);
+//   });
+
 // End feedback
 
 // Offers
@@ -1206,7 +1424,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 await db.collection("Private-job Volunteers").get().then(function (querySnapshot) {
   querySnapshot.forEach(function (doc) {
-document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3 borderCustom" style="width: 18rem;">
+document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3 newRegBorder offerCardWidth my-2">
   <div class="card-body">
     <h5 class="card-title">${doc.data().name}</h5>
     <h6 class="card-subtitle mb-2">${doc.data().phone}</h6>
@@ -1221,7 +1439,7 @@ document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3
   await db.collection("Offers").get().then(function (querySnapshot) {
   for(const [idx,doc] of querySnapshot.docs.entries()){
    // console.log(doc.id);
-document.getElementById("offerRow").innerHTML += `<div class="card mx-3 borderCustom" style="width: 18rem;">
+document.getElementById("offerRow").innerHTML += `<div class="card mx-3 borderCustom offerCardWidth my-2">
   <div class="card-body">
     <h5 class="card-title">${doc.data().title}</h5>
     <h6 class="card-subtitle mb-2 text-muted">${doc.data().subtitle}</h6>

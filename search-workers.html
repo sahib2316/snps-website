@@ -58,11 +58,15 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback.html"
+                >Feedback <span class="sr-only">(current)</span></a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -211,6 +215,10 @@
           if (window.location.href === './workers.html') {
             window.location.href = './index.html';
           }
+
+          if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.assign("/");
+      }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -236,37 +244,28 @@
 
           document.addEventListener("DOMContentLoaded", async function () {
             
+            let s=0;
 await db.collection("Workers").where("city", "==", selectCity).get().then(function (querr) {
   querr.forEach(function (docum) {
 let filterDropdown = document.getElementById("filterDropdown");
   // console.log(docum.data());
 filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docum.data().service}">${docum.data().service}</a>`;
           
-  })
-})
-
-            let s=0;
-            db.collection("Workers")
-              .get()
-              .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-                  // console.log(document.getElementById("first").value + "e");
-
-if (s<1) {
+ if (s<1) {
 document.getElementById("workerTitle").innerHTML += `
                   <h2 class="text-danger" >Available ${selectCity} Workers</h2>
                   `;
                   s++;
 }
-            if (doc.data().city === selectCity) {
-                    document.getElementById("first").innerHTML += `
+
+document.getElementById("first").innerHTML += `
 <div class="col-sm-6 marginBottom">
                   <div class="row workerCards mb-3" >
           <div class="col-sm-6 p-0" >
             <div class="card amendCard" >
               <img
                 class="card-img-top"
-                src="https://source.unsplash.com/random/?${doc.data().category}+${selectCity}"
+                src="https://source.unsplash.com/random/?${docum.data().category}+${selectCity}"
                 alt="Card image cap"
                 width=""
                 height=""
@@ -274,19 +273,44 @@ document.getElementById("workerTitle").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h2 class="m-0 nameHeight">${doc.data().name}</h2>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <h2 class="m-0 nameHeight">${docum.data().name}</h2>
+            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${docum.data().phone}</h3>
+            <h3>${docum.data().service} (${docum.data().category})</h3>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${docum.id}"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
 
-                  }
+  })
 
-                })
-              })
+  if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
+document.querySelectorAll(".bookWorker").forEach(function (button) {
+button.addEventListener("click", function () {
+  console.log("working till here.");
+  const docId = button.id.split("_")[1];
+  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+//  console.log(doc.data());
+// console.log(JSON.parse(localStorage.getItem("userId")));
 
+  let obj = {
+name: doc.data().name,
+phone: doc.data().phone,
+service: doc.data().service,
+city: doc.data().city,
+userId: JSON.parse(localStorage.getItem("userId")),
+  }
+
+     db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+alert("success");
+     });
+
+  });
+
+});
+});
+                }
+
+})
 
            await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
               console.log(item.id);
@@ -294,7 +318,8 @@ document.getElementById("workerTitle").innerHTML += `
               const docId = item.id.split("_")[1];
               console.log(docId); 
 
-let o=0;
+              if (docId) {
+                let o=0;
             db.collection("Workers")
               .get()
               .then(function (querySnapshot) {
@@ -327,7 +352,7 @@ document.getElementById("first").innerHTML = `
             <h1 class="m-0">${doc.data().name}</h1>
             <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
             <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${doc.id}"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
@@ -339,9 +364,11 @@ document.getElementById("first").innerHTML = `
 
                 });
 
+                if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
 document.querySelectorAll(".bookWorker").forEach(function (button) {
 button.addEventListener("click", function () {
-  const docId = button.id.split("-")[1];
+  console.log("working till here.");
+  const docId = button.id.split("_")[1];
   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
 //  console.log(doc.data());
 // console.log(JSON.parse(localStorage.getItem("userId")));
@@ -350,7 +377,7 @@ button.addEventListener("click", function () {
 name: doc.data().name,
 phone: doc.data().phone,
 service: doc.data().service,
-address: doc.data().address,
+city: doc.data().city,
 userId: JSON.parse(localStorage.getItem("userId")),
   }
 
@@ -362,8 +389,11 @@ alert("success");
 
 });
 });
+                }
 
               });
+
+              }
 
             })
             });

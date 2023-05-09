@@ -82,38 +82,7 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            <!-- <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                  <div
-                    class="modal fade bd-example-modal-lg"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="myLargeModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-md-2">
-                              <button>Construction</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Repairing</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Vehicles</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
-            <div
+             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
             >
@@ -589,15 +558,14 @@ if (!inputCheck.checked) {
         .then(async function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // console.log(doc.id);
-            if (doc.data().vacancy !== "Private Jobs") {
-              console.log("whats wrong!!??");
+            if (doc.data().vacancy !== "Private Jobs" && doc.data().totalVacancies !== 0) {
               document.getElementById(
                 "vacancyRow"
               ).innerHTML += `<div class="col-md-6">
                           <div class="card text-center text-light">
                             <div class="card-header bg-dark">Vacancy</div>
                             <div class="card-body">
-                              <h5 class="card-title">For:${
+                              <h5 class="card-title">For: ${
                                 doc.data().vacancy
                               }</h5>
                               <p class="card-text">
@@ -606,9 +574,7 @@ if (!inputCheck.checked) {
                                 } who can handle clients on call and will be
                                 available whenever in need.
                               </p>
-                              <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy-${
-                                doc.id
-                              }-${doc.data().vacancy}">Apply</a>
+                              <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy_${doc.data().vacancy}">Apply</a>
                             </div>
                             <div class="card-footer text-light bg-dark">Total Vacancies Available: <strong class="text-light">${
                               doc.data().totalVacancies
@@ -621,20 +587,19 @@ if (!inputCheck.checked) {
           document
             .querySelectorAll(".applyVacancy")
             .forEach(async function (button) {
-              console.log(button.id);
               document
                 .getElementById(button.id)
                 .addEventListener("click", async function () {
-                  const appliedVacancy = button.id.split("-")[2];
+                  const appliedVacancy = button.id.split("_")[1];
                   await console.log(appliedVacancy);
 
                   const url = `./vacancy-details.html?vacancy=${appliedVacancy}`;
                   let flag = false;
-                  db.collection("Workers")
+                  db.collection("Vacancies")
                     .get()
                     .then(function (querySnapshot) {
                       for (const doc of querySnapshot.docs) {
-                        if (doc.data().service === appliedVacancy) {
+                        if (doc.data().vacancy === appliedVacancy) {
                           console.log(doc.data());
                           flag = true;
                         }

@@ -68,8 +68,7 @@
               <a class="nav-link mt-1 " href="/vacancies.html">Vacancies <span class="sr-only">(current)</span></a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            </div>
+            <form class="form-inline my-2 my-lg-0" id="navbarForm">
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -128,6 +127,7 @@
                   id="logoutDropdown"
                   value="Logout"
                 />
+                <div class="parentDiv" id="parentDiv"></div>
               </div>
             </div>
           </form>
@@ -176,13 +176,14 @@
 
       <div class="container-fluid text-light separator-both">
         <h2>Booked Workers</h2>
-      <table class="table table-dark my-3">
+      <table class="table table-dark my-3 tableLayout">
         <thead>
           <tr>
             <th scope="col"><strong>Booked Workers</strong></th>
             <th scope="col">Name</th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
+            <th scope="col">Service</th>
           </tr>
         </thead>
         <tbody class="" id="profileTable">
@@ -196,7 +197,7 @@
       <div class="container">
         <footer class="page-footer font-small blue pt-4">
           <!-- Copyright -->
-          <div class="footer-copyright text-center">
+          <div class="footer-copyright text-center text-light">
             @Copyright
             <a href="/" class="text-light"> SN Point pvt Ltd</a>
           </div>
@@ -237,6 +238,11 @@
 // });
 window.location.reload()
 }
+
+if (window.location.href === './profile.html') {
+            window.location.href = './index.html';
+            alert("You have to log-in as a User to avail the benefits of this page.");
+          }
 
     if (localStorage.getItem("isLoggedIn") == "true") {
                 document
@@ -470,6 +476,27 @@ docRef.onSnapshot(function (doc) {
                   .classList.add("d-none");
               }
 
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+
               let b = 1;
               document.addEventListener("DOMContentLoaded", function () {
                 db.collection("Booked-Workers").get().then(function (querySnapshot) {
@@ -480,7 +507,8 @@ querySnapshot.forEach(function (doc) {
             <th scope="row">${b}</th>
             <td>${doc.data().name}</td>
             <td>${doc.data().phone}</td>
-            <td>${doc.data().address}</td>
+            <td class="pl-3">${doc.data().address}</td>
+            <td class="pl-3">${doc.data().service}</td>
           </tr>`;
 
           document.getElementById("profileTable").innerHTML += row;

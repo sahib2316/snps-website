@@ -292,7 +292,7 @@ db.collection("Workers")
 
       db.collection("Overview").get().then(function (querySnapshot) {
          querySnapshot.forEach(function (doc) {
-            document.getElementById("overviewDisplay").innerHTML += `<div class="my-4"><h4 class="overviewText">${doc.data().overview}</h4></div>`;
+            document.getElementById("overviewDisplay").innerHTML += `<div class="p-md-5"><h4 class="overviewText">${doc.data().overview}</h4></div>`;
          });
       });
 

@@ -393,7 +393,7 @@ input[type="email"]::placeholder {
 }
 
 .overviewText {
-  line-height: 1.4;
+  line-height: 1.8;
 }
 
 .footerColor {
@@ -462,3 +462,11 @@ textarea {
     white-space: nowrap;
   }
 }
+
+.workerCardFont {
+  font-size: 0.8em;
+}
+
+/* .workerFontFamily {
+  font-family: sans-serif;
+} */

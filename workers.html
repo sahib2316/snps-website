@@ -278,23 +278,24 @@ document.getElementById("workerTitle").innerHTML += `
 }
 
 document.getElementById("first").innerHTML += `
-<div class="col-sm-6 marginBottom">
+<div class="col-md-6 marginBottom">
                   <div class="row workerCards mb-3" >
-          <div class="col-sm-6 p-0" >
+          <div class="col-md-6 col-xs-3 p-0" >
             <div class="card amendCard" >
               <img
                 class="card-img-top"
                 src="https://source.unsplash.com/random/?${doc.data().category}+${selectedOption}"
                 alt="Card image cap"
                 width=""
-                height=""
+                height=""s
               />
             </div>
           </div>
-          <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
+          <div class="col-md-6 col-xs-9  text-light workerFontFamily mt-1">
+            <h3 class="m-0">${doc.data().name}</h3>
+            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2 workerCardFont"></i>${doc.data().phone}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${doc.data().address}, ${doc.data().city}</h3>
+            <h4>${doc.data().service} (${doc.data().category})</h4>
             <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
           </div>
         </div>

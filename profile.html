@@ -413,11 +413,10 @@ save.addEventListener("click", async function () {
   var full_name = document.getElementById("validationCustom01");
   var mobile = document.getElementById("validationCustom02");
   var email = document.getElementById("validationCustom");
-  var password = document.getElementById("validationCustom03");
   var address = document.getElementById("validationCustom04");
   var pinCode = document.getElementById("validationCustom05");
 
-  if (full_name.value === "" || mobile.value === "" || email.value === "" || password.value === "" || address.value === "" || pinCode.value === "" ) {
+  if (full_name.value === "" || mobile.value === "" || email.value === "" || address.value === "" || pinCode.value === "" ) {
     alert("Please fill in all the fields");
     
     // Return false to prevent submission

@@ -293,6 +293,7 @@ document.getElementById("workerTitle").innerHTML += `
                   s++;
 }
 
+if (doc.data().companyDetails) {
 for(let i = 0; i < doc.data().companyDetails.length; i++) {
 document.getElementById("first").innerHTML += `
 <div class="col-sm-6 marginBottom">
@@ -318,6 +319,8 @@ document.getElementById("first").innerHTML += `
         </div>
       </div>            `;
  
+}
+
 }
                   }
                   // else {

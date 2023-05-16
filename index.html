@@ -84,7 +84,8 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            <div class="mr-3">
+            <!-- <div class="d-flex flex-row-reverse"> -->
+              <div class="mr-3 d-none d-md-block">
               <label for="cities_dropdown" class="text-light">
                 Search for Workers in different Cities:
               </label>
@@ -92,6 +93,7 @@
                 <!-- option is here -->
               </select>
             </div>
+            <!-- </div> -->
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -321,6 +323,20 @@
       </div>
     </div>
     <!-- modal -->
+
+<!-- Search Bar -->
+<div class="container-fluid text-center my-3"> 
+      <div class="mr-3 d-sm-none ">
+              <label for="cities_dropdown2" class="text-light">
+                Search for Workers in different Cities:
+              </label>
+              <select class="" id="cities_dropdown2">
+                <!-- option is here -->
+              </select>
+            </div>
+          </div>
+   
+<!-- End Search Bar -->
 
     <!-- Popular Services -->
     <section class="container-fluid mt-5" id="for">
@@ -683,6 +699,64 @@
             }
           }
         });
+
+        var registeredCities = new Set(); // maintain a set of unique cities
+
+let q = 0;
+          if (q === 0) {
+            document.getElementById(
+              "cities_dropdown2"
+            ).innerHTML += `<option class="font-weight-bold" value="Choose City">Choose City</option>`;
+            q++;
+          }
+
+          let w = 0;
+          db.collection("Workers")
+            .get()
+            .then(function (querySnapshot) {
+              for (const [idx, doc] of querySnapshot.docs.entries()) {
+                // var cityDrop = document.getElementById("cities_dropdown2")[0].value;
+
+                if (!registeredCities.has(doc.data().city)) {
+                  // check if city is already fetched
+                  registeredCities.add(doc.data().city); // add city to set
+
+                  document.getElementById(
+                    "cities_dropdown2"
+                  ).innerHTML += `<option value="${doc.data().city}">${
+                    doc.data().city
+                  }</option>`;
+
+                  document
+                    .getElementById("cities_dropdown2")
+                    .addEventListener("change", function (city) {
+                      console.log(city.target.value);
+                      var selectedCity = city.target.value;
+
+                  const url = `./search-workers.html?city=${selectedCity}`;
+                  let flag = false;
+                  db.collection("Workers")
+                    .get()
+                    .then(function (querySnapshot) {
+                      for (const doc of querySnapshot.docs) {
+                        if (doc.data().city === selectedCity) {
+                          console.log(doc.data());
+                          flag = true;
+                        }
+                      }
+                      if (flag) {
+                        window.location.assign(url);
+                      } else {
+                        alert(
+                          "Sorry, there are no workers availabe for the selected service at the moment."
+                        );
+                      }
+                    });
+                });
+            }
+          }
+        });
+
 
           db.collection("WebsiteLogo")
             .get()

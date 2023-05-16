@@ -293,10 +293,12 @@ document.getElementById("first").innerHTML += `
           </div>
           <div class="col-md-6 col-xs-9  text-light workerFontFamily mt-1">
             <h3 class="m-0">${doc.data().name}</h3>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2 workerCardFont"></i>${doc.data().phone}</h3>
             <h3 class="extraIcon ml-2"><strong>Address: </strong>${doc.data().address}, ${doc.data().city}</h3>
             <h4>${doc.data().service} (${doc.data().category})</h4>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}" onClick="window.open('tel:${doc.data().phone}', '_blank')">
+  <strong>Call Worker</strong>
+</button>
+
           </div>
         </div>
       </div>            `;

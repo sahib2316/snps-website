@@ -470,3 +470,40 @@ textarea {
 /* .workerFontFamily {
   font-family: sans-serif;
 } */
+
+/* cities scroller */
+.dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+#cityDropdown {
+  width: 200px;
+  height: 30px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.dropdown-option {
+  padding: 5px;
+}
+
+/* .dropdown-option:hover {
+  background-color: #f1f1f1;
+} */
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 418px;
+  overflow-y: auto;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+/* End cities scroller */

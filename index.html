@@ -77,7 +77,7 @@
                 >Overview <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item active">
+            <li class="nav-item active d-none d-md-block">
               <a class="nav-link mt-1" href="vacancies.html"
                 >Vacancies <span class="sr-only">(current)</span></a
               >
@@ -95,7 +95,7 @@
             </div>
             <!-- </div> -->
             <div
-              class="btn-group mr-3"
+              class="btn-group mr-3 d-none d-md-block"
               aria-label="Button group with nested dropdown"
             >
               <div class="btn-group" role="group">
@@ -112,7 +112,7 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                   <!-- <a class="dropdown-item" href="#">English</a>
                   <a class="dropdown-item" href="#">Hindi</a> -->
-                  <div id="google_translate_element"></div>
+                  <div class="googleTranslate" id="google_translate_element"></div>
                 </div>
               </div>
             </div>
@@ -338,6 +338,45 @@
    
 <!-- End Search Bar -->
 
+<!-- Language/Vacancy Row -->
+<div class="container-fluid d-sm-none my-3">
+  <div class="row">
+    <div class="col-6">
+            <div
+              class="btn-group mr-3 d-sm-none mt-2"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop2"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div class="googleTranslate" id="google_translate_element2"></div>
+                </div>
+              </div>
+            </div>
+    </div>
+    <div class="col-6 text-light">
+      <p>Looking for jobs?</p>
+            <!-- <li class="nav-item active d-none d-md-block"> -->
+              <a class="mt-1 text-warning" href="vacancies.html"
+                ><h4>Vacancies <span class="sr-only">(current)</span></h4></a
+              >
+            <!-- </li> -->
+    </div>
+  </div>
+</div>
+<!-- End Language/Vacancy Row -->
+
     <!-- Popular Services -->
     <section class="container-fluid mt-md-5" id="for">
       <div class="text-center mb-md-5">
@@ -448,14 +487,29 @@
                     Please provide a valid Address.
                   </div>
           </div>
+
+          <div class="dropdown-container ">
+            <label for="cityDropdown text-light">City</label>
+      <div class="bg-secondary" id="cityDropdown">
+        <div class="dropdown-option">Select a city</div>
+      </div>
+      <div class="dropdown-menu" id="cityDropdownMenu"></div>
+    </div>
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <!-- <div class="dropdown-container">
+              <div class="form-group col-md-6" id="cityDropdown">
               <label for="inputCity">City</label>
-              <input type="text" class="form-control" id="inputCity" required />
+              <select class="form-control dropdown-option" id="inputCity" required>
+
+              </select>
               <div class="invalid-feedback">
                     Please provide a valid City Name.
                   </div>
             </div>
+            <div class="dropdown-menu" id="cityDropdownMenu"></div>
+          </div> -->
+          
+            
             <div class="form-group col-md-6">
               <label for="inputZip">Pincode</label>
               <input type="number" class="form-control" id="inputZip" />
@@ -621,14 +675,80 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
   <script type="text/javascript" src="indian_cities.js"></script>
   <script>
+  
+var batchSize = 15; // Number of cities to load per batch
+var currentIndex = 0; // Index of the current batch
+var cityDropdown = document.getElementById("cityDropdown");
+var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+
+function loadCities() {
+  var endIndex = currentIndex + batchSize;
+  var citiesToShow = cities.slice(currentIndex, endIndex);
+
+  citiesToShow.forEach(function (city) {
+    var option = document.createElement("div");
+    option.classList.add("dropdown-option");
+    option.textContent = city;
+    option.addEventListener("click", function () {
+      cityDropdown.querySelector(".dropdown-option").textContent = city;
+      closeDropdown();
+    });
+    cityDropdownMenu.appendChild(option);
+  });
+
+  currentIndex = endIndex;
+
+  if (currentIndex >= cities.length) {
+    // Reached the end of the cities list
+    cityDropdownMenu.removeEventListener("scroll", loadCities);
+  }
+}
+
+function openDropdown() {
+  cityDropdownMenu.style.display = "block";
+}
+
+function closeDropdown() {
+  cityDropdownMenu.style.display = "none";
+}
+
+function isClickInsideDropdown(element) {
+  var dropdown = document.getElementById("cityDropdown");
+  return element === dropdown || dropdown.contains(element);
+}
+
+document.addEventListener("click", function (event) {
+  var isClickInside = isClickInsideDropdown(event.target);
+  if (!isClickInside) {
+    closeDropdown();
+  }
+});
+
+cityDropdown.addEventListener("click", function () {
+  if (cityDropdownMenu.style.display === "block") {
+    closeDropdown();
+  } else {
+    openDropdown();
+    if (currentIndex === 0) {
+      loadCities();
+    }
+  }
+});
+
+cityDropdownMenu.addEventListener("scroll", function () {
+  var scrollTop = cityDropdownMenu.scrollTop;
+  var scrollHeight = cityDropdownMenu.scrollHeight;
+  var clientHeight = cityDropdownMenu.clientHeight;
+
+  if (scrollHeight - scrollTop <= clientHeight + 1) {
+    loadCities();
+  }
+});
+
+// Initial load
+loadCities();
+
         // Your web app's Firebase configuration
-        // console.log(cities);
-        // cities.map(
-        //   (city) =>
-        //     (document.getElementById(
-        //       "cities_dropdown"
-        //     ).innerHTML += `<option value='${city}'>${city}</option>`)
-        // );
         const firebaseConfig = {
           apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
           authDomain: "projectdb-402ec.firebaseapp.com",
@@ -1116,29 +1236,44 @@ if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService
   </script>
   <!-- Ending imports -->
 
-  <!-- Languages -->
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
+<!-- Languages -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    var translateElements = document.getElementsByClassName("googleTranslate");
+
+    var isViewportXS = window.innerWidth < 576; // Check if viewport is extra small (xs)
+
+    if (isViewportXS) {
       new google.translate.TranslateElement(
         { pageLanguage: "en" },
-        "google_translate_element"
+        translateElements[1].id
       );
-    }
-    var googleTranslateElement = document.getElementById(
-      "google_translate_element"
-    );
 
-    googleTranslateElement.addEventListener("click", function (event) {
-      // Stop event propagation
+      translateElements[1].addEventListener("click", stopPropagation);
+    } else {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        translateElements[0].id
+      );
+
+      translateElements[0].addEventListener("click", stopPropagation);
+    }
+
+    function stopPropagation(event) {
       event.stopPropagation();
-    });
-  </script>
-  <!-- End Languages -->
+    }
+  }
+</script>
+<!-- End Languages -->
 
   <script
     type="text/javascript"
     src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
   ></script>
+  <!-- <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"
+  ></script> -->
   <script
     src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
     integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

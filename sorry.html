@@ -9,6 +9,45 @@
   <body>
     <h1>Sorry, You're not logged-in as an admin</h1>
 
+    <!-- Legacy code for cities -->
+
+    <!-- <script>
+      const dropdownContainer = document.getElementById("dropdown_container");
+      const dropdown = document.getElementById("cities_dropdown");
+      const visibleOptions = 5; // Number of visible options
+
+      // Calculate the height of the select element
+      const selectHeight = dropdownContainer.clientHeight;
+      dropdownContainer.style.overflowY = "scroll";
+
+      function renderOptions(startIndex) {
+        const endIndex = Math.min(startIndex + visibleOptions, cities.length);
+
+        dropdown.innerHTML = "";
+        const fragment = document.createDocumentFragment();
+        for (let i = startIndex; i < endIndex; i++) {
+          const city = cities[i];
+          const option = document.createElement("option");
+          option.value = city;
+          option.textContent = city;
+          fragment.appendChild(option);
+        }
+        dropdown.appendChild(fragment);
+      }
+
+      // Initial rendering
+      renderOptions(0);
+
+      // Handle scroll event
+      dropdownContainer.addEventListener("scroll", function () {
+        const scrollTop = dropdownContainer.scrollTop;
+        const startIndex = Math.floor(
+          scrollTop / dropdown.firstElementChild.clientHeight
+        );
+        renderOptions(startIndex);
+      });
+    </script> -->
+    <!-- End legacy code for cities -->
     <button class="btn btn-outline-success" id="profileDropdown">
       Profile
     </button>

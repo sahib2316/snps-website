@@ -322,14 +322,23 @@
                     Please provide a valid Address.
                   </div>
           </div>
+          
+          <div class="dropdown-container text-light">
+            <label for="cityDropdown text-light">City</label>
+      <div class="bg-secondary" id="cityDropdown">
+        <div class="dropdown-option">Select a city</div>
+      </div>
+      <div class="dropdown-menu" id="cityDropdownMenu"></div>
+    </div>
+
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
               <label for="inputCity">City</label>
               <input type="text" class="form-control" id="inputCity" required />
               <div class="invalid-feedback">
                     Please provide a valid City Name.
                   </div>
-            </div>
+            </div> -->
             <div class="form-group col-md-6">
               <label for="inputZip">PinCode</label>
               <input type="text" class="form-control" id="inputZip" />
@@ -457,8 +466,81 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+  <script type="text/javascript" src="indian_cities.js"></script>
 
   <script>
+
+    var batchSize = 15; // Number of cities to load per batch
+var currentIndex = 0; // Index of the current batch
+var cityDropdown = document.getElementById("cityDropdown");
+var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+
+function loadCities() {
+  var endIndex = currentIndex + batchSize;
+  var citiesToShow = cities.slice(currentIndex, endIndex);
+
+  citiesToShow.forEach(function (city) {
+    var option = document.createElement("div");
+    option.classList.add("dropdown-option");
+    option.textContent = city;
+    option.addEventListener("click", function () {
+      cityDropdown.querySelector(".dropdown-option").textContent = city;
+      closeDropdown();
+    });
+    cityDropdownMenu.appendChild(option);
+  });
+
+  currentIndex = endIndex;
+
+  if (currentIndex >= cities.length) {
+    // Reached the end of the cities list
+    cityDropdownMenu.removeEventListener("scroll", loadCities);
+  }
+}
+
+function openDropdown() {
+  cityDropdownMenu.style.display = "block";
+}
+
+function closeDropdown() {
+  cityDropdownMenu.style.display = "none";
+}
+
+function isClickInsideDropdown(element) {
+  var dropdown = document.getElementById("cityDropdown");
+  return element === dropdown || dropdown.contains(element);
+}
+
+document.addEventListener("click", function (event) {
+  var isClickInside = isClickInsideDropdown(event.target);
+  if (!isClickInside) {
+    closeDropdown();
+  }
+});
+
+cityDropdown.addEventListener("click", function () {
+  if (cityDropdownMenu.style.display === "block") {
+    closeDropdown();
+  } else {
+    openDropdown();
+    if (currentIndex === 0) {
+      loadCities();
+    }
+  }
+});
+
+cityDropdownMenu.addEventListener("scroll", function () {
+  var scrollTop = cityDropdownMenu.scrollTop;
+  var scrollHeight = cityDropdownMenu.scrollHeight;
+  var clientHeight = cityDropdownMenu.clientHeight;
+
+  if (scrollHeight - scrollTop <= clientHeight + 1) {
+    loadCities();
+  }
+});
+
+// Initial load
+loadCities();
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",

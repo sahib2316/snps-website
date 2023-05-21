@@ -170,6 +170,28 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+
             </script>
           </form>
         </div>
@@ -273,10 +295,10 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h2 class="m-0 nameHeight">${docum.data().name}</h2>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${docum.data().phone}</h3>
-            <h3>${docum.data().service} (${docum.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker_${docum.id}"><strong>Contact</strong></button>
+            <h3 class="m-0 nameHeight">${docum.data().name}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${docum.data().address}, ${docum.data().city}</h3>
+            <h4>${docum.data().service} (${docum.data().category})</h4>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${docum.id}" onClick="window.open('tel:${docum.data().phone}', '_blank')"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
@@ -286,7 +308,6 @@ document.getElementById("first").innerHTML += `
   if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
 document.querySelectorAll(".bookWorker").forEach(function (button) {
 button.addEventListener("click", function () {
-  console.log("working till here.");
   const docId = button.id.split("_")[1];
   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
 //  console.log(doc.data());
@@ -349,10 +370,10 @@ document.getElementById("first").innerHTML = `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker_${doc.id}"><strong>Contact</strong></button>
+            <h3 class="m-0">${doc.data().name}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${doc.data().address}, ${doc.data().city}</h3>
+            <h4>${doc.data().service} (${doc.data().category})</h4>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${doc.id}" onClick="window.open('tel:${doc.data().phone}', '_blank')"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
@@ -382,7 +403,7 @@ userId: JSON.parse(localStorage.getItem("userId")),
   }
 
      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
-alert("success");
+alert("You Query for this worker has been submitted.");
      });
 
   });

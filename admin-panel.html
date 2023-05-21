@@ -1430,11 +1430,25 @@ document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3
     <h6 class="card-subtitle mb-2">${doc.data().phone}</h6>
     <h6 class="card-subtitle mb-2">${doc.data().city}</h6>
     <p class="card-text">${doc.data().position}, For Company: <strong>${doc.data().position}</strong></p>
-    <button class="btn btn-danger deleteOffer" id="deleteOffer-${doc.id}"  >Delete</button>
+    <button class="btn btn-danger deletePrivate" id="deletePrivate_${doc.id}"  >Delete</button>
   </div>
           </div>`;
+
+  })
+
+   document.querySelectorAll(".deletePrivate").forEach(async function (button) {
+document.getElementById(button.id).addEventListener("click", async function () {
+  const documId = await button.id.split("_")[1];
+  console.log(documId);
+  await db.collection("Private-job Volunteers").doc(documId).delete().then(function () {
+    console.log("deleted successfully eh??!!");
+    window.location.reload();
   })
 })
+    })
+
+})
+  
 
   await db.collection("Offers").get().then(function (querySnapshot) {
   for(const [idx,doc] of querySnapshot.docs.entries()){

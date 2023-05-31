@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin-Panel</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="./css/style.css" /> -->
+    <link rel="stylesheet" href="/css/dashboard.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="/assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a class="navbar-brand mt-2" href="index.html">SNPS Pvt Ltd</a>
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback-overview.html"
+                ><strong>Feedback/Overview </strong
+                ><span class="sr-only">(current)</span></a
+              >
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div
+                class="dropdown-menu bg-secondary dropdown-menu-right"
+                aria-labelledby="dropdownMenuButton"
+              >
+                <input
+                  class="btn btn-outline-dark text-light"
+                  id="logoutDropdown"
+                  value="Logout"
+                />
+                <input
+                  class="btn btn-outline-dark text-light"
+                  id="profileDropdown"
+                  value="Profile"
+                />
+              </div>
+            </div>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <script>
+      if (localStorage.getItem("isLoggedIn") == "true") {
+        document.getElementById("name-headerTxt").innerHTML += JSON.parse(
+          localStorage.getItem("userData")
+        )["Name"];
+
+        // profile page redirection
+        var profileDropdown = document.getElementById("profileDropdown");
+
+        profileDropdown.addEventListener("click", function () {
+          window.location.assign("/profile.html");
+        });
+        // profile page redirectioOn end
+      }
+    </script>
+
+    <!-- dummy div -->
+    <div>
+      <h1>h</h1>
+      <br />
+    </div>
+    <!-- End dummy div -->
+
+    <!-- Delete Workers -->
+    <div class="container">
+      <div class="row" id="delete-workers">
+        <!-- Deleting Workers is here. -->
+      </div>
+    </div>
+    <!-- End Delete Workers -->
+  </body>
+
+  <!-- Imports and configuration section -->
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+  <script>
+    if (
+      localStorage.getItem("isLoggedIn") !== "true" ||
+      JSON.parse(localStorage.getItem("userData"))["role"] == ""
+    ) {
+      window.location.assign("/");
+    }
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+      authDomain: "projectdb-402ec.firebaseapp.com",
+      databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+      projectId: "projectdb-402ec",
+      storageBucket: "projectdb-402ec.appspot.com",
+      messagingSenderId: "818279951216",
+      appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Vacant cards
+    document.addEventListener("DOMContentLoaded", async function () {
+      db.collection("Workers")
+        .get()
+        .then(function (querySnapshot) {
+          querySnapshot.forEach(async function (doc) {
+            document.getElementById(
+              "delete-workers"
+            ).innerHTML += `<div class="col-md-3 my-2">
+                    <div class="card">
+      <div class="card-header">
+        <strong>${doc.data().name}</strong>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Phone:</strong> ${
+          doc.data().phone
+        }</li>
+        <li class="list-group-item"><strong>City:</strong> ${
+          doc.data().city
+        }</li>
+        <a href="#" class="btn btn-primary delete_worker" id="delete_worker_${
+          doc.id
+        }">Delete Worker</a>
+      </ul>
+    </div>
+                    </div>
+                `;
+          });
+
+          document
+            .querySelectorAll(".delete_worker")
+            .forEach(async function (button) {
+              document
+                .getElementById(button.id)
+                .addEventListener("click", async function () {
+                  const documId = await button.id.split("_")[2];
+                  console.log(documId);
+                  await db
+                    .collection("Workers")
+                    .doc(documId)
+                    .delete()
+                    .then(function () {
+                      console.log("deleted successfully eh??!!");
+                      window.location.reload();
+                    });
+                });
+            });
+        });
+    });
+    // End offer
+  </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+
+    logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          window.location.assign("/login.html");
+          logoutButton;
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+  </script>
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

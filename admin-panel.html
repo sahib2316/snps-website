@@ -56,6 +56,16 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback-overview.html"
+                ><strong>Feedback/Overview </strong><span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="admin-workers.html"
+                ><strong>All Workers </strong><span class="sr-only">(current)</span></a
+              >
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
             <div
@@ -110,6 +120,18 @@
         </div>
       </nav>
     </header>
+
+    <!-- sidebar -->
+    <!-- <div class="container sidebar-container">
+  <div class="sidebar">
+    
+  </div>
+  <div class="sidebar-content">
+   
+  </div>
+</div> -->
+<!-- End sidebar -->
+
 <script>
               if (localStorage.getItem("isLoggedIn") == "true") {
 
@@ -245,31 +267,46 @@
         </div>
         <!-- end phpne -->
       </div>
-        <div class="d-flex justify-content-center">
-        <div class="mx-3">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-7 col-xs-6">
+<div class="d-flex justify-content-center">
+         <div class="">
           <div class="mt-2">
             <label class="" for="category_type"
               ><strong>Choose Category</strong></label
             >
           </div>
-
              <select name="in_category" id="category-workers-dropdown" class="in_category mb-3" aria-labelledby="dropdownMenuButton">
           </select>
-
           </div>
         </div>
 
-        <div class="mx-3">
+         <div class="mx-3">
           <div class="mt-2">
-            <label class="" for="service_type"
+            <label class="" for="service-workers-dropdown"
               ><strong>Choose Service</strong></label
             >
           </div>
-            
             <select aria-labelledby="dropdownMenuButton" id="service-workers-dropdown">
             </select>
-   
+           </div>
+          </div>
+          <div class="col-md-5 col-xs-6">
+             <div class="d-flex justify-content-center justify-content-md-start">
+        <div class="mx-3">
+          <div class="mt-2">
+            <label class="" for="add_worker_city"
+              ><strong>Enter City</strong></label
+            >
+          </div>
+             <input type="text" id="add_worker_city" class="worker_city form-control mb-3" aria-labelledby="dropdownMenuButton" value=""/>
+          </div>
         </div>
+          </div>
+        </div>
+      </div>
+        
         </div>
       
       </div>
@@ -558,62 +595,7 @@
       </div>
     <!-- End Offer Cards -->
 
-    <!-- ad slides -->
-   <div class="container my-5 pl-0 ">
-           <h3>Ad slides</h3>
-      <hr />
-   </div>
-   <div class="container bg-secondary mb-5 ">
-      <div class="row ">
-        <!-- label div -->
-        <div class=" col-md-2 border-input bg-light pr-0 mx-3 mt-2">
-            <h5 class="mb-0">
-              Add A Slide(URL)<br />
-              <button class="btn btn-primary ml-5" id="add-slide"><i class="fa-solid fa-circle-plus"></i
-              ></h5>
-        </div>
-        <!-- End label div -->
-        <!-- input div -->
-        <div class="col-md-9 form-group mt-3">
-          <label for="slide"><strong>Slide Url</strong></label>
-          <input
-            type="url"
-            class="form-control"
-            name="slide"
-            id="slide"
-          >
-        </div>
-        <!--End input div -->
-      </div>
-      <!-- name of slide -->
-      <div class="text-center">
-          <div><label for="name"><strong>name of slide</strong></label></div>
-          <div class="pb-3"><input type="text" name="name" id="name"></div>
-      </div>
-   </div>
-    <!--End of add slides -->
-
-    <!-- slides card -->
-     <div class="container newMargin">
-      <h4 class="my-2">Slide Cards</h4>
-      <div class="row slideDelete" id="slideDelete">
-        <!-- slide cards are embedded here -->
-      </div>
-     </div>
-    <!-- End slides card -->
-
     <hr class="separator borderCustom"/>
-
-    <!--Customer Feedback -->
-      <div class="container my-5 newRegBorder bg-secondary p-3 pt-1">
-      <div class="row" id="feedbackDisplay">
-        <div class="col-md-12 my-3">
-          <h2>Customer Feedbacks</h2>
-        </div>
-<!-- in script -->
-      </div>
-    </div>
-    <!--End Customer Feedback -->
 
      <!-- Overview -->
     <div class="container text-center separator-feed mb-5" id="overviewDiv">
@@ -761,6 +743,7 @@ document.getElementById("service-workers-dropdown").innerHTML="";
 document.getElementById("add-worker").addEventListener("click", (e) => {
   var category = document.getElementById("category-workers-dropdown").value;
   var service = document.getElementById("service-workers-dropdown").value;
+  var workerCity = document.getElementById("add_worker_city").value;
   var name  = document.getElementById("worker").value;
   var phone = document.getElementById("worker2").value;
   let obj={
@@ -768,6 +751,7 @@ document.getElementById("add-worker").addEventListener("click", (e) => {
     phone: phone,
     category: category,
     service: service,
+    city: workerCity,
   }
   db.collection("Workers").doc(phone).set(obj).then((data)=>{
 alert("Worker added");
@@ -775,6 +759,7 @@ document.getElementById("worker").value="";
 document.getElementById("worker2").value="";
 document.getElementById("category-workers-dropdown").value="no_option";
 document.getElementById("service-workers-dropdown").value="no_option";
+document.getElementById("add_worker_city").value="";
   })
 });
 // END Add Service Script
@@ -1025,36 +1010,6 @@ console.log("how many does it runs?");
 });
 // End Vacancy Details Script
 
-// Slide cards
-await db.collection("Ad-slides").get().then(async function (querySnapshot) {
-  querySnapshot.forEach( function (doc) {
-    // console.log(doc.id);
- document.getElementById("slideDelete").innerHTML += `<div class="col-md-4 newRegBorder my-2 mx-3">
-          <div class="row">
-            <div class="col-md-6 d-flex">
-         <h3>${doc.data().slideName}</h3>
-        <div class="col-md-6 text-right">
-         <button class="btn btn-danger mx-2 my-1 text-center deleteSlide / ${doc.data().slideName}" id="deleteSlide-${doc.id}">Delete</button>
-        </div>
-          </div>
-        </div>
-        <div class="col-md-8"></div>`;
-  });
-}).then( function () {
-  for(let delBtn of document.querySelectorAll(".deleteSlide"))
-   {
- delBtn.addEventListener("click",  ()=> {
-        const docId = delBtn.id.split("-")[1];
-        const slideName=delBtn.classList.value.split("/")[1].trim();
-        db.collection("Ad-slides").doc(docId).delete().then(function () {
-          alert(slideName + " Deleted Successfully");
-          window.location.reload();
-        });
-      });
-// delBtn.addEventListener("click",()=>console.log("working"))
-};
-});
-// End Slide cards
 
 // Booked Workers
 await db.collection("Booked-Workers").get().then(async function (querySnapshot) {
@@ -1258,7 +1213,12 @@ for(const [idx,doc] of querySnapshot.docs.entries()){
 </div>
 
               <h5>Address: ${doc.data().address},${doc.data().pinCode}</h5>
-              <h5>City: ${doc.data().city}</h5>
+              <div class="row">
+  <div class="col-md-6">
+    <h5>City: <input type="text" class="bg-light newServiceInput"
+       name="cityInput" id="changeCItyInput-${idx}" value="${doc.data().city}"></h5>
+  </div>
+</div>
               <button class="btn btn-primary adding-btn" id='addBtn-${idx}'>Add to Workers</button>
               <select name="choosing" class="choosing bg-warning ml-4" id='choose-${idx}'>Choose Category For This 
                 </select>
@@ -1268,6 +1228,8 @@ for(const [idx,doc] of querySnapshot.docs.entries()){
  await document.getElementsByClassName("registerCards")[0].appendChild(child);
 
  console.log(`addBtn-${idx}`);
+
+ let cityInput = document.getElementById(`changeCityInput-${idx}`).value;
 
     await db.collection("Categories").get().then(function (queryy) {
         let selectElem = document.getElementById(`change-${idx}`);
@@ -1341,62 +1303,7 @@ db.collection("New Registerations").doc(obj.phone).delete()
   console.log("Error getting documents: ", error);
 });
 
-// Slides script
-document.getElementById("add-slide").addEventListener("click", function () {
-  var slideUrl = document.getElementById("slide").value;
-  var name = document.getElementById("name").value;
-
-  let obj={
-    slideUrl: slideUrl,
-    slideName: name,
-  }
-
-  db.collection("Ad-slides").doc().set(obj).then(function (querySnapshot) {
-alert("slide added");
-document.getElementById("slide").value="";
-document.getElementById("name").value="";
-window.location.reload();
-  });
-
 });
-// End Slides Script
-
-// feedback
-db.collection("Feedbacks").get().then(function (querySnapshot) {
- let m=0;
-  querySnapshot.forEach(function (doc) {
-    if (m<5) {
-      document.getElementById("feedbackDisplay").innerHTML += `<div class="card borderCustom m-3 offerCardWidth">
-  <div class="card-body">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12"><p class="card-title"><strong>Phone: </strong> ${doc.data().phone}</p></div>
-      </div>
-    </div>
-    <p class="card-title ml-3"><strong>Feedback:</strong> ${doc.data().feedback}</p>
-  </div>
-</div>`;
-m++;
-    }
-  });
-});
-
-});
-
-// db.collection("Feedbacks")
-//   .orderBy("feedback", "desc") // assuming you have a "createdA" field in your documents
-//   .limit(5)
-//   .get()
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.id, " => ", doc.data()); // log the id and data of each document
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Error getting documents: ", error);
-//   });
-
-// End feedback
 
 // Offers
 var addOffer = document.getElementById("add-offer");
@@ -1476,27 +1383,6 @@ document.querySelectorAll(".deleteOffer").forEach((button) => {
 });
 });
 // End offer
-
-// Set Overview
-function setOverview() {
-      var overviewText = document.getElementById("overviewText").value;
-
-      let obj = {
-        overview: overviewText,
-      };
-
-        db.collection("Overview")
-        .doc("Website Overview")
-        .set(obj)
-        .then(function () {
-          alert("success");
-          overviewText = "";
-
-        });
-
-    }
-// End Set Overview
-
   </script>
 
     <script type="text/javascript">

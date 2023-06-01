@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -119,64 +119,117 @@
         messagingSenderId: "818279951216",
         appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
       };
+
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
 
-      // const signUp=document.getElementById("signUp");
+      const loginButton = document.getElementById("login");
 
       // Move on the Auth
-      login.addEventListener("click", (e) => {
+      loginButton.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default behavior of form submission
+
         // Get all the input fields
-        var email = document.getElementById("exampleInputEmail1").value;
+        var emailOrMobile = document.getElementById("exampleInputEmail1").value;
         var password = document.getElementById("exampleInputPassword1").value;
 
         function signIn() {
-          firebase
-            .auth()
-            .signInWithEmailAndPassword(email, password)
-            .then(async (loginCredential) => {
-              const user = loginCredential.user;
+          var isEmail = false;
+          var isMobile = false;
 
-              alert("You have logged in successfully");
+          // Check if the input matches an email format
+          if (emailOrMobile.includes("@")) {
+            isEmail = true;
+          }
 
-              // console.log(
-              //   JSON.parse(localStorage.getItem("userSigninInfo"))["Name"]
-              // );
+          // Check if the input matches a mobile number format (e.g., 10 digits)
+          if (/^\d{10}$/.test(emailOrMobile)) {
+            isMobile = true;
+          }
 
-              const db = firebase.firestore();
-              const documentRef = db.doc("userDetails/" + user.uid);
-              // console.log("userDetails/" + user.uid);
-              await documentRef
-                .get()
-                .then((doc) => {
-                  if (doc.exists) {
-                    localStorage.setItem("isLoggedIn", "true");
-                    localStorage.setItem(
-                      "userData",
-                      JSON.stringify(doc.data())
-                    );
-                    localStorage.setItem("userId", JSON.stringify(doc.id));
+          if (isEmail) {
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(emailOrMobile, password)
+              .then(async (loginCredential) => {
+                const user = loginCredential.user;
 
-                    if (doc.data().role === "admin") {
-                      window.location.assign("/admin-panel.html");
+                alert("You have logged in successfully");
+
+                const db = firebase.firestore();
+                const documentRef = db.doc("userDetails/" + user.uid);
+
+                await documentRef
+                  .get()
+                  .then((doc) => {
+                    if (doc.exists) {
+                      localStorage.setItem("isLoggedIn", "true");
+                      localStorage.setItem(
+                        "userData",
+                        JSON.stringify(doc.data())
+                      );
+                      localStorage.setItem("userId", JSON.stringify(doc.id));
+
+                      if (doc.data().role === "admin") {
+                        window.location.assign("/admin-panel.html");
+                      } else {
+                        window.location.assign("/");
+                      }
                     } else {
-                      window.location.assign("/");
+                      console.log("No such document!");
                     }
-                  } else {
-                    console.log("No such document!");
-                  }
-                })
-                .catch((error) => {
-                  console.log("Error getting document:", error);
-                });
-            })
-            .catch(function (error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log(errorCode);
-              alert(errorMessage);
-            });
+                  })
+                  .catch((error) => {
+                    console.log("Error getting document:", error);
+                  });
+              })
+              .catch(function (error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                alert(errorMessage);
+              });
+          } else if (isMobile) {
+            var generatedEmail = emailOrMobile + "@example.com"; // Replace with your desired domain
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(generatedEmail, password)
+              .then(async (loginCredential) => {
+                const user = loginCredential.user;
+
+                alert("You have logged in successfully");
+
+                const db = firebase.firestore();
+                const documentRef = db.doc("userDetails/" + user.uid);
+
+                await documentRef
+                  .get()
+                  .then((doc) => {
+                    if (doc.exists) {
+                      localStorage.setItem("isLoggedIn", "true");
+                      localStorage.setItem(
+                        "userData",
+                        JSON.stringify(doc.data())
+                      );
+                      localStorage.setItem("userId", JSON.stringify(doc.id));
+
+                      if (doc.data().role === "admin") {
+                        window.location.assign("/admin-panel.html");
+                      } else {
+                        window.location.assign("/");
+                      }
+                    } else {
+                      console.log("No such document!");
+                    }
+                  })
+                  .catch((error) => {
+                    console.log("Error getting document:", error);
+                  });
+              })
+              .catch((error) => {
+                console.error("Error signing in: ", error);
+              });
+          }
         }
         signIn();
       });

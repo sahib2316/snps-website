@@ -490,13 +490,20 @@
                   </div>
           </div>
 
-          <div class="dropdown-container ">
+          <!-- <div class="dropdown-container ">
             <label for="cityDropdown text-light">City</label>
       <div class="bg-secondary" id="cityDropdown">
         <div class="dropdown-option">Select a city</div>
       </div>
       <div class="dropdown-menu" id="cityDropdownMenu"></div>
-    </div>
+    </div> -->
+    <div class="dropdown-container">
+  <label for="citySearch" class="text-light">City</label>
+  <br> <!-- Add a line break here -->
+  <input type="text" id="citySearch" class="bg-secondary" placeholder="Search for a city">
+  <div class="dropdown-menu" id="cityDropdownMenu"></div>
+</div>
+
           <div class="form-row">
             <!-- <div class="dropdown-container">
               <div class="form-group col-md-6" id="cityDropdown">
@@ -726,77 +733,207 @@
   <script type="text/javascript" src="indian_cities.js"></script>
   <script>
   
+// var batchSize = 15; // Number of cities to load per batch
+// var currentIndex = 0; // Index of the current batch
+// var cityDropdown = document.getElementById("cityDropdown");
+// var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+
+// function loadCities() {
+//   var endIndex = currentIndex + batchSize;
+//   var citiesToShow = cities.slice(currentIndex, endIndex);
+
+//   citiesToShow.forEach(function (city) {
+//     var option = document.createElement("div");
+//     option.classList.add("dropdown-option");
+//     option.textContent = city;
+//     option.addEventListener("click", function () {
+//       cityDropdown.querySelector(".dropdown-option").textContent = city;
+//       closeDropdown();
+//     });
+//     cityDropdownMenu.appendChild(option);
+//   });
+
+//   currentIndex = endIndex;
+
+//   if (currentIndex >= cities.length) {
+//     // Reached the end of the cities list
+//     cityDropdownMenu.removeEventListener("scroll", loadCities);
+//   }
+// }
+
+// function openDropdown() {
+//   cityDropdownMenu.style.display = "block";
+// }
+
+// function closeDropdown() {
+//   cityDropdownMenu.style.display = "none";
+// }
+
+// function isClickInsideDropdown(element) {
+//   var dropdown = document.getElementById("cityDropdown");
+//   return element === dropdown || dropdown.contains(element);
+// }
+
+// document.addEventListener("click", function (event) {
+//   var isClickInside = isClickInsideDropdown(event.target);
+//   if (!isClickInside) {
+//     closeDropdown();
+//   }
+// });
+
+// cityDropdown.addEventListener("click", function () {
+//   if (cityDropdownMenu.style.display === "block") {
+//     closeDropdown();
+//   } else {
+//     openDropdown();
+//     if (currentIndex === 0) {
+//       loadCities();
+//     }
+//   }
+// });
+
+// cityDropdownMenu.addEventListener("scroll", function () {
+//   var scrollTop = cityDropdownMenu.scrollTop;
+//   var scrollHeight = cityDropdownMenu.scrollHeight;
+//   var clientHeight = cityDropdownMenu.clientHeight;
+
+//   if (scrollHeight - scrollTop <= clientHeight + 1) {
+//     loadCities();
+//   }
+// });
+
+// // Initial load
+// loadCities();
+
 var batchSize = 15; // Number of cities to load per batch
 var currentIndex = 0; // Index of the current batch
-var cityDropdown = document.getElementById("cityDropdown");
+var citySearch = document.getElementById("citySearch");
 var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+var selectedCity = ""; // Variable to store the selected city
 
-function loadCities() {
-  var endIndex = currentIndex + batchSize;
-  var citiesToShow = cities.slice(currentIndex, endIndex);
+function showSuggestions() {
+  var searchValue = citySearch.value.toLowerCase();
+  var suggestions = cities.filter(function (city) {
+    return city.toLowerCase().includes(searchValue);
+  });
 
-  citiesToShow.forEach(function (city) {
+  cityDropdownMenu.innerHTML = ""; // Clear the dropdown menu
+
+  suggestions.forEach(function (suggestion) {
     var option = document.createElement("div");
     option.classList.add("dropdown-option");
-    option.textContent = city;
+    option.textContent = suggestion;
     option.addEventListener("click", function () {
-      cityDropdown.querySelector(".dropdown-option").textContent = city;
-      closeDropdown();
+      citySearch.value = suggestion; // Set the selected suggestion in the search field
+      selectedCity = suggestion; // Update the selected city variable
+      cityDropdownMenu.innerHTML = ""; // Clear the dropdown menu
     });
     cityDropdownMenu.appendChild(option);
   });
 
-  currentIndex = endIndex;
-
-  if (currentIndex >= cities.length) {
-    // Reached the end of the cities list
-    cityDropdownMenu.removeEventListener("scroll", loadCities);
+  if (suggestions.length === 0) {
+    cityDropdownMenu.style.display = "none"; // Hide the dropdown menu if no suggestions
+  } else {
+    cityDropdownMenu.style.display = "block"; // Show the dropdown menu
   }
 }
 
-function openDropdown() {
-  cityDropdownMenu.style.display = "block";
-}
-
-function closeDropdown() {
-  cityDropdownMenu.style.display = "none";
-}
-
 function isClickInsideDropdown(element) {
-  var dropdown = document.getElementById("cityDropdown");
-  return element === dropdown || dropdown.contains(element);
+  return element === cityDropdownMenu || cityDropdownMenu.contains(element);
 }
 
 document.addEventListener("click", function (event) {
   var isClickInside = isClickInsideDropdown(event.target);
   if (!isClickInside) {
-    closeDropdown();
+    cityDropdownMenu.style.display = "none";
   }
 });
 
-cityDropdown.addEventListener("click", function () {
-  if (cityDropdownMenu.style.display === "block") {
-    closeDropdown();
-  } else {
-    openDropdown();
-    if (currentIndex === 0) {
-      loadCities();
-    }
-  }
-});
-
-cityDropdownMenu.addEventListener("scroll", function () {
-  var scrollTop = cityDropdownMenu.scrollTop;
-  var scrollHeight = cityDropdownMenu.scrollHeight;
-  var clientHeight = cityDropdownMenu.clientHeight;
-
-  if (scrollHeight - scrollTop <= clientHeight + 1) {
-    loadCities();
-  }
+citySearch.addEventListener("input", function () {
+  showSuggestions();
 });
 
 // Initial load
-loadCities();
+showSuggestions();
+
+// var citySearch = document.getElementById("citySearch");
+// var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+// var selectedCity = ""; // Variable to store the selected city
+
+// function loadCities() {
+//   var endIndex = currentIndex + batchSize;
+//   var citiesToShow = cities.slice(currentIndex, endIndex);
+
+//   citiesToShow.forEach(function (city) {
+//     var option = document.createElement("div");
+//     option.classList.add("dropdown-option");
+//     option.textContent = city;
+//     option.addEventListener("click", function () {
+//       citySearch.value = city; // Set the selected city in the search field
+//       selectedCity = city; // Update the selected city variable
+//       closeDropdown();
+//     });
+//     cityDropdownMenu.appendChild(option);
+//   });
+
+//   currentIndex = endIndex;
+
+//   if (currentIndex >= cities.length) {
+//     // Reached the end of the cities list
+//     cityDropdownMenu.removeEventListener("scroll", loadCities);
+//   }
+// }
+
+// function filterCities() {
+//   var searchValue = citySearch.value.toLowerCase();
+//   var filteredCities = cities.filter(function (city) {
+//     return city.toLowerCase().startsWith(searchValue);
+//   });
+
+//   currentIndex = 0; // Reset the current index
+//   cityDropdownMenu.innerHTML = ""; // Clear the dropdown menu
+
+//   // Load the filtered cities
+//   loadCities();
+// }
+
+// function openDropdown() {
+//   cityDropdownMenu.style.display = "block";
+// }
+
+// function closeDropdown() {
+//   cityDropdownMenu.style.display = "none";
+// }
+
+// function isClickInsideDropdown(element) {
+//   var dropdown = document.getElementById("citySearch");
+//   return element === dropdown || dropdown.contains(element);
+// }
+
+// document.addEventListener("click", function (event) {
+//   var isClickInside = isClickInsideDropdown(event.target);
+//   if (!isClickInside) {
+//     closeDropdown();
+//   }
+// });
+
+// citySearch.addEventListener("input", function () {
+//   filterCities();
+// });
+
+// cityDropdownMenu.addEventListener("scroll", function () {
+//   var scrollTop = cityDropdownMenu.scrollTop;
+//   var scrollHeight = cityDropdownMenu.scrollHeight;
+//   var clientHeight = cityDropdownMenu.clientHeight;
+
+//   if (scrollHeight - scrollTop <= clientHeight + 1) {
+//     loadCities();
+//   }
+// });
+
+// // Initial load
+// loadCities();
+
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -1086,7 +1223,7 @@ let q = 0;
           var inputPhone = document.getElementById("inputPhone").value;
           var inputAddress = document.getElementById("inputAddress").value;
           var inputService = document.getElementById("inputService").value;
-          var inputCity = document.getElementById("inputCity").value;
+          var inputCity = document.getElementById("citySearch").value;
           var inputPin = document.getElementById("inputZip").value;
       var inputCheck = document.getElementById("gridCheck").value;
 

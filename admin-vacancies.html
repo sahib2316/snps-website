@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin-Panel</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+ 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- <link rel="stylesheet" href="./css/style.css" /> -->
+    <link rel="stylesheet" href="/css/dashboard.css" />
+
+    
+  </head>
+  <body>
+     <header>
+      <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <div>
+            <img
+              src="/assets/images/new.png"
+              width="70px"
+              height="50px"
+              alt=""
+            />
+            <a class="navbar-brand mt-2" href="index.html">SNPS Pvt Ltd</a>
+          </div>
+
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="index.html"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback-overview.html"
+                ><strong>Feedback/Overview </strong><span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="admin-workers.html"
+                ><strong>All Workers </strong><span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="admin-panel.html"
+                ><strong>Admin-Home </strong><span class="sr-only">(current)</span></a
+              >
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0" id="navbarForm">
+            <div
+              class="btn-group mr-3"
+              aria-label="Button group with nested dropdown"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  id="btnGroupDrop1"
+                  type="button"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Language
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <!-- <a class="dropdown-item" href="#">English</a>
+                  <a class="dropdown-item" href="#">Hindi</a> -->
+                  <div id="google_translate_element"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dropdown" id="name-headerDropdown">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span id="name-headerTxt"> Hi, </span>
+              </button>
+              <div class="dropdown-menu bg-secondary dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <input
+                  class="btn btn-outline-dark text-light"
+                  id="logoutDropdown"
+                  value="Logout"
+                />
+                <input
+                  class="btn btn-outline-dark text-light"
+                  id="profileDropdown"
+                  value="Profile"
+                />
+              </div>
+              
+            </div>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+<script>
+              if (localStorage.getItem("isLoggedIn") == "true") {
+
+                document.getElementById("name-headerTxt").innerHTML +=
+                  JSON.parse(localStorage.getItem("userData"))["Name"];
+
+                // profile page redirection
+                var profileDropdown =
+                  document.getElementById("profileDropdown");
+              
+                profileDropdown.addEventListener("click", function () {
+                  window.location.assign("/profile.html");
+                });
+                // profile page redirectioOn end
+               } 
+            </script>
+    
+    <!-- dummy div -->
+    <div>
+      <h1>h</h1>
+    <br />
+  </div>
+    <!-- End dummy div -->
+
+    <!-- vacancies -->
+   <div class="container my-5 pl-0 ">
+    <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+      <h3>Vacancies</h3>
+      <hr />
+       <div class="container bg-secondary mb-5 ">
+      <div class="row ">
+        <!-- label div -->
+        <div class=" col-md-2 border-input bg-light pr-0 mx-3 mt-2">
+            <h5 class="mb-0">
+              Add A Vacancy<br />
+              <button class="btn btn-primary ml-5" id="add-vacancy"><i class="fa-solid fa-circle-plus"></i
+              ></h5>
+        </div>
+        <!-- End label div -->
+        <!-- input div -->
+        <div class="col-md-9 form-group mt-3">
+          <label for="vacancy"><strong>Vacancy For(Service)</strong></label>
+          <select name="vacancy" id="vacancy" class="vacancy mb-3" aria-labelledby="dropdownMenuButton"></select>
+        </div>
+        <!--End input div -->
+      </div>
+      <!-- no.of vacancies -->
+      <!-- <div class="text-center">
+          <div><label for="count"><strong>No. Of Vacancies</strong></label></div>
+          <div class="pb-3"><input type="number" name="count" id="count"></div>
+      </div> -->
+      <!-- End no.of vacancies-->
+   </div>
+    </div>      
+   </div>
+    <!--End vacancies -->
+
+    <!--Available Vacancy Cards -->
+     <div class="container my-5 ">
+      <h3>Available Vacancies</h3>
+      <div class="row iterable" id="iterable">
+        <!-- vacancy cards are embedded here -->
+      </div>
+     </div>
+    <!-- End Available Vacancy Cards -->
+
+    <!-- Vacancy Worker Cards -->
+     <div class="container separator">
+      <h3>Applied Workers</h3>
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+        <div class="row applicants" id="applicants">
+        <!-- vacancy worker cards are here -->
+        </div>
+      </div>
+     </div>
+    <!-- End Vacancy Worker Cards -->
+
+
+  <div class="container">
+    <h3>Worker Companies</h3>
+    <div class="row ml-0 my-5" id="companySmallCards">
+      <!-- company names are here -->
+      </div>
+    </div>
+
+    <hr class="separator mb-5 borderCustom">
+
+    <!-- Private Jobs -->
+      <div class="container pl-0 ">
+      <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
+      <h3>Set Workers/Private-Jobs Company Details</h3>
+      <hr />
+
+<div class="container text-center border-flex bg-secondary py-0">
+    <div class="row">
+      <div class="col-md-4 bg-light"><label for="vacancyDetail"
+            ><h5 class="mb-0 mt-4">
+              Add A Vacancy Detail<br /><button class="btn btn-primary" id="vacancyDetail"><i class="fa-solid fa-circle-plus"></i
+              ></button></h5
+          ></label>
+        </div>
+        <div class="col-md-8 mt-2">
+          <div class="container-fluid">
+            
+          <label class="mx-3" for="vacancy_type"
+              ><strong>Choose Vacancy-Type</strong></label
+            >
+ <select name="vacancy_type" id="vacancy-type-dropdown" 
+ class="vacancy_type mb-3" aria-labelledby="dropdownMenuButton"></select>
+        
+      </div>
+          <!-- end vacancydropdown -->
+
+ 
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Company name -->
+            <div class="col-md-4">
+              <div class="mt-2">
+            <label class="" for="company"><strong>Company Name</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="company" id="company">
+          </div>
+            </div>  
+            <!-- end company name -->
+            <!-- phone -->
+        <div class="col-md-4">
+          <div class="mt-2">
+            <label class="" for="phoneDetail"><strong>Phone</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="phoneDetail" id="phoneDetail">
+          </div>
+        </div>
+        <!-- end phpne -->
+        <!-- city -->
+        <div class="col-md-4">
+          <div class="mt-2">
+            <label class="" for="cityDetail"><strong>City</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="cityDetail" id="cityDetail">
+          </div>
+        </div>
+        <!-- End city -->
+          </div> 
+        </div>
+        </div>
+    </div>
+
+      <div class="row my-3 ml-md-2">
+        <!-- position -->
+        <div class="col-md-4">
+          <div class="">
+            <label class="" for="position"><strong>Position</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="position" id="position">
+          </div>
+        </div>
+        <!-- end position -->
+        <!-- eligibility -->
+        <div class="col-md-4">
+          <div class="">
+            <label class="" for="eligibility"><strong>Eligibility</strong></label>
+          </div>
+          <div>
+            <input type="text" class="form-control" name="eligibility" id="eligibility">
+          </div>
+        </div>
+        <!-- end eligibility -->
+        <!-- Salary -->
+        <div class="col-md-3">
+          <div class="">
+            <label class="" for="salary"><strong>Salary</strong></label>
+          </div>
+          <div class="">
+            <input type="text" class="form-control" name="salary" id="salary">
+          </div>
+        </div>
+        <!-- end Salary -->
+        
+      </div>
+
+</div>
+    </div>
+  </div>
+    <!-- End Private Jobs -->
+
+    <!--Available Private-Jobs Cards -->
+     <div class="container my-5 ">
+      <h3>Available Private-Jobs</h3>
+      <div class="row noOfPrivateJobs" id="noOfPrivateJobs">
+        <!-- vacancy cards are embedded here -->
+      </div>
+     </div>
+    <!-- End Available Private-Jobs Cards -->
+
+    <!-- Private-Job Companies -->
+    <div class="container">
+    <h3>Private-Job Companies</h3>
+    <div class="row ml-0 my-5" id="jobCompanyCards">
+      <!-- company names are here -->
+      </div>
+    </div>
+    <!-- End Private-Job Companies -->
+
+    <!-- Private-Job Volunteers -->
+    
+    <div class="container my-5">
+      <h2 class="mb-5">Applicants for private Jobs</h2>
+      <div class="row" id="private-job-cards" >
+        <!-- script -->
+      </div>
+    </div>
+    <!-- End Private-Job Volunteers -->
+  </body>
+
+<!-- Imports and configuration section -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+
+    <script>
+      if (localStorage.getItem("isLoggedIn") !== "true" || JSON.parse(localStorage.getItem("userData"))["role"] == "") {
+        window.location.assign("/");
+      }
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
+        authDomain: "projectdb-402ec.firebaseapp.com",
+        databaseURL: "https://projectdb-402ec-default-rtdb.firebaseio.com",
+        projectId: "projectdb-402ec",
+        storageBucket: "projectdb-402ec.appspot.com",
+        messagingSenderId: "818279951216",
+        appId: "1:818279951216:web:f0ef3bd656247176f0fdb5",
+      };
+      firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore(); 
+
+// Vacant cards
+document.addEventListener("DOMContentLoaded", async function () {
+  await db.collection("Vacancies").get().then(async function (querySnapshot) {
+  querySnapshot.forEach( function (doc) {
+    if(doc.data().vacancy !== "Private Jobs") {
+document.getElementById("iterable").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+         <h5>${doc.data().vacancy}</h5>
+         <div class=""><button class="btn btn-warning mx-2 my-1 text-center">
+          ${doc.data().totalVacancies}</button></div>
+         
+        </div>
+        <div class="col-md-6 text-right">
+         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy} / ${doc.data().totalVacancies}" id="deleteVacancy-${doc.id}">Delete</button>
+        </div>
+          </div>
+        </div>`;
+    } 
+
+    if(doc.data().vacancy === "Private Jobs") {
+document.getElementById("noOfPrivateJobs").innerHTML += `<div class="col-md-3 borderCustom mx-3 my-2">
+          <div class="row">
+            <div class="col-md-6 d-flex">
+         <h3>${doc.data().vacancy}</h3>
+         <div class=""><button class="btn btn-warning mx-2 my-1 text-center">
+          ${doc.data().totalVacancies}</button></div>
+         
+        </div>
+        <div class="col-md-6 text-right">
+         <button class="btn btn-danger mx-2 my-1 text-center deleteVacancy / ${doc.data().vacancy} / ${doc.data().totalVacancies}" id="deleteVacancy-${doc.id}">Delete</button>
+        </div>
+          </div>
+        </div>`;
+    } 
+  });
+}).then( function () {
+
+  for(let delBtn of document.querySelectorAll(".deleteVacancy"))
+   {
+ delBtn.addEventListener("click",  ()=> {
+        const docId = delBtn.id.split("-")[1];
+        const vacancyName=delBtn.classList.value.split("/")[1].trim();
+        const countNumber = delBtn.classList.value.split("/")[2].trim();
+
+        if (countNumber != 0) {
+db.collection("Vacancies").doc(docId).update({totalVacancies: countNumber - 1}).then(function () {
+          alert(vacancyName + " One Vacancy Minused Successfully");
+          window.location.reload();
+        });
+        }
+        
+      });
+// delBtn.addEventListener("click",()=>console.log("working"))
+};
+});
+// End Vacant cards
+
+// Vacancy script
+document.getElementById("vacancy").
+           innerHTML=`<option value="no_option">Choose Service</option>`;        
+    
+  db.collection("Categories").get().then(function (querySnapshot) {
+    let obj = []; // declare obj outside the loop
+    querySnapshot.forEach(function (doc) {
+      if (doc.data().Services) {
+        let arr = doc.data().Services;
+        obj = [...obj, ...arr]; // accumulate all services
+      }
+    });
+    
+    // check if obj is empty
+    if (obj.length === 0) {
+      obj = ['No Services Available'];
+      document.getElementById("vacancy").innerHTML = `<option value="${obj[0]}">${obj[0]}</option>`;
+    } else {
+      // for (let i = 0; i < obj.length; i++) {
+      //   document.getElementById("vacancy").innerHTML += `<option value="${obj[i]}">${obj[i]}</option>`;
+      // }
+      obj.forEach(function (service) {
+        const option = document.createElement('option');
+        option.value = service;
+        option.text = service;
+        document.getElementById("vacancy").appendChild(option);
+      });
+    }
+  });
+
+document.getElementById("vacancy").addEventListener("change", function (e) {
+  let selectedService = e.target.value;
+
+  document.getElementById("add-vacancy").addEventListener("click", function () {
+    let obj = {
+      vacancy: selectedService,
+      totalVacancies: 0,
+    }
+    
+    if (selectedService !== "no_option") {
+      db.collection("Vacancies").get().then(async function (query) {
+
+        let vacancyFound = false; // flag variable
+
+        query.forEach( function (doccc) {
+
+          if (doccc.data().vacancy === selectedService) {
+
+            if (doccc.data().totalVacancies !== undefined) {
+              console.log(doccc.id + doccc.data().totalVacancies);
+               db.collection("Vacancies").doc(selectedService).update({
+                totalVacancies: doccc.data().totalVacancies + 1,
+              });
+            }
+            vacancyFound = true; // vacancy found
+          }
+        });
+        
+        if (!vacancyFound) {
+  // if vacancy not found, add new vacancy
+  await db.collection("Vacancies").doc(selectedService).set(obj);
+  console.log("Vacancy Added with ID:", selectedService);
+}
+
+      });
+    }
+  });
+});
+
+  const dropdown = document.getElementById('vacancy-type-dropdown');
+
+  dropdown.innerHTML = `<option value="no_option">Choose Service</option>`;        
+    
+  await db.collection("Categories").get().then(function (querySnapshot) {
+    let obj = []; // declare obj outside the loop
+    querySnapshot.forEach(function (doc) {
+      if (doc.data().Services) {
+        let arr = doc.data().Services;
+        obj = [...obj, ...arr]; // accumulate all services
+      }
+    });
+
+    // check if obj is empty
+    if (obj.length === 0) {
+      obj = ['No Services Available'];
+      dropdown.innerHTML = `<option value="${obj[0]}">${obj[0]}</option>`;
+    } else {
+      obj.forEach(service => {
+        const option = document.createElement('option');
+        option.value = service;
+        option.text = service;
+        dropdown.appendChild(option);
+      });
+    }
+  });
+
+  dropdown.addEventListener("change", (e) => {
+    const selectedService = e.target.value;
+  });
+
+let companyDetails = [];
+
+document.getElementById("vacancyDetail").addEventListener("click", function () {
+  var vacancyDropdown = document.getElementById("vacancy-type-dropdown").value;
+  var company = document.getElementById("company").value;
+  var phone = document.getElementById("phoneDetail").value;
+  var position = document.getElementById("position").value
+  var eligibility = document.getElementById("eligibility").value;
+  var salary = document.getElementById("salary").value;
+  var city = document.getElementById("cityDetail").value;
+
+  console.log("its working till here.");
+
+  companyDetails.push({
+    company: company,
+    phone: phone,
+    position: position,
+    eligibility: eligibility,
+    salary: salary,
+    city: city,
+  });
+
+  // if (vacancyDropdown != "no_option" || company !== "" || phone !== "" || position !== "" || eligibility !== "" || salary !== "" || city !== "") {
+  //   alert("Please fill in all the fields");
+    
+  //   // Return false to prevent submission
+  //   return false;
+  // }
+
+  db.collection("Vacancies").get().then(function (querr) {
+    querr.forEach(function (docc) {
+      if (docc.data().vacancy === vacancyDropdown) {
+        const existingCompanyDetails = docc.data().companyDetails || [];
+        existingCompanyDetails.push(...companyDetails);
+
+        db.collection("Vacancies")
+          .doc(docc.id)
+          .update({
+            companyDetails: existingCompanyDetails,
+          })
+          .then(function (querySnapshot) {
+            alert("Vacancy Details added");
+            vacancyDropdown = "";
+            company = "";
+            eligibility = "";
+            salary = "";
+            city = "";
+
+            // Clear the companyDetails array
+            companyDetails = [];
+          });
+      } 
+      
+if (docc.data().vacancy === vacancyDropdown && !docc.data().companyDetails) {
+// let newCompanyDetails = docc.data().companyDetails || [];
+//         newCompanyDetails.push(...companyDetails);
+
+vacancyObj = {
+  companyDetails: [{
+    company: company,
+    phone: phone,
+    position: position,
+    eligibility: eligibility,
+    salary: salary,
+    city: city,
+  }],
+}
+
+db.collection("Vacancies").doc(vacancyDropdown).update(vacancyObj).then(function () {
+console.log("how many does it runs?");
+          vacancyDropdown = "";
+            company = "";
+            eligibility = "";
+            salary = "";
+            city = "";
+
+           // Clear the companyDetails array
+            // companyDetails = [];
+        });
+        
+      }
+    
+              });
+  });
+  // End Vacancy Script
+});
+// End Vacancy Details Script
+
+// Vacancy Workers
+
+await db.collection("Vacancy-Workers").get().then(async function (querySnapshot) {
+  querySnapshot.forEach(async function (doc) {
+    
+let appliedCompanyContact = "";
+
+    await db.collection("Vacancies").get().then(function (queryy) {
+      queryy.forEach(function (doccc) {
+
+        if (doccc.data().companyDetails) {
+for (let i=0; i<doccc.data().companyDetails.length; i++) {
+if (doc.data().for == doccc.data().companyDetails[i].company) {
+ appliedCompanyContact = doccc.data().companyDetails[i].phone;
+}
+        }
+ 
+        }
+             })
+
+      document.getElementById("applicants").innerHTML += `<div class="card m-3 borderCustom offerCardWidth my-2">
+  <div class="card-body">
+    <h5 class="card-title">Name: ${doc.data().name}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Phone: ${doc.data().phone}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">City: ${doc.data().city}</h6>
+    <p class="card-text positionField mb-1" id="positionField-${doc.data().phone}"><strong>Position:</strong> ${doc.data().position}</p>
+    <p class="card-text atCompany" id="atCompany-${doc.data().phone}"><strong>At Company:</strong> ${doc.data().for}</p>
+    <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success btn-sm">Call Worker</button>
+    <button onClick="window.open('tel:${appliedCompanyContact}', '_blank')" class="card-link btn btn-dark text-light btn-sm">Call Company</button>
+    <button class="card-link btn btn-danger text-light btn-sm deleteWorker my-2 ml-0" id="deleteWorker_${doc.id}">Delete Worker</button>
+  </div>
+</div>`;
+    })
+ 
+   await document.querySelectorAll(".deleteWorker").forEach(async function (button) {
+document.getElementById(button.id).addEventListener("click", async function () {
+  const documId = await button.id.split("_")[1];
+  console.log(documId);
+  await db.collection("Vacancy-Workers").doc(documId).delete().then(function () {
+    console.log("deleted successfully eh??!!");
+    window.location.reload();
+  })
+})
+    })
+          
+  });
+});
+// End Vacancy Workers
+
+// Vacancy Companies
+db.collection("Vacancies")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(async function (doc) {
+                  if (doc.data().companyDetails) {
+
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
+  if (doc.data().vacancy !== "Private Jobs") {
+document.getElementById("companySmallCards").innerHTML += `
+<div class="col-sm-2 marginBottom mx-2">
+                  <div class="row card newRegBorder workerCards mb-3 " >
+            <h6 class="m-0 bg-secondary text-light"><strong class="text-dark">Company:</strong> <p>${doc.data().companyDetails[i].company}</p></h6>
+            <p class="m-0 bg-secondary text-light"><strong class="text-dark">Vacancy for:</strong> ${doc.data().vacancy}</p>
+<button class="btn btn-outline-danger deleteCompany" 
+id="deleteCompany_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}">
+<strong>Delete</strong></button>
+        </div>
+      </div>`;
+  }
+                  }
+                  }
+
+                });
+
+                document.querySelectorAll(".deleteCompany").forEach(function (button) {
+button.addEventListener("click", async function () {
+  await db.collection("Vacancies").get().then(function (q) {
+    q.forEach(function (d) {
+      // if (d.data().companyDetails["company"] == button.id.split("_")[1]) {
+
+      // }
+      if (d.data().companyDetails) {
+var updatedDetails = d.data().companyDetails.filter((detail) => {
+      return detail.company !== button.id.split("_")[1];
+    });
+
+     d.ref.update({
+      companyDetails: updatedDetails,
+    });
+      }
+      
+   window.location.reload();
+    })
+  })
+});
+});
+              });
+
+// End Vacancy Companies
+
+// Private Job Companies
+db.collection("Vacancies")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(async function (doc) {
+                  if (doc.data().companyDetails) {
+
+for(let i = 0; i < doc.data().companyDetails.length; i++) {
+  if (doc.data().vacancy === "Private Jobs") {
+document.getElementById("jobCompanyCards").innerHTML += `
+<div class="col-sm-2 marginBottom mx-2 ">
+                  <div class="row card newRegBorder workerCards mb-3 " >
+            <h2 class="m-0 bg-secondary">${doc.data().companyDetails[i].company}</h2>
+<button class="btn btn-outline-danger deleteCompany" 
+id="deleteCompany_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}">
+<strong>Delete</strong></button>
+        </div>
+      </div>`;
+ }
+                  }
+                  }
+
+                });
+
+                document.querySelectorAll(".deleteCompany").forEach(function (button) {
+button.addEventListener("click", async function () {
+  await db.collection("Vacancies").get().then(function (q) {
+    q.forEach(function (d) {
+      // if (d.data().companyDetails["company"] == button.id.split("_")[1]) {
+
+      // }
+      if (d.data().companyDetails) {
+var updatedDetails = d.data().companyDetails.filter((detail) => {
+      return detail.company !== button.id.split("_")[1];
+    });
+
+     d.ref.update({
+      companyDetails: updatedDetails,
+    });
+      }
+      
+   window.location.reload();
+    })
+  })
+});
+});
+              });
+
+// End Private-Job Companies
+});
+
+document.addEventListener("DOMContentLoaded", async function () {
+
+await db.collection("Private-job Volunteers").get().then(function (querySnapshot) {
+  querySnapshot.forEach(function (doc) {
+document.getElementById("private-job-cards").innerHTML += `<div class="card mx-3 newRegBorder offerCardWidth my-2">
+  <div class="card-body">
+    <h5 class="card-title">${doc.data().name}</h5>
+    <h6 class="card-subtitle mb-2">${doc.data().phone}</h6>
+    <h6 class="card-subtitle mb-2">${doc.data().city}</h6>
+    <p class="card-text">${doc.data().position}, For Company: <strong>${doc.data().position}</strong></p>
+    <button class="btn btn-danger deletePrivate" id="deletePrivate_${doc.id}"  >Delete</button>
+  </div>
+          </div>`;
+
+  })
+
+   document.querySelectorAll(".deletePrivate").forEach(async function (button) {
+document.getElementById(button.id).addEventListener("click", async function () {
+  const documId = await button.id.split("_")[1];
+  console.log(documId);
+  await db.collection("Private-job Volunteers").doc(documId).delete().then(function () {
+    console.log("deleted successfully eh??!!");
+    window.location.reload();
+  })
+})
+    })
+
+})
+
+});
+  </script>
+
+    <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: "en" },
+        "google_translate_element"
+      );
+    }
+    var googleTranslateElement = document.getElementById(
+      "google_translate_element"
+    );
+
+    googleTranslateElement.addEventListener("click", function (event) {
+      // Stop event propagation
+      event.stopPropagation();
+    });
+
+     logoutDropdown.addEventListener("click", (e) => {
+      var logoutButton = document
+        .getElementById("name-headerDropdown")
+        .classList.add("d-none");
+
+      firebase
+        .auth()
+        .signOut()
+        .then(function () {
+          // Sign-out successful.
+          console.log("User Logged Out!");
+          localStorage.clear();
+          window.location.assign("/login.html");
+          logoutButton;
+        })
+        .catch(function (error) {
+          // An error happened.
+          console.log(error);
+        });
+    });
+  </script>
+
+  <script
+    type="text/javascript"
+    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+  ></script>
+  <script
+    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js"
+    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"
+  ></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous"
+  ></script>
+</html>

@@ -490,42 +490,28 @@
                   </div>
           </div>
 
-          <!-- <div class="dropdown-container ">
-            <label for="cityDropdown text-light">City</label>
-      <div class="bg-secondary" id="cityDropdown">
-        <div class="dropdown-option">Select a city</div>
-      </div>
+            <div class="row">
+  <div class="col-md-6 p-0">
+    <div class="dropdown-container form-group">
+      <label for="citySearch" class="text-light">City</label>
+      <br> <!-- Add a line break here -->
+      <input type="text" id="citySearch" class="py-2" placeholder="Search for a city">
       <div class="dropdown-menu" id="cityDropdownMenu"></div>
-    </div> -->
-    <div class="dropdown-container">
-  <label for="citySearch" class="text-light">City</label>
-  <br> <!-- Add a line break here -->
-  <input type="text" id="citySearch" class="bg-secondary" placeholder="Search for a city">
-  <div class="dropdown-menu" id="cityDropdownMenu"></div>
+    </div>
+  </div>
+  <div class="col-md-6 p-0">
+    <div class="form-group">
+      <label for="inputZip">Pincode</label>
+      <input type="number" class="form-control pt-2" id="inputZip" />
+      <div class="invalid-feedback">
+        Please provide a valid Pin.
+      </div>
+    </div>
+  </div>
 </div>
 
           <div class="form-row">
-            <!-- <div class="dropdown-container">
-              <div class="form-group col-md-6" id="cityDropdown">
-              <label for="inputCity">City</label>
-              <select class="form-control dropdown-option" id="inputCity" required>
-
-              </select>
-              <div class="invalid-feedback">
-                    Please provide a valid City Name.
-                  </div>
-            </div>
-            <div class="dropdown-menu" id="cityDropdownMenu"></div>
-          </div> -->
           
-            
-            <div class="form-group col-md-6">
-              <label for="inputZip">Pincode</label>
-              <input type="number" class="form-control" id="inputZip" />
-               <div class="invalid-feedback">
-                    Please provide a valid Pin.
-                  </div>
-            </div>
           </div>
           <div class="form-group">
             <div class="form-check">
@@ -1218,6 +1204,7 @@ let q = 0;
             });
         });
 
+
         function registerWorker() {
           var inputName = document.getElementById("inputName").value;
           var inputPhone = document.getElementById("inputPhone").value;
@@ -1249,7 +1236,8 @@ if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService
             userId: JSON.parse(localStorage.getItem("userId")) ? JSON.parse(localStorage.getItem("userId")) : "",
           };
 
-          db.collection("New Registerations")
+          if (JSON.parse(localStorage.getItem("userData"))["Name"] === inputName && JSON.parse(localStorage.getItem("userData"))["Mobile"] === inputPhone) {
+db.collection("New Registerations")
             .doc(inputPhone)
             .set(obj)
             .then(function () {
@@ -1264,14 +1252,18 @@ if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService
               inputPin = "";
             });
 
+          } else {
+            alert("Your sign-in info doesn't match your regisered worker data.");
+          }
+          
           // document.getElementById("register-form").classList.add("separator-both");
-          document.getElementById(
-            "register-form"
-          ).innerHTML = `<div class="container border border-warning separator-both p-5">
-            <h2>We have recieved your registered data.
-               We will contact you soon regarding other details and final confirmation.</h2>
-               <p>Dear Worker, Have you signed-in yet? If not, Please do to enjoy the full benefits of our Website <a href="/sign-up.html" class="text-warning">Sign In</a></p>
-            </div>`;
+          // document.getElementById(
+          //   "register-form"
+          // ).innerHTML = `<div class="container border border-warning separator-both p-5">
+          //   <h2>We have recieved your registered data.
+          //      We will contact you soon regarding other details and final confirmation.</h2>
+          //      <p>Dear Worker, Have you signed-in yet? If not, Please do to enjoy the full benefits of our Website <a href="/sign-up.html" class="text-warning">Sign In</a></p>
+          //   </div>`;
 
           // localStorage.setItem("New Registration", JSON.stringify(obj));
         }

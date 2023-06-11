@@ -13,7 +13,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -56,7 +56,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="index.html"
-              >SNPS Pvt Ltd</a
+              >SN Point Pvt Ltd</a
             >
           </div>
 
@@ -190,13 +190,6 @@
                   <div class="modal-content footerColor">
                     <div class="modal-header">
                       <h5 class="modal-title">Modal Title</h5>
-                      <button
-                        type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                        onClick="closeModal()"
-                      ></button>
                     </div>
                     <div class="modal-body" id="body"></div>
                     <div class="modal-footer">
@@ -262,20 +255,6 @@
     <div class="container">
       <footer class="page-footer font-small blue pt-4">
         <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="/" class="btn btn-outline-light">Go to Home</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
@@ -307,6 +286,11 @@
     firebase.initializeApp(firebaseConfig);
 
     const db = firebase.firestore();
+
+    if (window.location.href === './worker-portal.html' || !localStorage.getItem("isLoggedIn")) {
+            window.location.href = './index.html';
+            alert("You have to log-in as a Worker to avail the benefits of this page.");
+          }
 
     if (localStorage.getItem("isLoggedIn") == "true") {
       document.getElementById("login-headerBtn").classList.add("d-none");
@@ -397,7 +381,7 @@
                       <input
                         type="password"
                         class="form-control bg-secondary"
-                        id="validationCustom3"
+                        id="validationCustom03"
                         value="hhhv"
                         disabled
                       />
@@ -454,9 +438,25 @@
                       var city = JSON.parse(localStorage.getItem("userData"))[
                         "City"
                       ];
-                      var zipCode = JSON.parse(
+                      var pinCode = JSON.parse(
                         localStorage.getItem("userData")
-                      )["ZipCode"];
+                      )["PinCode"];
+
+                      if (
+                        full_name.value === "" ||
+                        phone.value === "" ||
+                        service.value === "" ||
+                        password.value === "" ||
+                        email === "" ||
+                        address === "" ||
+                        city === "" ||
+                        pinCode === ""
+                      ) {
+                        alert("Please fill in all the fields");
+
+                        // Return false to prevent submission
+                        return false;
+                      }
 
                       // Retrieve the new data from the input field
                       let updateData = {
@@ -470,7 +470,7 @@
                         Email: email,
                         Address: address,
                         City: city,
-                        ZipCode: zipCode,
+                        PinCode: pinCode,
                       };
 
                       let workerData = {
@@ -497,15 +497,6 @@
                             error
                           );
                         });
-
-                      // await db
-                      //   .collection("Workers")
-                      //   .doc(workerPhone)
-                      //   .update(workerData)
-                      //   .then(async function (data) {
-                      //     await closeModal();
-                      // window.location.reload();
-                      // await alert(workerData.phone);
 
                       await db
                         .collection("Workers")

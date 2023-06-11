@@ -12,7 +12,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -54,7 +54,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="index.html"
-              >SNPS Pvt Ltd</a
+              >SN Point Pvt Ltd</a
             >
           </div>
 
@@ -203,10 +203,10 @@
 
     <!-- Overview Divs -->
 <!-- <div style="width: 100%; height: 30px"></div> -->
-    <div class="container text-start m-5" id="feedbackForm">
+    <div class="container text-start separator" id="feedbackForm">
       <div class="row">
-        <div class="col-md-12 text-light my-4 ml-5" id=""><h1>About Us:</h1></div>
-        <div class="col-md-12 text-light ml-5">
+        <div class="col-md-12 text-light my-4" id=""><h1>About Us:</h1></div>
+        <div class="col-md-12 text-light ">
           <div class="container footerColor" id="overviewDisplay">
                <!-- overview goes here -->
           </div>
@@ -215,36 +215,10 @@
     </div>
     <div></div>
     <!-- End Overview Divs -->
-
-    <div class="btn-group" role="group">
-    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      Dropdown
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">Dropdown link</a>
-      <a class="dropdown-item" href="#">Dropdown link</a>
-    </div>
-  </div>
-
-
+    
 <!-- Footer Container -->
     <div class="container mt-5 separator-feed">
       <footer class="page-footer separator-feed font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
@@ -318,7 +292,7 @@ db.collection("Workers")
 
       db.collection("Overview").get().then(function (querySnapshot) {
          querySnapshot.forEach(function (doc) {
-            document.getElementById("overviewDisplay").innerHTML += `<div class="my-4"><h4 class="overviewText">${doc.data().overview}</h4></div>`;
+            document.getElementById("overviewDisplay").innerHTML += `<div class="p-md-5"><h4 class="overviewText">${doc.data().overview}</h4></div>`;
          });
       });
 

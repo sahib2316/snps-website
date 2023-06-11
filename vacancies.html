@@ -13,7 +13,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -56,7 +56,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="index.html"
-              >SNPS Pvt Ltd</a
+              >SN Point Pvt Ltd</a
             >
           </div>
 
@@ -82,38 +82,7 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            <!-- <div class="collapse navbar-collapse ml-3" id="navbarTogglerDemo01">
-              <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                  <div
-                    class="modal fade bd-example-modal-lg"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="myLargeModalLabel"
-                    aria-hidden="true"
-                  >
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-md-2">
-                              <button>Construction</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Repairing</button>
-                            </div>
-                            <div class="col-md-2">
-                              <button>Vehicles</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
-            <div
+             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
             >
@@ -275,12 +244,12 @@
               <div class="col-md-6 mb-3 text-light">
                 <h4 class="my-3">Click on the icon</h4>
                 <img
-                  class="rounded-circle"
+                  class="rounded-circle image-fluid imageSize"
                   src="https://source.unsplash.com/random/?employment+jobs"
                   id="privateJobs"
                   alt="Card image cap"
-                  width="360px"
-                  height="360px"
+                  width="100%"
+                  height="auto"
                   onClick="privateJobs()"
                 />
                 <h4 class="my-3">to view jobs</h4>
@@ -313,6 +282,7 @@
                 placeholder="Full Name"
                 required
               />
+              <div class="valid-feedback">Name doesn't look good</div>
             </div>
           </div>
           <div class="form-group">
@@ -324,6 +294,7 @@
               placeholder="12345xxxxx"
               required
             />
+            <div class="valid-feedback">Phone No. isnt valid.</div>
           </div>
           <div class="form-group">
             <label for="inputService">Service (Your Work)</label>
@@ -334,6 +305,9 @@
               placeholder="Eg: Plumber, Electrician, Painter, Caterer"
               required
             />
+            <div class="valid-feedback">
+                    Please provide a valid service name.
+                  </div>
           </div>
           <div class="form-group">
             <label for="inputAddress">Address</label>
@@ -344,15 +318,33 @@
               placeholder="Apartment, studio, or floor"
               required
             />
+            <div class="invalid-feedback">
+                    Please provide a valid Address.
+                  </div>
           </div>
+          
+          <div class="dropdown-container text-light">
+            <label for="cityDropdown text-light">City</label>
+      <div class="bg-secondary" id="cityDropdown">
+        <div class="dropdown-option">Select a city</div>
+      </div>
+      <div class="dropdown-menu" id="cityDropdownMenu"></div>
+    </div>
+
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <!-- <div class="form-group col-md-6">
               <label for="inputCity">City</label>
               <input type="text" class="form-control" id="inputCity" required />
-            </div>
+              <div class="invalid-feedback">
+                    Please provide a valid City Name.
+                  </div>
+            </div> -->
             <div class="form-group col-md-6">
-              <label for="inputZip">ZipCode</label>
+              <label for="inputZip">PinCode</label>
               <input type="text" class="form-control" id="inputZip" />
+              <div class="invalid-feedback">
+                    Please provide a valid Pin.
+                  </div>
             </div>
           </div>
           <div class="form-group">
@@ -366,6 +358,9 @@
               <label class="form-check-label" for="gridCheck">
                 Do you validate for the above provided information
               </label>
+              <div class="invalid-feedback">
+                    You must validate before submitting.
+                  </div>
             </div>
           </div>
           <button
@@ -384,7 +379,7 @@
 
     <hr class="bg-light my-5" />
 
-    <!-- Footer -->
+     <!-- Footer -->
     <footer class="page-footer font-small pt-4">
       <div class="row">
         <div class="col-sm-4">
@@ -394,7 +389,7 @@
               <div class="d-flex">
                 <ul class="colored-bullet-list">
                   <li>
-                    <a href="#" class="text-light">Call</a>
+                    <a href="tel:7988229xxx" class="text-light">Call</a>
                   </li>
                   <li>
                     <a href="#" class="text-light">Instagram</a>
@@ -413,7 +408,11 @@
                   <li><i class="fa-brands fa-facebook"></i></li>
                 </ul>
               </div>
-              <a href="#" class="btn btn-outline-light">WhatsApp</a>
+              <a
+                href="https://wa.me/+917988229080"
+                class="btn btn-outline-light"
+                >WhatsApp</a
+              >
             </div>
           </div>
         </div>
@@ -423,41 +422,39 @@
               <h5 class="card-title">Account And Bookings</h5>
               <ul class="colored-bullet-list">
                 <li>
-                  <a href="#" class="text-light">Your Account</a>
+                  <a id="yourAccount" class="text-light">Your Account</a>
+                  <script>
+                    if (JSON.parse(localStorage.getItem("userData"))) {
+                      document.getElementById("yourAccount").href = `./profile.html`;
+                    }
+                  </script>
                 </li>
                 <li>
-                  <a href="#" class="text-light">Your Bookings</a>
+                  <a  id="yourBookings" class="text-light">Your Bookings</a>
+                  <script>
+                    if (JSON.parse(localStorage.getItem("userData"))) {
+                      document.getElementById("yourBookings").href = `./profile.html`;
+                    }
+                  </script>
                 </li>
                 <li>
-                  <a href="#" class="text-light">Our Businesses</a>
+                  <a href="./overview.html" class="text-light">Website Overview</a>
                 </li>
                 <li>
-                  <a href="#" class="text-light">Our Store</a>
+                  <a href="/" class="text-light">Workers And Categories</a>
                 </li>
               </ul>
-              <a href="#" class="btn btn-outline-light">Book Now</a>
+              <a href="./vacancies.html" class="btn btn-outline-light">See Vacancies</a>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
-          <div class="card website-info-card">
-            <div class="card-body">
-              <h5 class="card-title">Our Website</h5>
-              <p class="card-text text-light">
-                Visit our website and explore the vastness of our services. We
-                can provide our expertise on a wide spectrum and really guide to
-                your journey.
-              </p>
-              <a href="/" class="btn btn-outline-light">Go to Home</a>
-            </div>
-          </div>
         </div>
       </div>
 
       <!-- Copyright -->
       <div class="footer-copyright text-center text-white py-3">
         &copy;
-        <a href="/" class="text-light"> SNPS Pvt. Ltd</a>
+        <a href="/" class="text-light"> SN Point Pvt. Ltd</a>
         All rights reserved.
       </div>
       <!-- Copyright -->
@@ -469,8 +466,81 @@
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
+  <script type="text/javascript" src="indian_cities.js"></script>
 
   <script>
+
+    var batchSize = 15; // Number of cities to load per batch
+var currentIndex = 0; // Index of the current batch
+var cityDropdown = document.getElementById("cityDropdown");
+var cityDropdownMenu = document.getElementById("cityDropdownMenu");
+
+function loadCities() {
+  var endIndex = currentIndex + batchSize;
+  var citiesToShow = cities.slice(currentIndex, endIndex);
+
+  citiesToShow.forEach(function (city) {
+    var option = document.createElement("div");
+    option.classList.add("dropdown-option");
+    option.textContent = city;
+    option.addEventListener("click", function () {
+      cityDropdown.querySelector(".dropdown-option").textContent = city;
+      closeDropdown();
+    });
+    cityDropdownMenu.appendChild(option);
+  });
+
+  currentIndex = endIndex;
+
+  if (currentIndex >= cities.length) {
+    // Reached the end of the cities list
+    cityDropdownMenu.removeEventListener("scroll", loadCities);
+  }
+}
+
+function openDropdown() {
+  cityDropdownMenu.style.display = "block";
+}
+
+function closeDropdown() {
+  cityDropdownMenu.style.display = "none";
+}
+
+function isClickInsideDropdown(element) {
+  var dropdown = document.getElementById("cityDropdown");
+  return element === dropdown || dropdown.contains(element);
+}
+
+document.addEventListener("click", function (event) {
+  var isClickInside = isClickInsideDropdown(event.target);
+  if (!isClickInside) {
+    closeDropdown();
+  }
+});
+
+cityDropdown.addEventListener("click", function () {
+  if (cityDropdownMenu.style.display === "block") {
+    closeDropdown();
+  } else {
+    openDropdown();
+    if (currentIndex === 0) {
+      loadCities();
+    }
+  }
+});
+
+cityDropdownMenu.addEventListener("scroll", function () {
+  var scrollTop = cityDropdownMenu.scrollTop;
+  var scrollHeight = cityDropdownMenu.scrollHeight;
+  var clientHeight = cityDropdownMenu.clientHeight;
+
+  if (scrollHeight - scrollTop <= clientHeight + 1) {
+    loadCities();
+  }
+});
+
+// Initial load
+loadCities();
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBcvOMCgE-24Y8k5KAzwjrblAsRyqJb-eI",
@@ -520,6 +590,19 @@
       var inputService = document.getElementById("inputService").value;
       var inputCity = document.getElementById("inputCity").value;
       var inputZip = document.getElementById("inputZip").value;
+      var inputCheck = document.getElementById("gridCheck").value;
+
+if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService === "" || inputCity === "" || inputPin === "") {
+  alert("Please fill all the fields to register.");
+
+  return false;
+}
+
+if (!inputCheck.checked) {
+  alert("You have to check the confirmation checkbox to register.");
+
+  return false;
+}
 
       let obj = {
         name: inputName,
@@ -557,13 +640,14 @@
         .then(async function (querySnapshot) {
           querySnapshot.forEach(function (doc) {
             // console.log(doc.id);
-            document.getElementById(
-              "vacancyRow"
-            ).innerHTML += `<div class="col-md-6">
+            if (doc.data().vacancy !== "Private Jobs" && doc.data().totalVacancies !== 0) {
+              document.getElementById(
+                "vacancyRow"
+              ).innerHTML += `<div class="col-md-6">
                           <div class="card text-center text-light">
                             <div class="card-header bg-dark">Vacancy</div>
                             <div class="card-body">
-                              <h5 class="card-title">For:${
+                              <h5 class="card-title">For: ${
                                 doc.data().vacancy
                               }</h5>
                               <p class="card-text">
@@ -572,34 +656,32 @@
                                 } who can handle clients on call and will be
                                 available whenever in need.
                               </p>
-                              <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy-${
-                                doc.id
-                              }-${doc.data().vacancy}">Apply</a>
+                              <a href="#" class="btn btn-outline-light applyVacancy" id="applyVacancy_${doc.data().vacancy}">Apply</a>
                             </div>
                             <div class="card-footer text-light bg-dark">Total Vacancies Available: <strong class="text-light">${
                               doc.data().totalVacancies
                             }</strong</div>
                           </div>
                         </div>`;
+            }
           });
 
           document
             .querySelectorAll(".applyVacancy")
             .forEach(async function (button) {
-              console.log(button.id);
               document
                 .getElementById(button.id)
                 .addEventListener("click", async function () {
-                  const appliedVacancy = button.id.split("-")[2];
+                  const appliedVacancy = button.id.split("_")[1];
                   await console.log(appliedVacancy);
 
-                  const url = `http://127.0.0.1:5500/vacancy-details.html?vacancy=${appliedVacancy}`;
+                  const url = `./vacancy-details.html?vacancy=${appliedVacancy}`;
                   let flag = false;
-                  db.collection("Workers")
+                  db.collection("Vacancies")
                     .get()
                     .then(function (querySnapshot) {
                       for (const doc of querySnapshot.docs) {
-                        if (doc.data().service === appliedVacancy) {
+                        if (doc.data().vacancy === appliedVacancy) {
                           console.log(doc.data());
                           flag = true;
                         }
@@ -612,135 +694,6 @@
                         );
                       }
                     });
-
-                  //       let child = document.createElement("div");
-                  //       child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  //       <div class="modal-dialog" role="document">
-                  //         <div class="modal-content">
-                  //           <div class="modal-header">
-                  //             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  //             <button type="button" class="close" id="offerModalCloseBtn" data-dismiss="modal" aria-label="Close">
-                  //               <span aria-hidden="true">&times;</span>
-                  //             </button>
-                  //           </div>
-                  //           <div class="modal-body">
-
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput">Name</label>
-                  //         <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
-                  //       </div>
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput1">Phone</label>
-                  //         <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
-                  //       </div>
-                  //       <div class="form-group">
-                  //         <label for="formGroupExampleInput2">City</label>
-                  //         <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
-                  //       </div>
-
-                  //           </div>
-                  //           <div class="modal-footer">
-                  //             <button type="button" class="btn btn-secondary" id=
-                  //             "newClose" data-dismiss="modal">Close</button>
-                  //             <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
-                  //           </div>
-                  //         </div>
-                  //       </div>
-                  //     </div>`;
-                  //       let parent = document.getElementById("vacancyModal");
-
-                  //       await parent.appendChild(child);
-
-                  //       let exampleModalNode =
-                  //         document.getElementById("exampleModal");
-
-                  //       function closeModal() {
-                  //         exampleModalNode.classList.remove("show");
-                  //         exampleModalNode.classList.add("hide");
-                  //         exampleModalNode.style.display = "none";
-                  //       }
-
-                  //       // conditioning for logged in and a random user
-                  //       var userLocal = JSON.parse(localStorage.getItem("userData"));
-
-                  //       if (userLocal) {
-                  //         // console.log("correct if statement");
-                  //         let objLocal = {
-                  //           name: JSON.parse(localStorage.getItem("userData"))[
-                  //             "Name"
-                  //           ],
-                  //           phone: JSON.parse(localStorage.getItem("userData"))[
-                  //             "Mobile"
-                  //           ],
-                  //           city: JSON.parse(localStorage.getItem("userData"))[
-                  //             "City"
-                  //           ],
-                  //         };
-
-                  //         db.collection("Vacancy-Workers")
-                  //           .doc(
-                  //             JSON.parse(localStorage.getItem("userData"))["Mobile"]
-                  //           )
-                  //           .set(objLocal)
-                  //           .then(function () {
-                  //             closeModal();
-                  //             alert(
-                  //               "You have successfully applied for a vacancy. We will contact you soon."
-                  //             );
-                  //           });
-                  //       } else {
-                  //         exampleModalNode.classList.remove("hide");
-                  //         exampleModalNode.classList.add("show");
-                  //         // document.getElementsByTagName("body")[0].classList.add("modal-open");
-                  //         exampleModalNode.style.display = "block";
-
-                  //         document
-                  //           .getElementById("saveData")
-                  //           .addEventListener("click", function () {
-                  //             var nameInput = document.getElementById(
-                  //               "formGroupExampleInput"
-                  //             ).value;
-                  //             var phoneInput = document.getElementById(
-                  //               "formGroupExampleInput1"
-                  //             ).value;
-                  //             var cityInput = document.getElementById(
-                  //               "formGroupExampleInput2"
-                  //             ).value;
-
-                  //             console.log(
-                  //               nameInput + "," + phoneInput + "," + cityInput
-                  //             );
-
-                  //             let obj = {
-                  //               name: nameInput,
-                  //               phone: phoneInput,
-                  //               city: cityInput,
-                  //             };
-
-                  //             db.collection("Vacancy-Workers")
-                  //               .doc(phoneInput)
-                  //               .set(obj)
-                  //               .then(function () {
-                  //                 alert(
-                  //                   "You have successfully applied for a vacancy. We will contact you soon."
-                  //                 );
-                  //                 closeModal();
-                  //               });
-                  //           });
-
-                  //         document
-                  //           .getElementById("offerModalCloseBtn")
-                  //           .addEventListener("click", () => {
-                  //             closeModal();
-                  //           });
-
-                  //         document
-                  //           .getElementById("newClose")
-                  //           .addEventListener("click", () => {
-                  //             closeModal();
-                  //           });
-                  //       }
-                  //       // End conditioning for logged-in and a logged-out user
                 });
             });
         });

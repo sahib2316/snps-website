@@ -95,12 +95,57 @@ body {
 
 .separator {
   margin-top: 80px;
+  margin-bottom: 80px;
 }
 
 .separator-feed {
   margin-top: 140px;
 }
 
+.newMargin {
+  margin-bottom: 120px;
+}
+
 .newServiceInput {
   font-size: 18px;
+}
+
+.offerCardWidth {
+  width: 18rem;
+}
+
+.newRegBorder {
+  border: 1.5px solid black !important;
+  border-radius: 0.25rem;
+}
+
+/* .changeService {
+  font-size: 14px;
+  height: 30px;
+} */
+
+@media (max-width: 575px) {
+  .amendCard img {
+    font-size: 16px;
+    aspect-ratio: 6 / 9;
+  }
+}
+
+.sidebar-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px; /* Adjust the width as per your preference */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Make the sidebar full height */
+  background: #f2f2f2; /* Set the desired background color */
+  padding: 20px; /* Adjust padding as needed */
+}
+
+.sidebar-content {
+  margin-left: 250px; /* Match the width of the sidebar */
+  padding: 20px; /* Adjust padding as needed */
 }

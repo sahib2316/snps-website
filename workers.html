@@ -14,7 +14,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -93,7 +93,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +102,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -166,6 +166,27 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
             </script>
           </form>
         </div>
@@ -180,7 +201,7 @@
         <!-- TITLE is written with javascript -->
       </div>
 
-      <div class="col-md-12 mb-3 ratings-chudaap">
+      <!-- <div class="col-md-12 mb-3 ratings-chudaap">
         <div class="btn-group">
           <button
             type="button"
@@ -199,7 +220,7 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <hr />
 
@@ -211,8 +232,9 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
 
         <script>
-          if (window.location.href === 'http://127.0.0.1:5500/workers.html') {
-            window.location.href = 'http://127.0.0.1:5500/index.html';
+          if (window.location.href === './workers.html' || !localStorage.getItem("isLoggedIn")) {
+            window.location.href = './index.html';
+            alert("You have to log-in to avail the benefits of  this website.");
           }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
@@ -235,16 +257,16 @@
           const urlParams = new URLSearchParams(window.location.search);
           const selectedOption = urlParams.get("selectedOption");
 
-          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedOption} `;
+          const queryUrl = `./workers.html?q=${selectedOption} `;
           // Use the query URL to fetch data or perform other actions
 
-          document.addEventListener("DOMContentLoaded", (e) => {
+          document.addEventListener("DOMContentLoaded", async function (e) {
 
             let s=0;
             db.collection("Workers")
               .get()
-              .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
+              .then(async function (querySnapshot) {
+                querySnapshot.forEach(async function (doc) {
 
                   if (doc.data().service === selectedOption) {
 console.log(doc.id, " => ", doc.data());
@@ -256,24 +278,27 @@ document.getElementById("workerTitle").innerHTML += `
 }
 
 document.getElementById("first").innerHTML += `
-<div class="col-sm-6 marginBottom">
+<div class="col-md-6 marginBottom">
                   <div class="row workerCards mb-3" >
-          <div class="col-sm-6 p-0" >
+          <div class="col-md-6 col-xs-3 p-0" >
             <div class="card amendCard" >
               <img
                 class="card-img-top"
                 src="https://source.unsplash.com/random/?${doc.data().category}+${selectedOption}"
                 alt="Card image cap"
                 width=""
-                height=""
+                height=""s
               />
             </div>
           </div>
-          <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+          <div class="col-md-6 col-xs-9  text-light workerFontFamily mt-1">
+            <h3 class="m-0">${doc.data().name}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${doc.data().address}, ${doc.data().city}</h3>
+            <h4>${doc.data().service} (${doc.data().category})</h4>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}" onClick="window.open('tel:${doc.data().phone}', '_blank')">
+  <strong>Call Worker</strong>
+</button>
+
           </div>
         </div>
       </div>            `;
@@ -285,10 +310,31 @@ document.getElementById("first").innerHTML += `
 
                 });
 
-document.querySelectorAll(".bookWorker").forEach(function (button) {
-button.addEventListener("click", function () {
-  const docId = button.id.split("-")[1];
-  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+ document.querySelectorAll(".bookWorker").forEach(async function (button) {
+let bookDocId = await button.id.split("-")[1];
+await console.log(bookDocId);
+
+await db.collection("Booked-Workers").get().then(function (qu) {
+qu.forEach(function (docc) {
+
+if (docc.id == bookDocId) {
+  console.log(docc.id + " " + bookDocId);
+document.getElementById(button.id).disabled = true;
+}
+
+});
+  });
+
+  // if (document.getElementById(button.id).disabled = true) {
+  //   alert("This Worker is currently booked. Please try again later in somem time.");
+  // }
+
+await button.addEventListener("click", function () { 
+
+  let docId = button.id.split("-")[1];
+  console.log(docId);
+
+  let docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
  console.log(doc.data());
  console.log(JSON.parse(localStorage.getItem("userId")));
 
@@ -296,7 +342,7 @@ button.addEventListener("click", function () {
 name: doc.data().name,
 phone: doc.data().phone,
 service: doc.data().service,
-address: doc.data().address,
+city: doc.data().city,
 userId: JSON.parse(localStorage.getItem("userId")),
   }
 
@@ -436,22 +482,6 @@ alert("success");
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

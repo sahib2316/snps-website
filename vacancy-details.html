@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Workers</title>
+    <title>Vacancy Details</title>
 
     <link 
       rel="stylesheet"
@@ -14,7 +14,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -58,11 +58,15 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
+             <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback.html"
+                >Feedback <span class="sr-only">(current)</span></a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -93,7 +97,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +106,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -166,11 +170,38 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
             </script>
           </form>
         </div>
       </nav>
     </header>
+
+    <!-- Vacancy Modal -->
+    <div id="vacancyModal">
+      <!-- vacancy modal goes here -->
+    </div>
+    <!-- End Vacancy Modal -->
 
 
     <!-- Worker options -->
@@ -180,26 +211,24 @@
         <!-- TITLE is written with javascript -->
       </div>
 
-      <div class="col-md-12 mb-3 ratings-chudaap">
+      <!-- <div class="col-md-12 mb-3 ratings-chudaap">
+        <h1>Select City-Wise</h1>
         <div class="btn-group">
           <button
             type="button"
-            class="btn btn-danger dropdown-toggle"
+            class="btn btn-outline-danger dropdown-toggle"
+            id="cityFilter"
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
             >
-            Ratings
+            Filter City
           </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+          <div class="dropdown-menu" id="filterDropdown">
+            
           </div>
         </div>
-      </div>
+      </div> -->
 
       <hr />
 
@@ -211,8 +240,9 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
 
         <script>
-          if (window.location.href === 'http://127.0.0.1:5500/workers.html') {
-            window.location.href = 'http://127.0.0.1:5500/index.html';
+          if (window.location.href === './vacancy-details.html' || !localStorage.getItem("isLoggedIn")) {
+            window.location.href = './index.html';
+            alert("You have to log-in to avail the benefits of  this website.");
           }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
@@ -234,10 +264,19 @@
           // JavaScript code
           const urlParams = new URLSearchParams(window.location.search);
           const appliedVacancy = urlParams.get("vacancy");
-          const queryUrl = `http://127.0.0.1:5500/vacancy-details.html?q=${appliedVacancy} `;
+          const queryUrl = `./vacancy-details.html?q=${appliedVacancy} `;
           // Use the query URL to fetch data or perform other actions
 
           document.addEventListener("DOMContentLoaded", function (e) {
+
+// await db.collection("Workers").where("city", "==", selectCity).get().then(function (querr) {
+//   querr.forEach(function (docum) {
+// let filterDropdown = document.getElementById("filterDropdown");
+//   // console.log(docum.data());
+// filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docum.data().service}">${docum.data().service}</a>`;
+          
+//   })
+// })
 
             let s=0;
             db.collection("Vacancies")
@@ -254,6 +293,7 @@ document.getElementById("workerTitle").innerHTML += `
                   s++;
 }
 
+if (doc.data().companyDetails) {
 for(let i = 0; i < doc.data().companyDetails.length; i++) {
 document.getElementById("first").innerHTML += `
 <div class="col-sm-6 marginBottom">
@@ -270,14 +310,17 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().companyDetails[i].company}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
-            <h3> Looking For: ${appliedVacancy}</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <h2 class="m-0">${doc.data().companyDetails[i].company}</h2>
+            <h3 class="extraIcon mt-2"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().companyDetails[i].phone}</h3>
+            <h4>City: ${doc.data().companyDetails[i].city}</h4>
+            <h4> Looking For: ${appliedVacancy}</h4>
+            <button class="btn btn-outline-light applyWorker" id="applyWorker_${doc.data().companyDetails[i].company}_${doc.data().companyDetails[i].position}_${doc.data().totalVacancies}_${doc.id}"><strong>Apply</strong></button>
           </div>
         </div>
       </div>            `;
  
+}
+
 }
                   }
                   // else {
@@ -287,11 +330,25 @@ document.getElementById("first").innerHTML += `
 
                 });
 
-// document.querySelectorAll(".bookWorker").forEach(function (button) {
-// button.addEventListener("click", function () {
-//   const docId = button.id.split("-")[1];
-//   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
-//  console.log(doc.data());
+                document.querySelectorAll(".applyWorker").forEach(function (button) {
+button.addEventListener("click", async function () {
+  const companyName = await button.id.split("_")[1];
+
+  // await JSON.stringify(localStorage.setItem
+  // ("company-name", companyName));
+  // await JSON.stringify(localStorage.setItem
+  // ("private-job-data", companyName));
+  const companyPosition = await button.id.split("_")[2];
+  await console.log(companyPosition);
+  await JSON.stringify(localStorage.setItem
+  ("vacancy-worker-data", companyPosition));
+  const currentVacancies = await button.id.split("_")[3];
+  await console.log(currentVacancies);
+  const docId = await button.id.split("_")[4];
+  await console.log(docId);
+
+//   const docRef = db.collection("Workers").doc(companyPosition).get().then(async function (doc) {
+//  console.log(companyPosition);
 //  console.log(JSON.parse(localStorage.getItem("userId")));
 
 //   let obj = {
@@ -302,52 +359,152 @@ document.getElementById("first").innerHTML += `
 // userId: JSON.parse(localStorage.getItem("userId")),
 //   }
 
-//      db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+//      db.collection("Booked-Workers").doc(companyPosition).set(obj).then(function () {
 // alert("success");
 //      });
 
-//   });
+//});
 
-// });
-// });
+      let child = document.createElement("div");
+                        child.innerHTML = `<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content text-light">
+                            <div class="modal-header footerColor">
+                              <h5 class="modal-title" id="exampleModalLabel">Fill Your Details</h5>
+                              
+                            </div>
+                            <div class="modal-body footerColor">
 
+                        <div class="form-group">
+                          <label for="formGroupExampleInput">Name</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput1">Phone</label>
+                          <input type="number" class="form-control" id="formGroupExampleInput1" placeholder="Phone">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput2">City</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="City">
+                        </div>
+                        <div class="form-group">
+                          <label for="formGroupExampleInput3">Position</label>
+                          <input type="text" class="form-control" id="formGroupExampleInput3" placeholder="Position">
+                        </div>
+
+                            </div>
+                            <div class="modal-footer footerColor">
+                              <button type="button" class="btn btn-secondary" id=
+                              "newClose" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary" id="saveData">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`;
+                        let parent = document.getElementById("vacancyModal");
+
+                         parent.appendChild(child);
+
+                        let exampleModalNode =
+                          document.getElementById("exampleModal");
+
+                        function closeModal() {
+                          exampleModalNode.classList.remove("show");
+                          exampleModalNode.classList.add("hide");
+                          exampleModalNode.style.display = "none";
+                        }
+
+                        // conditioning for logged in and a random user
+                        var userLocal = JSON.parse(localStorage.getItem("userData"));
+
+                        if (userLocal) {
+                          // console.log("correct if statement");
+                          let objLocal = {
+                            name: JSON.parse(localStorage.getItem("userData"))[
+                              "Name"
+                            ],
+                            phone: JSON.parse(localStorage.getItem("userData"))[
+                              "Mobile"
+                            ],
+                            city: JSON.parse(localStorage.getItem("userData"))[
+                              "City"
+                            ],
+                            position: (localStorage.getItem("vacancy-worker-data")),
+                            for: companyName,
+                          };
+
+                          db.collection("Vacancy-Workers")
+                            .doc()
+                            .set(objLocal)
+                            .then(function () {
+                              closeModal();
+                              alert(
+                                "You have successfully applied for a vacancy. We will contact you soon."
+                              );
+                              // db.collection("Vacancies").doc(docId).update({totalVacancies: currentVacancies - 1}).then(function (qur) {
+                              //   console.log("vacancies reduced by 1");
+                              // });
+                            });
+                        } else {
+                          exampleModalNode.classList.remove("hide");
+                          exampleModalNode.classList.add("show");
+                          exampleModalNode.style.display = "block";
+
+                          document
+                            .getElementById("saveData")
+                            .addEventListener("click", function () {
+                              var nameInput = document.getElementById(
+                                "formGroupExampleInput"
+                              ).value;
+                              var phoneInput = document.getElementById(
+                                "formGroupExampleInput1"
+                              ).value;
+                              var cityInput = document.getElementById(
+                                "formGroupExampleInput2"
+                              ).value;
+                              var positionInput = document.getElementById(
+                                "formGroupExampleInput3"
+                              ).value;
+
+                              console.log(
+                                nameInput + "," + phoneInput + "," + cityInput
+                              );
+
+                              let obj = {
+                                name: nameInput,
+                                phone: phoneInput,
+                                city: cityInput,
+                                position: positionInput,
+                                for: companyName,
+                              };
+
+                              db.collection("Vacancy-Workers")
+                                .doc()
+                                .set(obj)
+                                .then(function () {
+                                  alert(
+                                    "You have successfully applied for a Open Vacancy In this shop. We will contact you soon."
+                                  );
+                              //     db.collection("Vacancies").doc(docId).update({totalVacancies: currentVacancies - 1}).then(function (qur) {
+                              //   console.log("vacancies reduced by 1");
+                              // });
+                                  closeModal();
+                                  
+                                });
+                            });
+
+                          document
+                            .getElementById("newClose")
+                            .addEventListener("click", () => {
+                              closeModal();
+                            });
+                        }
+                        // End conditioning for logged-in and a logged-out user
+             
+
+});
+});
               });
-
-        //       db.collection("Workers")
-        // .get()
-        // .then(function (querySnapshot) {
-        //   querySnapshot.forEach(function (doc) {
-        //     if (
-        //       JSON.parse(localStorage.getItem("isLoggedIn")) === true &&
-        //       doc.data().name ===
-        //         JSON.parse(localStorage.getItem("userData"))["Name"] &&
-        //       doc.data().phone ===
-        //         JSON.parse(localStorage.getItem("userData"))["Mobile"]
-        //     ) {
-        //       document.getElementById("profileElementDiv").style.display =
-        //         "none";
-
-        //          const parentDiv = document.getElementById("parentDiv");
-
-        //       const inputNode = document.createElement("input");
-        //       inputNode.type = "button";
-        //       inputNode.className = "btn btn-outline-dark btn-block text-white";
-        //       inputNode.id = "adminDropdown1";
-        //       inputNode.value = "Worker-Portal";
-
-        //       parentDiv.appendChild(inputNode);
-
-        //       var profileBtn = document
-        //         .getElementById("profileElementDiv")
-        //         .classList.add("d-none");
-        //       var adminDropdown = document.getElementById("adminDropdown1");
-        //       adminDropdown.addEventListener("click", function () {
-        //         window.location.assign("/worker-portal.html");
-        //       });
-        //     }
-
-        //   });
-        // });
 
           });
 
@@ -435,22 +592,6 @@ document.getElementById("first").innerHTML += `
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

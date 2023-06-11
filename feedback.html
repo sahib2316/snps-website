@@ -13,7 +13,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -55,7 +55,7 @@
             <a
               class="navbar-brand animate__animated animate__pulse mt-2"
               href="/"
-              >SNPS Pvt Ltd</a
+              >SN Point Pvt Ltd</a
             >
           </div>
 
@@ -255,22 +255,6 @@
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="/" class="btn btn-outline-light">Go to Home</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright
@@ -316,6 +300,12 @@
           "Mobile"
         ];
 
+        if (feedbackLoggedIn === "") {
+          alert("Please fill some valid feedback to be accepted.");
+
+          return false;
+        }
+
         let objLocal = {
           feedback: feedbackLoggedIn,
           phone: phoneLoggedIn,
@@ -333,6 +323,12 @@
           "exampleFormControlTextarea1"
         ).value;
         let phone = document.getElementById("exampleFormControlInput1").value;
+
+        if (feedback === "" || phone === "") {
+          alert("Please fill both the fields with valid content.");
+
+          return false;
+        }
 
         let obj = {
           feedback: feedback,
@@ -353,39 +349,42 @@
     }
 
     document.addEventListener("DOMContentLoaded", function () {
-      db.collection("Workers")
-        .get()
-        .then(function (querySnapshot) {
-          querySnapshot.forEach(function (doc) {
-            if (
-              doc.data().name ===
-                JSON.parse(localStorage.getItem("userData"))["Name"] &&
-              doc.data().phone ===
-                JSON.parse(localStorage.getItem("userData"))["Mobile"]
-            ) {
-              document.getElementById("profileElementDiv").style.display =
-                "none";
+      if (localStorage.getItem("isLoggedIn")) {
+        db.collection("Workers")
+          .get()
+          .then(function (querySnapshot) {
+            querySnapshot.forEach(function (doc) {
+              if (
+                doc.data().name ===
+                  JSON.parse(localStorage.getItem("userData"))["Name"] &&
+                doc.data().phone ===
+                  JSON.parse(localStorage.getItem("userData"))["Mobile"]
+              ) {
+                document.getElementById("profileElementDiv").style.display =
+                  "none";
 
-              const parentDiv = document.getElementById("parentDiv");
+                const parentDiv = document.getElementById("parentDiv");
 
-              const inputNode = document.createElement("input");
-              inputNode.type = "button";
-              inputNode.className = "btn btn-outline-dark btn-block text-white";
-              inputNode.id = "adminDropdown1";
-              inputNode.value = "Worker-Portal";
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown1";
+                inputNode.value = "Worker-Portal";
 
-              parentDiv.appendChild(inputNode);
+                parentDiv.appendChild(inputNode);
 
-              var profileBtn = document
-                .getElementById("profileElementDiv")
-                .classList.add("d-none");
-              var adminDropdown = document.getElementById("adminDropdown1");
-              adminDropdown.addEventListener("click", function () {
-                window.location.assign("/worker-portal.html");
-              });
-            }
+                var profileBtn = document
+                  .getElementById("profileElementDiv")
+                  .classList.add("d-none");
+                var adminDropdown = document.getElementById("adminDropdown1");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/worker-portal.html");
+                });
+              }
+            });
           });
-        });
+      }
     });
 
     logoutDropdown.addEventListener("click", (e) => {

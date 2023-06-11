@@ -13,7 +13,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -49,7 +49,7 @@
               height="50px"
               alt=""
             />
-            <a class="navbar-brand mt-2" href="index.html">SNPS Pvt Ltd</a>
+            <a class="navbar-brand mt-2" href="index.html">SN Point Pvt Ltd</a>
           </div>
 
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -68,8 +68,7 @@
               <a class="nav-link mt-1 " href="/vacancies.html">Vacancies <span class="sr-only">(current)</span></a>
             </li>
           </ul>
-          <form class="form-inline my-2 my-lg-0" id="navbarForm">
-            </div>
+            <form class="form-inline my-2 my-lg-0" id="navbarForm">
             <div
               class="btn-group mr-3"
               aria-label="Button group with nested dropdown"
@@ -128,6 +127,7 @@
                   id="logoutDropdown"
                   value="Logout"
                 />
+                <div class="parentDiv" id="parentDiv"></div>
               </div>
             </div>
           </form>
@@ -151,7 +151,6 @@
     <div class="modal-content footerColor">
       <div class="modal-header">
         <h5 class="modal-title">Modal Title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick="closeModal()"></button>
       </div>
       <div class="modal-body footerColor" id="body">
         <!-- here is the modal body -->
@@ -177,13 +176,14 @@
 
       <div class="container-fluid text-light separator-both">
         <h2>Booked Workers</h2>
-      <table class="table table-dark my-3">
+      <table class="table table-dark my-3 tableLayout">
         <thead>
           <tr>
             <th scope="col"><strong>Booked Workers</strong></th>
             <th scope="col">Name</th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
+            <th scope="col">Service</th>
           </tr>
         </thead>
         <tbody class="" id="profileTable">
@@ -196,28 +196,10 @@
       <!-- Footer -->
       <div class="container">
         <footer class="page-footer font-small blue pt-4">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Our Website</h5>
-                  <p class="card-text">
-                    Visit our website and explore the vastness of our services.
-                    We can provide our expertise on a wide spectrum and really
-                    guide to yourd journey.
-                  </p>
-                  <a href="/" class="btn btn-outline-light"
-                  >Go to Home</a
-                >
-                </div>
-              </div>
-            </div>
-          </div>
-
           <!-- Copyright -->
-          <div class="footer-copyright text-center">
+          <div class="footer-copyright text-center text-light">
             @Copyright
-            <a href="/" class="text-light"> SNPS pvt Ltd</a>
+            <a href="/" class="text-light"> SN Point pvt Ltd</a>
           </div>
           <!-- Copyright -->
         </footer>
@@ -256,6 +238,11 @@
 // });
 window.location.reload()
 }
+
+if (window.location.href === './profile.html') {
+            window.location.href = './index.html';
+            alert("You have to log-in as a User to avail the benefits of this page.");
+          }
 
     if (localStorage.getItem("isLoggedIn") == "true") {
                 document
@@ -397,7 +384,7 @@ modalContent.innerHTML += `<div class="col-md-12 border border-secondary bg-dark
                     class="form-control"
                     id="validationCustom05"
                     placeholder="Zip"
-                    value="${JSON.parse(localStorage.getItem("userData"))["ZipCode"]}"
+                    value="${JSON.parse(localStorage.getItem("userData"))["PinCode"]}"
                     required
                   />
                   <div class="invalid-feedback">
@@ -426,9 +413,15 @@ save.addEventListener("click", async function () {
   var full_name = document.getElementById("validationCustom01");
   var mobile = document.getElementById("validationCustom02");
   var email = document.getElementById("validationCustom");
-  var password = document.getElementById("validationCustom03");
   var address = document.getElementById("validationCustom04");
-  var zipCode = document.getElementById("validationCustom05");
+  var pinCode = document.getElementById("validationCustom05");
+
+  if (full_name.value === "" || mobile.value === "" || email.value === "" || address.value === "" || pinCode.value === "" ) {
+    alert("Please fill in all the fields");
+    
+    // Return false to prevent submission
+    return false;
+  }
 
   // Retrieve the new data from the input field
   var updateData = {
@@ -436,7 +429,7 @@ Name: full_name.value,
 Mobile: mobile.value,
 Email: email.value,
 Address: address.value,
-ZipCode: zipCode.value
+PinCode: pinCode.value
   };
 
   // update the data in firestore
@@ -467,7 +460,7 @@ docRef.onSnapshot(function (doc) {
     mobile.value = data.Mobile;
     email.value = data.Email;
     address.value = data.Address;
-    zipCode.value = data.ZipCode;
+    pinCode.value = data.PinCode;
   } else {
     console.log('No such document');
   }
@@ -482,6 +475,27 @@ docRef.onSnapshot(function (doc) {
                   .classList.add("d-none");
               }
 
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+
               let b = 1;
               document.addEventListener("DOMContentLoaded", function () {
                 db.collection("Booked-Workers").get().then(function (querySnapshot) {
@@ -492,7 +506,8 @@ querySnapshot.forEach(function (doc) {
             <th scope="row">${b}</th>
             <td>${doc.data().name}</td>
             <td>${doc.data().phone}</td>
-            <td>${doc.data().address}</td>
+            <td class="pl-3">${doc.data().address}</td>
+            <td class="pl-3">${doc.data().service}</td>
           </tr>`;
 
           document.getElementById("profileTable").innerHTML += row;

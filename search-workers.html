@@ -14,7 +14,7 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
       integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
@@ -58,11 +58,15 @@
                 >Home <span class="sr-only">(current)</span></a
               >
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="feedback.html"
+                >Feedback <span class="sr-only">(current)</span></a
+              >
             </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#"></a>
+            <li class="nav-item active">
+              <a class="nav-link mt-1" href="overview.html"
+                >Overview <span class="sr-only">(current)</span></a
+              >
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -93,7 +97,7 @@
             <a
               href="login.html"
               id="login-headerBtn"
-              class="btn btn-outline-success my-2 my-sm-0 mr-2"
+              class="btn btn-outline-light my-2 my-sm-0 mr-2"
               type="submit"
             >
               <Signup>Login</Signup>
@@ -102,7 +106,7 @@
             <a
               id="signup-headerBtn"
               href="sign-up.html"
-              class="btn btn-outline-success my-2 my-sm-0"
+              class="btn btn-outline-light my-2 my-sm-0"
               type="submit"
             >
               <Signup class="">Signup</Signup>
@@ -166,6 +170,28 @@
                   .getElementById("name-headerDropdown")
                   .classList.add("d-none");
               }
+
+              if (
+                localStorage.getItem("isLoggedIn") == "true" &&
+                JSON.parse(localStorage.getItem("userData"))["role"] == "admin"
+              ) {
+                const parentDiv = document.getElementById("parentDiv");
+
+                const inputNode = document.createElement("input");
+                inputNode.type = "button";
+                inputNode.className =
+                  "btn btn-outline-dark btn-block text-white";
+                inputNode.id = "adminDropdown";
+                inputNode.value = "Admin";
+
+                parentDiv.appendChild(inputNode);
+
+                var adminDropdown = document.getElementById("adminDropdown");
+                adminDropdown.addEventListener("click", function () {
+                  window.location.assign("/admin-panel.html");
+                });
+              }
+
             </script>
           </form>
         </div>
@@ -180,7 +206,7 @@
       </div>
 
       <div class="col-md-12 mb-3 ratings-chudaap">
-        <h1>Select Service Here</h1>
+        <h2 class="text-danger">Select Service Here</h2>
         <div class="btn-group">
           <button
             type="button"
@@ -208,9 +234,13 @@
         <script src="https://www.gstatic.com/firebasejs/8.0.2/firebase-auth.js"></script>
 
         <script>
-          if (window.location.href === 'http://127.0.0.1:5500/workers.html') {
-            window.location.href = 'http://127.0.0.1:5500/index.html';
+          if (window.location.href === './workers.html') {
+            window.location.href = './index.html';
           }
+
+          if (localStorage.getItem("isLoggedIn") !== "true") {
+        window.location.assign("/");
+      }
           // TODO: Add SDKs for Firebase products that you want to use
           // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -230,39 +260,22 @@
 
           // JavaScript code
           const urlParams = new URLSearchParams(window.location.search);
-          const selectedInput = urlParams.get("selectedInput");
-          const queryUrl = `http://127.0.0.1:5500/workers.html?q=${selectedInput}`;
+          const selectCity = urlParams.get("city");
+          const queryUrl = `./workers.html?q=${selectCity}`;
           // Use the query URL to fetch data or perform other actions
 
           document.addEventListener("DOMContentLoaded", async function () {
             
-              await db.collection("Categories").get().then(function (que) {
-que.forEach(function (docs) {
-  let filterDropdown = document.getElementById("filterDropdown");
-  // console.log(docs.data().Services.length);
-
-            for (let i=0; i<docs.data().Services.length; i++) {
-filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem-${docs.data().Services[i]}">${docs.data().Services[i]}</a>`;
-            }
-})
-            })
-
-           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
-              console.log(item.id);
-            item.addEventListener("click", function () {
-              const docId = item.id.split("-")[1];
-              console.log(docId); 
-
-let s=0;
-            db.collection("Workers")
-              .get()
-              .then(function (querySnapshot) {
-                querySnapshot.forEach(function (doc) {
-
-                  if (doc.data().city === selectedInput && doc.data().service === docId) {
-if (s<1) {
+            let s=0;
+await db.collection("Workers").where("city", "==", selectCity).get().then(function (querr) {
+  querr.forEach(function (docum) {
+let filterDropdown = document.getElementById("filterDropdown");
+  // console.log(docum.data());
+filterDropdown.innerHTML += `<a class="dropdown-item uniqueItem" id="uniqueItem_${docum.data().service}">${docum.data().service}</a>`;
+          
+ if (s<1) {
 document.getElementById("workerTitle").innerHTML += `
-                  <h2 class="text-danger" >Available ${selectedInput} Workers</h2>
+                  <h2 class="text-danger" >Available ${selectCity} Workers</h2>
                   `;
                   s++;
 }
@@ -274,7 +287,7 @@ document.getElementById("first").innerHTML += `
             <div class="card amendCard" >
               <img
                 class="card-img-top"
-                src="https://source.unsplash.com/random/?${doc.data().category}+${selectedInput}"
+                src="https://source.unsplash.com/random/?${docum.data().category}+${selectCity}"
                 alt="Card image cap"
                 width=""
                 height=""
@@ -282,24 +295,20 @@ document.getElementById("first").innerHTML += `
             </div>
           </div>
           <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
-            <h1 class="m-0">${doc.data().name}</h1>
-            <h3 class="extraIcon"><i class="fa-solid fa-phone px-2"  style="font-size: 0.8em;"></i>${doc.data().phone}</h3>
-            <h3>${doc.data().service} (${doc.data().category})</h3>
-            <button class="btn btn-outline-light bookWorker" id="bookWorker-${doc.id}"><strong>Contact</strong></button>
+            <h3 class="m-0 nameHeight">${docum.data().name}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${docum.data().address}, ${docum.data().city}</h3>
+            <h4>${docum.data().service} (${docum.data().category})</h4>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${docum.id}" onClick="window.open('tel:${docum.data().phone}', '_blank')"><strong>Contact</strong></button>
           </div>
         </div>
       </div>            `;
-                   }
-                  // else {
-                  //   document.getElementById("first").innerHTML = 
-                  //   `<h1>Sorry there are no workers for this service in ${doc.data().city}</h1>`;
-                  // }
 
-                });
+  })
 
+  if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
 document.querySelectorAll(".bookWorker").forEach(function (button) {
 button.addEventListener("click", function () {
-  const docId = button.id.split("-")[1];
+  const docId = button.id.split("_")[1];
   const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
 //  console.log(doc.data());
 // console.log(JSON.parse(localStorage.getItem("userId")));
@@ -308,7 +317,7 @@ button.addEventListener("click", function () {
 name: doc.data().name,
 phone: doc.data().phone,
 service: doc.data().service,
-address: doc.data().address,
+city: doc.data().city,
 userId: JSON.parse(localStorage.getItem("userId")),
   }
 
@@ -320,8 +329,92 @@ alert("success");
 
 });
 });
+                }
+
+})
+
+           await document.querySelectorAll(".uniqueItem").forEach(async function (item) {
+              console.log(item.id);
+            item.addEventListener("click", function () {
+              const docId = item.id.split("_")[1];
+              console.log(docId); 
+
+              if (docId) {
+                let o=0;
+            db.collection("Workers")
+              .get()
+              .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                  // console.log(document.getElementById("first").value + "e");
+
+                  if (doc.data().city === selectCity && doc.data().service === docId) {
+if (o<1) {
+document.getElementById("workerTitle").innerHTML = `
+                  <h2 class="text-danger" >Available ${selectCity} Workers</h2>
+                  `;
+                  o++;
+}
+
+document.getElementById("first").innerHTML = `
+<div class="col-sm-6 marginBottom">
+                  <div class="row workerCards mb-3" >
+          <div class="col-sm-6 p-0" >
+            <div class="card amendCard" >
+              <img
+                class="card-img-top"
+                src="https://source.unsplash.com/random/?${doc.data().category}+${selectCity}"
+                alt="Card image cap"
+                width=""
+                height=""
+              />
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex flex-column text-light" style="font-family: poppins;">
+            <h3 class="m-0">${doc.data().name}</h3>
+            <h3 class="extraIcon ml-2"><strong>Address: </strong>${doc.data().address}, ${doc.data().city}</h3>
+            <h4>${doc.data().service} (${doc.data().category})</h4>
+            <button class="btn btn-outline-light bookWorker" id="bookWorker_${doc.id}" onClick="window.open('tel:${doc.data().phone}', '_blank')"><strong>Contact</strong></button>
+          </div>
+        </div>
+      </div>            `;
+                   }
+                  // else {
+                  //   document.getElementById("first").innerHTML = 
+                  //   `<h1>Sorry there are no workers for this service in ${doc.data().city}</h1>`;
+                  // }
+
+                });
+
+                if (JSON.parse(localStorage.getItem("isLoggedIn")) === true) {
+document.querySelectorAll(".bookWorker").forEach(function (button) {
+button.addEventListener("click", function () {
+  console.log("working till here.");
+  const docId = button.id.split("_")[1];
+  const docRef = db.collection("Workers").doc(docId).get().then(async function (doc) {
+//  console.log(doc.data());
+// console.log(JSON.parse(localStorage.getItem("userId")));
+
+  let obj = {
+name: doc.data().name,
+phone: doc.data().phone,
+service: doc.data().service,
+city: doc.data().city,
+userId: JSON.parse(localStorage.getItem("userId")),
+  }
+
+     db.collection("Booked-Workers").doc(docId).set(obj).then(function () {
+alert("You Query for this worker has been submitted.");
+     });
+
+  });
+
+});
+});
+                }
 
               });
+
+              }
 
             })
             });
@@ -415,22 +508,6 @@ alert("success");
     <!-- Footer Container -->
     <div class="container mt-5">
       <footer class="page-footer font-small pt-4">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="card">
-              <div class="card-body text-light">
-                <h5 class="card-title">Our Website</h5>
-                <p class="card-text">
-                  Visit our website and explore the vastness of our services. We
-                  can provide our expertise on a wide spectrum and really guide
-                  to yourd journey.
-                </p>
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <!-- Copyright -->
         <div class="footer-copyright text-center text-light">
           @Copyright

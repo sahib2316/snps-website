@@ -1187,11 +1187,13 @@ let q = 0;
               logoutButton;
               loginButton;
               signupButton;
+              window.location.reload();
             })
             .catch(function (error) {
               // An error happened.
             });
         });
+
 
 if (localStorage.getItem("isLoggedIn") == "true") {
  window.addEventListener("DOMContentLoaded", function() {

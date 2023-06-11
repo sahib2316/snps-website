@@ -1193,8 +1193,8 @@ let q = 0;
             });
         });
 
-
-        window.addEventListener("DOMContentLoaded", function() {
+if (localStorage.getItem("isLoggedIn") == "true") {
+ window.addEventListener("DOMContentLoaded", function() {
   var inputName = document.getElementById("inputName");
   var inputPhone = document.getElementById("inputPhone");
   var inputAddress = document.getElementById("inputAddress");
@@ -1212,8 +1212,8 @@ let q = 0;
     inputPin.value = userData.PinCode;
   }
 });
-
-
+}
+       
         function registerWorker() {
           var inputName = document.getElementById("inputName").value;
           var inputPhone = document.getElementById("inputPhone").value;

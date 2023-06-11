@@ -512,10 +512,29 @@ document.getElementById("booked_workers").innerHTML += `<div class="card m-3 bor
     <p class="card-text positionField" id="positionField-${doc.data().phone}"><strong>For Service:  ${doc.data().service}</strong></p>
     <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call Worker</button>
     <button onClick="window.open('tel:${data.data().phone}', '_blank')" class="card-link btn btn-warning">Call User</button>
+    <button class="card-link btn btn-danger mt-3 delete_booked_worker" id="delete_Booked_worker_${doc.id}">Delete Booked Worker</button>
   </div>
 </div>`;
     })
           
+    document
+            .querySelectorAll(".delete_booked_worker")
+            .forEach(async function (button) {
+              document
+                .getElementById(button.id)
+                .addEventListener("click", async function () {
+                  const documId = await button.id.split("_")[3];
+                  console.log(documId);
+                  await db
+                    .collection("Booked-Workers")
+                    .doc(documId)
+                    .delete()
+                    .then(function () {
+                      console.log("deleted successfully eh??!!");
+                      window.location.reload();
+                    });
+                });
+            });
   });
 });
 // End Booked Workers

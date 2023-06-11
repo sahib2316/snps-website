@@ -303,17 +303,6 @@
         <div class="modal-content">
           <div class="modal-header bg-secondary">
             <h5 class="modal-title" id="exampleModalLabel">Sign-Up</h5>
-            <button
-              type="button"
-              class="close"
-              id="offerModalCloseBtn"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" class="text-light crossSize"
-                >&times;</span
-              >
-            </button>
           </div>
           <div class="modal-body bg-dark" id="offerModal">
             <!-- Modal content is embedded here -->
@@ -1205,6 +1194,26 @@ let q = 0;
         });
 
 
+        window.addEventListener("DOMContentLoaded", function() {
+  var inputName = document.getElementById("inputName");
+  var inputPhone = document.getElementById("inputPhone");
+  var inputAddress = document.getElementById("inputAddress");
+  var inputService = document.getElementById("inputService");
+  var inputCity = document.getElementById("citySearch");
+  var inputPin = document.getElementById("inputZip");
+
+  var userData = JSON.parse(localStorage.getItem("userData"));
+
+  if (userData) {
+    inputName.value = userData.Name;
+    inputPhone.value = userData.Mobile;
+    inputAddress.value = userData.Address;
+    inputCity.value = userData.City;
+    inputPin.value = userData.PinCode;
+  }
+});
+
+
         function registerWorker() {
           var inputName = document.getElementById("inputName").value;
           var inputPhone = document.getElementById("inputPhone").value;
@@ -1214,6 +1223,16 @@ let q = 0;
           var inputPin = document.getElementById("inputZip").value;
       var inputCheck = document.getElementById("gridCheck").value;
 
+      var userData = JSON.parse(localStorage.getItem("userData"));
+
+      if (userData) {
+  inputName.value = userData.Name;
+  inputPhone.value = userData.Mobile;
+  inputAddress.value = userData.Address;
+  inputCity.value = userData.City;
+  inputPin.value = userData.Pincode;
+      }
+  
 if (inputName === "" || inputPhone === "" || inputAddress === "" || inputService === "" || inputCity === "" || inputPin === "") {
   alert("Please fill all the fields to register.");
 
@@ -1302,16 +1321,7 @@ db.collection("New Registerations")
             });
 
             if (localStorage.getItem("isLoggedIn") != "true") {
-document
-            .getElementById("offerModalCloseBtn")
-            .addEventListener("click", () => {
-              document.getElementById("exampleModal").classList.remove("show");
-              document
-                .getElementsByTagName("body")[0]
-                .classList.remove("modal-open");
-              document.getElementById("exampleModal").classList.add("hide");
-              document.getElementById("exampleModal").style.display = "none";
-            });
+
           let exampleModalNode = await document.getElementById("exampleModal");
           document.getElementById("exampleModal").remove();
           document.getElementsByTagName("section")[0].append(exampleModalNode);

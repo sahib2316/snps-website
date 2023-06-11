@@ -291,11 +291,31 @@ db.collection("Feedbacks").get().then(function (querySnapshot) {
       </div>
     </div>
     <p class="card-title ml-3"><strong>Feedback:</strong> ${doc.data().feedback}</p>
+    <button class="card-link btn btn-danger mt-3 delete_feedback" id="delete_feedback_${doc.id}">Delete Feedback</button>
   </div>
 </div>`;
 m++;
     }
   });
+
+  document
+            .querySelectorAll(".delete_feedback")
+            .forEach(async function (button) {
+              document
+                .getElementById(button.id)
+                .addEventListener("click", async function () {
+                  const documId = await button.id.split("_")[2];
+                  console.log(documId);
+                  await db
+                    .collection("Feedbacks")
+                    .doc(documId)
+                    .delete()
+                    .then(function () {
+                      console.log("deleted successfully eh??!!");
+                      window.location.reload();
+                    });
+                });
+            });
 });
 
 });

@@ -325,7 +325,7 @@
 
     <!-- Booked Worker Cards -->
      <div class="container separator">
-      <h3>Booked Workers</h3>
+      <h3>Booked Workers<p class="">(Booked workers by any user will be displayed here)</p></h3>
       <div class="col-md-9 ml-sm-auto col-lg-12 mb-4">
         <div class="row applicants" id="booked_workers">
         <!-- Booked worker cards are here -->
@@ -499,9 +499,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 // Booked Workers
 await db.collection("Booked-Workers").get().then(async function (querySnapshot) {
-  querySnapshot.forEach( function (doc) {
+  querySnapshot.forEach(async function (doc) {
 
-    db.collection("userDetails").doc(doc.data().userId).get().then(function (data) {
+    await db.collection("userDetails").doc(doc.data().userId).get().then(function (data) {
 let userPhone = data.data().phone;
 
 document.getElementById("booked_workers").innerHTML += `<div class="card m-3 borderCustom offerCardWidth my-2">
@@ -512,12 +512,13 @@ document.getElementById("booked_workers").innerHTML += `<div class="card m-3 bor
     <p class="card-text positionField" id="positionField-${doc.data().phone}"><strong>For Service:  ${doc.data().service}</strong></p>
     <button onClick="window.open('tel:${doc.data().phone}', '_blank')" class="card-link btn btn-success">Call Worker</button>
     <button onClick="window.open('tel:${data.data().phone}', '_blank')" class="card-link btn btn-warning">Call User</button>
-    <button class="card-link btn btn-danger mt-3 delete_booked_worker" id="delete_Booked_worker_${doc.id}">Delete Booked Worker</button>
+    <button class="card-link btn btn-danger mt-3 delete_booked_worker" id="delete_booked_worker_${doc.id}">Delete Booked Worker</button>
   </div>
 </div>`;
-    })
-          
-    document
+    });
+
+    await console.log(doc.id);
+          await document
             .querySelectorAll(".delete_booked_worker")
             .forEach(async function (button) {
               document
@@ -530,12 +531,15 @@ document.getElementById("booked_workers").innerHTML += `<div class="card m-3 bor
                     .doc(documId)
                     .delete()
                     .then(function () {
-                      console.log("deleted successfully eh??!!");
+                      alert("deleted successfully eh??!!");
                       window.location.reload();
                     });
                 });
             });
-  });
+ 
+      });
+
+     
 });
 // End Booked Workers
 });
